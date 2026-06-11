@@ -373,6 +373,164 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   .modal { max-height: 100vh; border-radius: 0; }
   .modal-overlay { padding: 0; align-items: flex-end; }
 }
+
+/* ============================================================
+   COMPLIANCE MODULE — CSS
+============================================================ */
+
+/* Alert banner */
+.alert-banner {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-radius: var(--radius); margin-bottom: 10px;
+  border-left: 4px solid transparent; box-shadow: var(--shadow);
+}
+.alert-banner.alert-red    { background:#FEF2F2; border-color:#DC2626; }
+.alert-banner.alert-orange { background:var(--orange-bg); border-color:var(--orange); }
+.alert-banner.alert-blue   { background:var(--blue-bg); border-color:var(--blue); }
+.alert-icon  { font-size:16px; flex-shrink:0; margin-top:1px; }
+.alert-body  { flex:1; }
+.alert-title { font-size:13px; font-weight:700; color:var(--slate); }
+.alert-sub   { font-size:12px; color:var(--gray); margin-top:2px; }
+.alert-action { font-size:12px; font-weight:700; color:var(--red); cursor:pointer; text-decoration:underline; white-space:nowrap; margin-left:auto; padding-left:12px; align-self:center; }
+
+/* Compliance scorecards grid */
+.comp-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px,1fr)); gap:14px; }
+.comp-card {
+  background:var(--white); border:1px solid var(--border); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; cursor:pointer; transition:box-shadow .15s;
+}
+.comp-card:hover { box-shadow:0 4px 12px rgba(0,0,0,.12); }
+.comp-card-header {
+  padding:14px 16px 10px; display:flex; align-items:flex-start; gap:10px;
+}
+.comp-score-circle {
+  width:52px; height:52px; border-radius:50%; flex-shrink:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-size:13px; font-weight:800; line-height:1; border:3px solid;
+}
+.score-green  { border-color:var(--green); color:var(--green); background:var(--green-bg); }
+.score-orange { border-color:var(--orange); color:var(--orange); background:var(--orange-bg); }
+.score-red    { border-color:#DC2626; color:#DC2626; background:#FEF2F2; }
+.score-gray   { border-color:var(--gray); color:var(--gray); background:var(--gray-bg); }
+.comp-card-info { flex:1; min-width:0; }
+.comp-camp-name { font-size:14px; font-weight:700; color:var(--slate); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.comp-camp-meta { font-size:11px; color:var(--gray); margin-top:2px; }
+.comp-status-badge { margin-top:6px; }
+
+/* Progress bar */
+.prog-wrap { padding:0 16px 14px; }
+.prog-bar-bg { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.prog-bar-fill { height:100%; border-radius:3px; transition:width .4s; }
+.prog-fill-green  { background:var(--green); }
+.prog-fill-orange { background:var(--orange); }
+.prog-fill-red    { background:#DC2626; }
+.prog-fill-gray   { background:var(--gray); }
+.prog-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--gray); margin-top:4px; }
+
+/* Doc chips strip */
+.doc-chips { padding:0 16px 12px; display:flex; flex-wrap:wrap; gap:4px; }
+.doc-chip {
+  font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px;
+  display:inline-flex; align-items:center; gap:3px;
+}
+.chip-approved   { background:var(--green-bg);   color:var(--green); }
+.chip-received   { background:var(--blue-bg);    color:var(--blue); }
+.chip-requested  { background:#FEFCE8; color:#854D0E; }
+.chip-missing    { background:#FEF2F2; color:#DC2626; }
+.chip-expired    { background:var(--orange-bg);  color:var(--orange); }
+.chip-not_requested { background:var(--gray-bg); color:var(--gray); }
+
+/* Doc status badges (full size) */
+.doc-status {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px;
+}
+.ds-approved     { background:var(--green-bg);  color:var(--green); }
+.ds-received     { background:var(--blue-bg);   color:var(--blue); }
+.ds-requested    { background:#FEFCE8; color:#854D0E; }
+.ds-missing      { background:#FEF2F2; color:#DC2626; }
+.ds-expired      { background:var(--orange-bg); color:var(--orange); }
+.ds-not_requested{ background:var(--gray-bg);   color:var(--gray); }
+
+/* Compliance detail modal */
+.doc-table { width:100%; border-collapse:collapse; font-size:12px; }
+.doc-table th { background:var(--slate); color:var(--white); padding:9px 12px; text-align:left; font-size:11px; font-weight:700; white-space:nowrap; }
+.doc-table td { padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.doc-table tr:last-child td { border-bottom:none; }
+.doc-table tr:hover td { background:var(--smoke); }
+.doc-name-cell { font-weight:700; color:var(--slate); }
+.doc-required-star { color:var(--red); margin-left:3px; }
+.days-overdue { color:#DC2626; font-weight:700; font-size:11px; }
+.days-due-soon { color:var(--orange); font-weight:700; font-size:11px; }
+
+/* Compliance stat tiles */
+.comp-stat-tile { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); text-align:center; cursor:pointer; transition:box-shadow .15s; }
+.comp-stat-tile:hover { box-shadow:0 4px 12px rgba(0,0,0,.12); }
+.comp-stat-num { font-size:32px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+.comp-stat-label { font-size:11px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
+
+/* Overdue / deadline tables */
+.comp-table { width:100%; border-collapse:collapse; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); font-size:12px; overflow:hidden; }
+.comp-table th { background:var(--slate); color:var(--white); padding:10px 14px; text-align:left; font-size:11px; font-weight:700; white-space:nowrap; }
+.comp-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-table tr:hover td { background:var(--smoke); }
+.camp-link-cell { font-weight:700; color:var(--blue); cursor:pointer; text-decoration:underline; }
+
+/* Doc type admin list */
+.doctype-list { display:flex; flex-direction:column; gap:6px; }
+.doctype-item {
+  display:flex; align-items:center; gap:10px; padding:8px 12px;
+  background:var(--smoke); border:1px solid var(--border); border-radius:var(--radius);
+}
+.doctype-item .dt-name { flex:1; font-size:13px; font-weight:600; color:var(--slate); }
+.doctype-item .dt-req { font-size:11px; font-weight:700; }
+.dt-required { color:var(--red); }
+.dt-optional { color:var(--gray); }
+.dt-delete { border:none; background:none; cursor:pointer; color:var(--gray); font-size:14px; padding:2px 6px; border-radius:var(--radius); transition:background .15s; }
+.dt-delete:hover { background:#FEF2F2; color:#DC2626; }
+
+/* File attachment area */
+.file-upload-zone {
+  border:2px dashed var(--border); border-radius:var(--radius); padding:16px; text-align:center;
+  color:var(--gray); font-size:12px; cursor:pointer; transition:border-color .15s, background .15s;
+}
+.file-upload-zone:hover { border-color:var(--blue); background:var(--blue-bg); }
+.file-attached { display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--green-bg); border:1px solid #A7D7BC; border-radius:var(--radius); font-size:12px; margin-top:8px; }
+.file-attached-name { font-weight:700; color:var(--green); flex:1; }
+.file-remove { border:none; background:none; cursor:pointer; color:var(--gray); font-size:14px; }
+
+/* Compliance summary checklist */
+.checklist { display:flex; flex-direction:column; gap:6px; }
+.check-item { display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:var(--radius); border:1px solid var(--border); }
+.check-item.check-ok      { background:var(--green-bg); border-color:#A7D7BC; }
+.check-item.check-missing { background:#FEF2F2; border-color:#FECACA; }
+.check-item.check-pending { background:#FEFCE8; border-color:#FDE68A; }
+.check-item.check-none    { background:var(--smoke); }
+.check-icon { font-size:14px; flex-shrink:0; }
+.check-label { font-size:13px; font-weight:600; flex:1; color:var(--slate); }
+.check-date { font-size:11px; color:var(--gray); }
+
+/* Tabs inside modal */
+.modal-tabs { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:20px; }
+.modal-tab { border:none; background:none; cursor:pointer; font-family:var(--font); font-size:13px; font-weight:600; color:var(--gray); padding:10px 16px; border-bottom:2px solid transparent; margin-bottom:-2px; transition:color .15s, border-color .15s; }
+.modal-tab:hover { color:var(--slate); }
+.modal-tab.active { color:var(--red); border-bottom-color:var(--red); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* Deadline urgency pill */
+.urgency-pill { font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; }
+.urg-overdue  { background:#FEF2F2; color:#DC2626; }
+.urg-critical { background:var(--orange-bg); color:var(--orange); }
+.urg-soon     { background:#FEFCE8; color:#854D0E; }
+.urg-ok       { background:var(--green-bg); color:var(--green); }
+
+/* Compliance filter bar tweak */
+.comp-filter-bar { display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end; margin-bottom:16px; }
+.comp-filter-bar input, .comp-filter-bar select { font-family:var(--font); font-size:13px; border:1px solid var(--border); border-radius:var(--radius); padding:7px 10px; background:var(--smoke); color:var(--slate); outline:none; }
+.comp-filter-bar input:focus, .comp-filter-bar select:focus { border-color:var(--red); }
+
 </style>
 </head>
 <body>
@@ -401,6 +559,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <button onclick="showPage('calendar')">📅 Master Calendar</button>
   <button onclick="showPage('dorms')">🏢 Dorm Status</button>
   <button onclick="showPage('actions')">⚡ Action Items</button>
+  <button onclick="showPage('compliance')">📋 Compliance</button>
 </nav>
 
 <div id="toast-container"></div>
@@ -412,6 +571,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <div class="section-header" style="margin-bottom:20px">
     <div class="section-title">Operations Overview</div>
   </div>
+  <div id="overview-alert-strip" style="margin-bottom:16px"></div>
   <div class="stat-grid" id="stat-grid"></div>
   <div class="divider"></div>
   <div class="section-header">
@@ -550,6 +710,259 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
     </div>
   </div>
   <div class="action-list" id="actions-container"></div>
+</div>
+
+
+<!-- ===================== COMPLIANCE NAV BUTTON (injected separately) ===================== -->
+<!-- NOTE: Added via sed to nav -->
+
+<!-- ===================== COMPLIANCE ALERT BANNER (injected into overview) ===================== -->
+<!-- NOTE: Added via renderOverview patch -->
+
+<!-- ===================== COMPLIANCE TRACKER PAGE ===================== -->
+<div class="page" id="page-compliance">
+
+  <!-- Alert banners strip -->
+  <div id="comp-alert-strip" style="margin-bottom:20px"></div>
+
+  <!-- Stat tiles row -->
+  <div class="stat-grid" id="comp-stat-grid" style="margin-bottom:24px"></div>
+
+  <!-- Sub-nav tabs -->
+  <div class="modal-tabs" id="comp-tabs" style="margin-bottom:0;border-bottom:2px solid var(--border)">
+    <button class="modal-tab active" onclick="showCompTab('overview')">📊 Overview</button>
+    <button class="modal-tab" onclick="showCompTab('missing')">⚠️ Missing Docs</button>
+    <button class="modal-tab" onclick="showCompTab('deadlines')">📅 Upcoming Deadlines</button>
+    <button class="modal-tab" onclick="showCompTab('all')">📋 All Camps</button>
+    <button class="modal-tab admin-only" onclick="showCompTab('settings')" style="display:none">⚙️ Doc Types</button>
+  </div>
+
+  <!-- ---- Overview tab ---- -->
+  <div class="tab-panel active" id="comptab-overview" style="padding-top:20px">
+    <div class="comp-grid" id="comp-overview-grid"></div>
+  </div>
+
+  <!-- ---- Missing docs tab ---- -->
+  <div class="tab-panel" id="comptab-missing" style="padding-top:20px">
+    <div class="comp-filter-bar">
+      <div><label style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Search Camp</label>
+        <input type="text" id="miss-search" placeholder="Camp name…" oninput="renderMissingTab()"></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Document Type</label>
+        <select id="miss-doctype" onchange="renderMissingTab()"><option value="">All documents</option></select></div>
+    </div>
+    <div class="dorm-table-wrap">
+      <table class="comp-table">
+        <thead><tr><th>Camp</th><th>Missing Document</th><th>Required</th><th>Due Date</th><th>Days Overdue</th><th>Assigned To</th><th class="admin-only" style="display:none">Action</th></tr></thead>
+        <tbody id="missing-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---- Upcoming deadlines tab ---- -->
+  <div class="tab-panel" id="comptab-deadlines" style="padding-top:20px">
+    <div class="comp-filter-bar">
+      <div><label style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Window</label>
+        <select id="deadline-window" onchange="renderDeadlinesTab()">
+          <option value="7">Next 7 days</option>
+          <option value="14">Next 14 days</option>
+          <option value="30" selected>Next 30 days</option>
+          <option value="90">Next 90 days</option>
+        </select></div>
+    </div>
+    <div class="dorm-table-wrap">
+      <table class="comp-table">
+        <thead><tr><th>Camp</th><th>Document</th><th>Status</th><th>Due Date</th><th>Urgency</th></tr></thead>
+        <tbody id="deadlines-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---- All camps tab ---- -->
+  <div class="tab-panel" id="comptab-all" style="padding-top:20px">
+    <div class="comp-filter-bar">
+      <div><label style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Search</label>
+        <input type="text" id="comp-all-search" placeholder="Camp name…" oninput="renderAllCampsTab()"></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px">Compliance</label>
+        <select id="comp-all-filter" onchange="renderAllCampsTab()">
+          <option value="">All camps</option>
+          <option value="full">Fully compliant</option>
+          <option value="partial">Partially compliant</option>
+          <option value="none">No docs received</option>
+          <option value="overdue">Has overdue docs</option>
+        </select></div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:flex-end">
+        <button class="btn-toolbar export-btn" onclick="exportComplianceReport('csv')">📄 Export CSV</button>
+        <button class="btn-toolbar export-btn" onclick="exportComplianceReport('json')">🗂 Export JSON</button>
+      </div>
+    </div>
+    <div class="comp-grid" id="comp-all-grid"></div>
+  </div>
+
+  <!-- ---- Settings tab ---- -->
+  <div class="tab-panel" id="comptab-settings" style="padding-top:20px">
+    <div class="section-header">
+      <div class="section-title">Document Types</div>
+      <button class="btn btn-success btn-sm" onclick="openAddDocType()" style="margin-left:auto">＋ Add Document Type</button>
+    </div>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Manage which documents are tracked for all camps. Required documents count toward compliance scores.</p>
+    <div class="doctype-list" id="doctype-list"></div>
+  </div>
+
+</div>
+
+<!-- ===================== COMPLIANCE DETAIL MODAL ===================== -->
+<div class="modal-overlay" id="comp-detail-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:860px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="comp-detail-camp-name">Camp Compliance</div>
+        <div id="comp-detail-meta" style="font-size:12px;color:var(--gray);margin-top:2px"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:12px">
+        <div id="comp-detail-score-badge"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('comp-detail-overlay')">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0">
+      <!-- Progress bar at top of modal -->
+      <div style="padding:16px 24px 0">
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="comp-detail-prog-fill" style="width:0%"></div></div>
+        <div class="prog-labels"><span id="comp-detail-prog-label"></span><span id="comp-detail-prog-pct"></span></div>
+      </div>
+      <!-- Tabs -->
+      <div style="padding:0 24px">
+        <div class="modal-tabs">
+          <button class="modal-tab active" onclick="showDetailTab('checklist')">✅ Checklist</button>
+          <button class="modal-tab" onclick="showDetailTab('documents')">📁 Documents</button>
+          <button class="modal-tab" onclick="showDetailTab('assignee')">👤 Assignment</button>
+        </div>
+      </div>
+      <!-- Checklist tab -->
+      <div class="tab-panel active" id="detail-tab-checklist" style="padding:0 24px 20px">
+        <div class="checklist" id="comp-checklist-list"></div>
+      </div>
+      <!-- Documents tab -->
+      <div class="tab-panel" id="detail-tab-documents" style="padding:0 24px 20px">
+        <div class="dorm-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Document</th><th>Status</th><th>Due Date</th><th>Received</th><th>Approved</th><th>File</th><th class="admin-only" style="display:none">Edit</th></tr></thead>
+            <tbody id="comp-doc-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Assignee tab -->
+      <div class="tab-panel" id="detail-tab-assignee" style="padding:0 24px 20px">
+        <div class="form-group" style="max-width:360px;margin-bottom:16px">
+          <label class="form-label">Assigned Staff Member</label>
+          <input type="text" class="form-input" id="comp-assignee-input" placeholder="Staff name or email…">
+          <div class="form-hint" style="margin-top:4px">This person is responsible for following up on missing documents.</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="saveAssignee()">Save Assignment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DOCUMENT EDIT MODAL ===================== -->
+<div class="modal-overlay" id="doc-edit-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="doc-edit-title">Update Document</div>
+        <div id="doc-edit-camp-label" style="font-size:12px;color:var(--gray);margin-top:2px"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('doc-edit-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label class="form-label">Status</label>
+          <select class="form-select" id="de-status">
+            <option value="not_requested">Not Requested</option>
+            <option value="requested">Requested</option>
+            <option value="received">Received</option>
+            <option value="approved">Approved</option>
+            <option value="missing">Missing</option>
+            <option value="expired">Expired</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input type="date" class="form-input" id="de-due">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Requested</label>
+          <input type="date" class="form-input" id="de-requested">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Received</label>
+          <input type="date" class="form-input" id="de-received">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Approved</label>
+          <input type="date" class="form-input" id="de-approved">
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">Notes</label>
+          <textarea class="form-textarea" id="de-notes" placeholder="Any notes about this document…" style="min-height:60px"></textarea>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">File Attachment</label>
+          <p style="font-size:11px;color:var(--gray);margin-bottom:8px">⚠️ GitHub Pages cannot store files server-side. File metadata is tracked; the actual file must be stored in Google Drive, SharePoint, or similar and linked below.</p>
+          <div id="de-file-zone" class="file-upload-zone" onclick="document.getElementById('de-file-input').click()">
+            📎 Click to attach file (metadata tracked only)
+          </div>
+          <input type="file" id="de-file-input" style="display:none" onchange="handleFileAttach(event)">
+          <div id="de-file-preview" style="margin-top:8px"></div>
+          <div class="form-group" style="margin-top:10px">
+            <label class="form-label">File Link (Google Drive / SharePoint URL)</label>
+            <input type="text" class="form-input" id="de-file-link" placeholder="https://drive.google.com/…">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('doc-edit-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDocRecord()">💾 Save Document</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ADD DOC TYPE MODAL ===================== -->
+<div class="modal-overlay" id="doctype-add-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title">Add Document Type</div>
+      <button class="modal-close" onclick="closeModal('doctype-add-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid cols-1">
+        <div class="form-group">
+          <label class="form-label">Document Name <span class="required">*</span></label>
+          <input type="text" class="form-input" id="dt-name" placeholder="e.g. Liability Waiver">
+          <div class="form-error" id="err-dt-name"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" id="dt-required" checked>
+            Required document (counts toward compliance score)
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Applies To</label>
+          <select class="form-select" id="dt-applies">
+            <option value="all">All camps</option>
+            <option value="overnight">Overnight camps only</option>
+            <option value="day">Day camps only</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('doctype-add-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDocType()">Add Document Type</button>
+    </div>
+  </div>
 </div>
 
 </main>
@@ -796,6 +1209,7 @@ function resetToDefaults() {
   STATE.overnightCamps = JSON.parse(JSON.stringify(DEFAULT_OVERNIGHT));
   STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
   STATE.nextId         = 100;
+  STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES)), campDocs: {}, assignees: {} };
   saveState();
   refreshAll();
   showToast('Data reset to original spreadsheet defaults', 'info');
@@ -1259,6 +1673,7 @@ function refreshAll() {
   renderActions();
   rebuildOvernightDormFilter();
   rebuildDayCampFilter();
+  renderCompliance();
 }
 
 /* ============================================================
@@ -1464,8 +1879,9 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const idx=['overview','overnight','daycamps','calendar','dorms','actions'].indexOf(id);
-  document.querySelectorAll('nav button')[idx].classList.add('active');
+  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance'].indexOf(id);
+  if (idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
+  if (id === 'compliance') renderCompliance();
 }
 
 /* ============================================================
@@ -1476,6 +1892,660 @@ function showPage(id) {
   loadState();
   refreshAll();
 })();
+
+/* ============================================================
+   COMPLIANCE MODULE — Data defaults
+============================================================ */
+const DEFAULT_DOC_TYPES = [
+  { id:'contract',      name:'Contract',                    required:true,  applies:'all' },
+  { id:'coi',           name:'Certificate of Insurance',    required:true,  applies:'all' },
+  { id:'workers_comp',  name:'Workers Compensation Cert.',  required:true,  applies:'all' },
+  { id:'w9',            name:'W-9',                        required:true,  applies:'all' },
+  { id:'facility_use',  name:'Facility Use Agreement',      required:true,  applies:'all' },
+  { id:'eap',           name:'Emergency Action Plan',       required:true,  applies:'all' },
+  { id:'schedule',      name:'Camp Schedule',               required:true,  applies:'all' },
+  { id:'housing_roster',name:'Housing Roster',              required:true,  applies:'overnight' },
+  { id:'staff_roster',  name:'Staff Roster',                required:true,  applies:'all' },
+  { id:'bg_check',      name:'Background Check Verification',required:true, applies:'all' },
+  { id:'medical',       name:'Medical / Emergency Contacts',required:true,  applies:'all' },
+  { id:'dining',        name:'Dining Requirements',         required:false, applies:'all' },
+  { id:'parking',       name:'Parking Requirements',        required:false, applies:'all' },
+];
+
+// Ensure compliance state exists on STATE
+function ensureComplianceState() {
+  if (!STATE.complianceData) {
+    STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES)), campDocs: {}, assignees: {} };
+  }
+  if (!STATE.complianceData.docTypes) STATE.complianceData.docTypes = JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES));
+  if (!STATE.complianceData.campDocs) STATE.complianceData.campDocs = {};
+  if (!STATE.complianceData.assignees) STATE.complianceData.assignees = {};
+}
+
+/* Returns doc record for a camp+docType, initialising if missing */
+function getDocRecord(campId, docTypeId) {
+  ensureComplianceState();
+  const cid = String(campId);
+  if (!STATE.complianceData.campDocs[cid]) STATE.complianceData.campDocs[cid] = {};
+  if (!STATE.complianceData.campDocs[cid][docTypeId]) {
+    STATE.complianceData.campDocs[cid][docTypeId] = { status:'not_requested', dueDate:null, dateRequested:null, dateReceived:null, dateApproved:null, notes:'', file:null, fileLink:'' };
+  }
+  return STATE.complianceData.campDocs[cid][docTypeId];
+}
+
+/* Get applicable doc types for a camp */
+function getDocTypesForCamp(camp) {
+  ensureComplianceState();
+  return STATE.complianceData.docTypes.filter(dt => dt.applies === 'all' || dt.applies === (camp.type || 'overnight'));
+}
+
+/* Compute compliance score for one camp */
+function getComplianceScore(camp) {
+  const docTypes = getDocTypesForCamp(camp);
+  const required = docTypes.filter(dt => dt.required);
+  if (!required.length) return { pct:100, approved:0, total:0, missing:[], overdue:[], hasExpired:false };
+
+  const cid = String(camp.id);
+  let approved = 0, missing = [], overdue = [], hasExpired = false;
+
+  required.forEach(dt => {
+    const rec = getDocRecord(camp.id, dt.id);
+    if (rec.status === 'approved') { approved++; }
+    else if (rec.status === 'missing' || rec.status === 'not_requested' || rec.status === 'requested') {
+      missing.push(dt);
+      if (rec.dueDate && rec.dueDate < TODAY_STR) overdue.push({ dt, daysOverdue: Math.round((TODAY - parseDate(rec.dueDate)) / 86400000) });
+    }
+    if (rec.status === 'expired') hasExpired = true;
+  });
+
+  return { pct: Math.round(approved / required.length * 100), approved, total: required.length, missing, overdue, hasExpired };
+}
+
+/* Get all camps (overnight + day camps as objects) */
+function getAllCampsForCompliance() {
+  ensureComplianceState();
+  const camps = [...STATE.overnightCamps];
+  // Add day camps as lightweight objects
+  Object.entries(STATE.dayCamps).forEach(([name, days]) => {
+    camps.push({ id: 'dc_' + name, name, type: 'day', checkin: days[0] || '', checkout: days[days.length-1] || '', dorms: [] });
+  });
+  return camps;
+}
+
+/* Score to CSS class */
+function scoreClass(pct) {
+  if (pct === 100) return 'score-green';
+  if (pct >= 60)   return 'score-orange';
+  if (pct > 0)     return 'score-red';
+  return 'score-gray';
+}
+function progFillClass(pct) {
+  if (pct === 100) return 'prog-fill-green';
+  if (pct >= 60)   return 'prog-fill-orange';
+  return 'prog-fill-red';
+}
+
+/* Status label & CSS for doc status */
+const DOC_STATUS_META = {
+  not_requested: { label:'Not Requested', cls:'ds-not_requested', chip:'chip-not_requested', icon:'○' },
+  requested:     { label:'Requested',     cls:'ds-requested',     chip:'chip-requested',     icon:'📤' },
+  received:      { label:'Received',      cls:'ds-received',      chip:'chip-received',      icon:'📥' },
+  approved:      { label:'Approved',      cls:'ds-approved',      chip:'chip-approved',      icon:'✅' },
+  missing:       { label:'Missing',       cls:'ds-missing',       chip:'chip-missing',       icon:'⚠️' },
+  expired:       { label:'Expired',       cls:'ds-expired',       chip:'chip-expired',       icon:'⏰' },
+};
+
+/* ============================================================
+   COMPLIANCE ALERT STRIP (called from renderOverview too)
+============================================================ */
+function buildComplianceAlerts() {
+  ensureComplianceState();
+  const alerts = [];
+  const criticalDocs = ['coi','workers_comp','contract'];
+  const allCamps = getAllCampsForCompliance();
+
+  allCamps.forEach(camp => {
+    criticalDocs.forEach(dtId => {
+      const dt = STATE.complianceData.docTypes.find(d => d.id === dtId);
+      if (!dt) return;
+      const rec = getDocRecord(camp.id, dtId);
+      if (rec.status !== 'approved' && rec.status !== 'received') {
+        alerts.push({ level:'red', icon:'🚨', title:`Missing ${dt.name}`, sub:`${camp.name} — required before camp begins`, campId: camp.id, campName: camp.name });
+      }
+      if (rec.dueDate && rec.dueDate < TODAY_STR && rec.status !== 'approved') {
+        alerts.push({ level:'red', icon:'⏰', title:`Overdue: ${dt.name}`, sub:`${camp.name} — was due ${fmtDate(rec.dueDate)}`, campId: camp.id, campName: camp.name });
+      }
+    });
+    // 7-day deadline sweep
+    const docTypes = getDocTypesForCamp(camp);
+    docTypes.forEach(dt => {
+      const rec = getDocRecord(camp.id, dt.id);
+      if (rec.dueDate && rec.dueDate > TODAY_STR && rec.dueDate <= addDays(TODAY_STR,7) && rec.status !== 'approved') {
+        alerts.push({ level:'orange', icon:'📅', title:`Due in 7 days: ${dt.name}`, sub:`${camp.name} — due ${fmtDate(rec.dueDate)}`, campId: camp.id });
+      }
+    });
+  });
+
+  return alerts.slice(0, 12); // cap display
+}
+
+function renderComplianceAlertStrip(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const alerts = buildComplianceAlerts();
+  if (!alerts.length) { container.innerHTML = ''; return; }
+
+  container.innerHTML = alerts.map(a => `
+    <div class="alert-banner alert-${a.level}">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-sub">${a.sub}</div>
+      </div>
+      ${a.campId ? `<div class="alert-action" onclick="openCompDetail('${a.campId}')">View →</div>` : ''}
+    </div>`).join('');
+}
+
+/* ============================================================
+   COMPLIANCE STAT TILES
+============================================================ */
+function renderComplianceStats() {
+  const allCamps = getAllCampsForCompliance();
+  let full=0, partial=0, none=0, overdue=0;
+  allCamps.forEach(c => {
+    const sc = getComplianceScore(c);
+    if (sc.pct === 100) full++;
+    else if (sc.pct > 0) partial++;
+    else none++;
+    if (sc.overdue.length) overdue++;
+  });
+
+  document.getElementById('comp-stat-grid').innerHTML = `
+    <div class="comp-stat-tile" onclick="filterCompAll('full')">
+      <div class="comp-stat-num" style="color:var(--green)">${full}</div>
+      <div class="comp-stat-label">Fully Compliant</div>
+    </div>
+    <div class="comp-stat-tile" onclick="filterCompAll('partial')">
+      <div class="comp-stat-num" style="color:var(--orange)">${partial}</div>
+      <div class="comp-stat-label">Partially Compliant</div>
+    </div>
+    <div class="comp-stat-tile" onclick="filterCompAll('none')">
+      <div class="comp-stat-num" style="color:#DC2626">${none}</div>
+      <div class="comp-stat-label">No Docs Received</div>
+    </div>
+    <div class="comp-stat-tile" onclick="showCompTab('missing')">
+      <div class="comp-stat-num" style="color:#DC2626">${overdue}</div>
+      <div class="comp-stat-label">Camps w/ Overdue Docs</div>
+    </div>
+    <div class="comp-stat-tile">
+      <div class="comp-stat-num">${allCamps.length}</div>
+      <div class="comp-stat-label">Total Programs</div>
+    </div>`;
+}
+
+/* ============================================================
+   COMPLIANCE SCORECARD (card)
+============================================================ */
+function renderCompCard(camp) {
+  const sc = getComplianceScore(camp);
+  const scoreClsCss = scoreClass(sc.pct);
+  const progCls = progFillClass(sc.pct);
+  const assignee = (STATE.complianceData.assignees || {})[String(camp.id)] || '';
+
+  // Top missing doc chips (up to 5)
+  const docTypes = getDocTypesForCamp(camp);
+  const chips = docTypes.map(dt => {
+    const rec = getDocRecord(camp.id, dt.id);
+    const sm = DOC_STATUS_META[rec.status] || DOC_STATUS_META['not_requested'];
+    return `<span class="doc-chip ${sm.chip}" title="${dt.name}">${sm.icon} ${dt.name}</span>`;
+  }).join('');
+
+  const overdueLabel = sc.overdue.length ? `<span style="color:#DC2626;font-size:11px;font-weight:700">⚠️ ${sc.overdue.length} overdue</span>` : '';
+  const assigneeLabel = assignee ? `<span style="font-size:11px;color:var(--gray)">👤 ${assignee}</span>` : '';
+
+  return `<div class="comp-card" onclick="openCompDetail('${camp.id}')">
+    <div class="comp-card-header">
+      <div class="comp-score-circle ${scoreClsCss}">
+        <span>${sc.pct}%</span>
+      </div>
+      <div class="comp-card-info">
+        <div class="comp-camp-name">${camp.name}</div>
+        <div class="comp-camp-meta">${camp.type === 'day' ? '☀️ Day Camp' : '🏠 Overnight'} · ${fmtDateShort(camp.checkin)}${camp.checkout ? ' – ' + fmtDateShort(camp.checkout) : ''}</div>
+        <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">${overdueLabel}${assigneeLabel}</div>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-bar-bg"><div class="prog-bar-fill ${progCls}" style="width:${sc.pct}%"></div></div>
+      <div class="prog-labels"><span>${sc.approved} of ${sc.total} required docs approved</span><span>${sc.missing.length} missing</span></div>
+    </div>
+    <div class="doc-chips">${chips}</div>
+  </div>`;
+}
+
+/* ============================================================
+   COMPLIANCE TABS
+============================================================ */
+let currentCompTab = 'overview';
+
+function showCompTab(tab) {
+  currentCompTab = tab;
+  document.querySelectorAll('#comp-tabs .modal-tab').forEach((b,i) => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel[id^="comptab-"]').forEach(p => p.classList.remove('active'));
+  const tabs = ['overview','missing','deadlines','all','settings'];
+  const idx = tabs.indexOf(tab);
+  if (idx > -1) document.querySelectorAll('#comp-tabs .modal-tab')[idx]?.classList.add('active');
+  const panel = document.getElementById('comptab-' + tab);
+  if (panel) panel.classList.add('active');
+
+  if (tab === 'overview')   renderCompOverviewTab();
+  if (tab === 'missing')    renderMissingTab();
+  if (tab === 'deadlines')  renderDeadlinesTab();
+  if (tab === 'all')        renderAllCampsTab();
+  if (tab === 'settings')   renderDocTypeSettings();
+}
+
+function renderCompOverviewTab() {
+  renderComplianceAlertStrip('comp-alert-strip');
+  renderComplianceStats();
+  const allCamps = getAllCampsForCompliance();
+  // Sort: worst compliance first
+  const sorted = [...allCamps].sort((a,b) => getComplianceScore(a).pct - getComplianceScore(b).pct);
+  document.getElementById('comp-overview-grid').innerHTML = sorted.map(renderCompCard).join('') || '<div class="no-results">No camps found.</div>';
+}
+
+/* ============================================================
+   MISSING DOCS TAB
+============================================================ */
+function renderMissingTab() {
+  const search = (document.getElementById('miss-search')?.value||'').toLowerCase();
+  const dtFilter = document.getElementById('miss-doctype')?.value || '';
+  const allCamps = getAllCampsForCompliance();
+  const rows = [];
+
+  allCamps.forEach(camp => {
+    if (search && !camp.name.toLowerCase().includes(search)) return;
+    const docTypes = getDocTypesForCamp(camp);
+    docTypes.forEach(dt => {
+      if (dtFilter && dt.id !== dtFilter) return;
+      const rec = getDocRecord(camp.id, dt.id);
+      if (['not_requested','requested','missing'].includes(rec.status)) {
+        const daysOver = rec.dueDate && rec.dueDate < TODAY_STR ? Math.round((TODAY - parseDate(rec.dueDate)) / 86400000) : null;
+        const assignee = (STATE.complianceData.assignees||{})[String(camp.id)] || '—';
+        const overdueHtml = daysOver ? `<span class="days-overdue">⚠️ ${daysOver}d overdue</span>` : (rec.dueDate ? `<span class="days-due-soon">${fmtDateShort(rec.dueDate)}</span>` : '—');
+        const adminEdit = ADMIN_MODE ? `<td class="admin-only" style="${ADMIN_MODE?'':'display:none'}"><button class="btn btn-sm btn-outline" onclick="openDocEdit('${camp.id}','${dt.id}',event)">Edit</button></td>` : '';
+        rows.push({ daysOver: daysOver||999, html: `<tr>
+          <td class="camp-link-cell" onclick="openCompDetail('${camp.id}')">${camp.name}</td>
+          <td class="doc-name-cell">${dt.name}${dt.required?'<span class="doc-required-star">★</span>':''}</td>
+          <td>${dt.required?'<span style="color:var(--red);font-weight:700">Required</span>':'Optional'}</td>
+          <td>${rec.dueDate ? fmtDate(rec.dueDate) : '—'}</td>
+          <td>${overdueHtml}</td>
+          <td>${assignee}</td>
+          ${adminEdit}
+        </tr>` });
+      }
+    });
+  });
+
+  rows.sort((a,b) => b.daysOver - a.daysOver);
+  document.getElementById('missing-table-body').innerHTML = rows.length ? rows.map(r=>r.html).join('') : '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--gray)">No missing documents found.</td></tr>';
+
+  // Update admin col visibility
+  document.querySelectorAll('#missing-table-body .admin-only').forEach(el => el.style.display = ADMIN_MODE ? '' : 'none');
+  document.querySelector('#comptab-missing thead .admin-only').style.display = ADMIN_MODE ? '' : 'none';
+}
+
+/* ============================================================
+   DEADLINES TAB
+============================================================ */
+function renderDeadlinesTab() {
+  const window_days = parseInt(document.getElementById('deadline-window')?.value || 30);
+  const cutoff = addDays(TODAY_STR, window_days);
+  const allCamps = getAllCampsForCompliance();
+  const rows = [];
+
+  allCamps.forEach(camp => {
+    const docTypes = getDocTypesForCamp(camp);
+    docTypes.forEach(dt => {
+      const rec = getDocRecord(camp.id, dt.id);
+      if (!rec.dueDate || rec.status === 'approved') return;
+      if (rec.dueDate > cutoff) return;
+
+      const daysLeft = Math.round((parseDate(rec.dueDate) - TODAY) / 86400000);
+      let urgCls, urgLabel;
+      if (daysLeft < 0)    { urgCls='urg-overdue';  urgLabel=`${Math.abs(daysLeft)}d overdue`; }
+      else if (daysLeft<=3){ urgCls='urg-critical'; urgLabel=`${daysLeft}d left`; }
+      else if (daysLeft<=7){ urgCls='urg-soon';     urgLabel=`${daysLeft}d left`; }
+      else                  { urgCls='urg-ok';       urgLabel=`${daysLeft}d left`; }
+
+      const sm = DOC_STATUS_META[rec.status] || DOC_STATUS_META['not_requested'];
+      rows.push({ daysLeft, html: `<tr>
+        <td class="camp-link-cell" onclick="openCompDetail('${camp.id}')">${camp.name}</td>
+        <td class="doc-name-cell">${dt.name}</td>
+        <td><span class="doc-status ${sm.cls}">${sm.icon} ${sm.label}</span></td>
+        <td>${fmtDate(rec.dueDate)}</td>
+        <td><span class="urgency-pill ${urgCls}">${urgLabel}</span></td>
+      </tr>` });
+    });
+  });
+
+  rows.sort((a,b) => a.daysLeft - b.daysLeft);
+  document.getElementById('deadlines-table-body').innerHTML = rows.length ? rows.map(r=>r.html).join('') : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--gray)">No upcoming deadlines in this window.</td></tr>';
+}
+
+/* ============================================================
+   ALL CAMPS TAB
+============================================================ */
+function filterCompAll(filterVal) {
+  showCompTab('all');
+  setTimeout(() => {
+    if (document.getElementById('comp-all-filter')) document.getElementById('comp-all-filter').value = filterVal;
+    renderAllCampsTab();
+  }, 50);
+}
+
+function renderAllCampsTab() {
+  const search = (document.getElementById('comp-all-search')?.value||'').toLowerCase();
+  const filter = document.getElementById('comp-all-filter')?.value || '';
+  let allCamps = getAllCampsForCompliance();
+
+  if (search) allCamps = allCamps.filter(c => c.name.toLowerCase().includes(search));
+  if (filter === 'full')    allCamps = allCamps.filter(c => getComplianceScore(c).pct === 100);
+  if (filter === 'partial') allCamps = allCamps.filter(c => { const sc=getComplianceScore(c); return sc.pct > 0 && sc.pct < 100; });
+  if (filter === 'none')    allCamps = allCamps.filter(c => getComplianceScore(c).pct === 0);
+  if (filter === 'overdue') allCamps = allCamps.filter(c => getComplianceScore(c).overdue.length > 0);
+
+  allCamps.sort((a,b) => getComplianceScore(a).pct - getComplianceScore(b).pct);
+  document.getElementById('comp-all-grid').innerHTML = allCamps.length ? allCamps.map(renderCompCard).join('') : '<div class="no-results">No camps match current filters.</div>';
+}
+
+/* ============================================================
+   DOC TYPE SETTINGS
+============================================================ */
+function renderDocTypeSettings() {
+  ensureComplianceState();
+  const list = document.getElementById('doctype-list');
+  list.innerHTML = STATE.complianceData.docTypes.map((dt, idx) => `
+    <div class="doctype-item">
+      <span class="dt-name">${dt.name}</span>
+      <span class="dt-req ${dt.required?'dt-required':'dt-optional'}">${dt.required?'★ Required':'Optional'}</span>
+      <span style="font-size:11px;color:var(--gray)">${dt.applies==='all'?'All camps':dt.applies==='overnight'?'Overnight only':'Day only'}</span>
+      <button class="dt-delete" onclick="deleteDocType('${dt.id}')" title="Remove">✕</button>
+    </div>`).join('') || '<div class="no-results">No document types defined.</div>';
+}
+
+function openAddDocType() {
+  document.getElementById('dt-name').value = '';
+  document.getElementById('dt-required').checked = true;
+  document.getElementById('dt-applies').value = 'all';
+  document.getElementById('err-dt-name').textContent = '';
+  openModal('doctype-add-overlay');
+}
+
+function saveDocType() {
+  const name = document.getElementById('dt-name').value.trim();
+  if (!name) { document.getElementById('err-dt-name').textContent = 'Name is required.'; return; }
+  ensureComplianceState();
+  const id = name.toLowerCase().replace(/[^a-z0-9]/g,'_') + '_' + Date.now();
+  STATE.complianceData.docTypes.push({ id, name, required: document.getElementById('dt-required').checked, applies: document.getElementById('dt-applies').value });
+  saveState();
+  closeModal('doctype-add-overlay');
+  renderDocTypeSettings();
+  showToast(`Document type "${name}" added`, 'success');
+}
+
+function deleteDocType(dtId) {
+  ensureComplianceState();
+  STATE.complianceData.docTypes = STATE.complianceData.docTypes.filter(dt => dt.id !== dtId);
+  saveState();
+  renderDocTypeSettings();
+  showToast('Document type removed', 'info');
+}
+
+/* ============================================================
+   COMPLIANCE DETAIL MODAL
+============================================================ */
+let currentDetailCampId = null;
+
+function openCompDetail(campId) {
+  const cid = String(campId);
+  const allCamps = getAllCampsForCompliance();
+  const camp = allCamps.find(c => String(c.id) === cid);
+  if (!camp) return;
+  currentDetailCampId = cid;
+
+  document.getElementById('comp-detail-camp-name').textContent = camp.name;
+  document.getElementById('comp-detail-meta').textContent = `${camp.type === 'day' ? '☀️ Day Camp' : '🏠 Overnight'} · ${fmtDate(camp.checkin)}${camp.checkout?' – '+fmtDate(camp.checkout):''}`;
+
+  const sc = getComplianceScore(camp);
+  const scoreCls = scoreClass(sc.pct);
+  document.getElementById('comp-detail-score-badge').innerHTML = `<div class="comp-score-circle ${scoreCls}" style="width:44px;height:44px;font-size:12px">${sc.pct}%</div>`;
+
+  const progFill = document.getElementById('comp-detail-prog-fill');
+  progFill.style.width = sc.pct + '%';
+  progFill.className = 'prog-bar-fill ' + progFillClass(sc.pct);
+  document.getElementById('comp-detail-prog-label').textContent = `${sc.approved} of ${sc.total} required documents approved`;
+  document.getElementById('comp-detail-prog-pct').textContent = sc.pct + '%';
+
+  showDetailTab('checklist');
+  document.getElementById('comp-assignee-input').value = (STATE.complianceData.assignees||{})[cid] || '';
+
+  // Update admin col visibility
+  document.querySelectorAll('#comp-doc-table-body .admin-only, #detail-tab-documents thead .admin-only').forEach(el => el.style.display = ADMIN_MODE ? '' : 'none');
+
+  openModal('comp-detail-overlay');
+}
+
+function showDetailTab(tab) {
+  document.querySelectorAll('#comp-detail-overlay .modal-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#comp-detail-overlay .tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('detail-tab-' + tab)?.classList.add('active');
+  const tabs = ['checklist','documents','assignee'];
+  const idx = tabs.indexOf(tab);
+  if (idx > -1) document.querySelectorAll('#comp-detail-overlay .modal-tab')[idx]?.classList.add('active');
+
+  if (tab === 'checklist') renderDetailChecklist();
+  if (tab === 'documents') renderDetailDocTable();
+}
+
+function renderDetailChecklist() {
+  const allCamps = getAllCampsForCompliance();
+  const camp = allCamps.find(c => String(c.id) === currentDetailCampId);
+  if (!camp) return;
+  const docTypes = getDocTypesForCamp(camp);
+
+  document.getElementById('comp-checklist-list').innerHTML = docTypes.map(dt => {
+    const rec = getDocRecord(camp.id, dt.id);
+    const sm = DOC_STATUS_META[rec.status] || DOC_STATUS_META['not_requested'];
+    let itemCls = 'check-none', icon = '○';
+    if (rec.status === 'approved')                       { itemCls='check-ok';      icon='✅'; }
+    else if (rec.status === 'received')                  { itemCls='check-ok';      icon='📥'; }
+    else if (rec.status === 'requested')                 { itemCls='check-pending'; icon='📤'; }
+    else if (rec.status === 'missing' || rec.status === 'expired') { itemCls='check-missing'; icon='⚠️'; }
+
+    const daysOver = rec.dueDate && rec.dueDate < TODAY_STR && rec.status !== 'approved' ? Math.round((TODAY-parseDate(rec.dueDate))/86400000) : null;
+    const dateInfo = rec.dateApproved ? `Approved ${fmtDateShort(rec.dateApproved)}` : rec.dateReceived ? `Received ${fmtDateShort(rec.dateReceived)}` : rec.dueDate ? `Due ${fmtDateShort(rec.dueDate)}` : '';
+    const overdueTag = daysOver ? ` <span class="days-overdue">(${daysOver}d overdue)</span>` : '';
+    const editBtn = ADMIN_MODE ? `<button class="btn btn-sm btn-outline" style="font-size:10px;padding:2px 8px" onclick="openDocEdit('${camp.id}','${dt.id}',event)">Edit</button>` : '';
+
+    return `<div class="check-item ${itemCls}">
+      <span class="check-icon">${icon}</span>
+      <span class="check-label">${dt.name}${dt.required?'<span class="doc-required-star"> ★</span>':''}</span>
+      <span class="check-date">${dateInfo}${overdueTag}</span>
+      ${editBtn}
+    </div>`;
+  }).join('');
+}
+
+function renderDetailDocTable() {
+  const allCamps = getAllCampsForCompliance();
+  const camp = allCamps.find(c => String(c.id) === currentDetailCampId);
+  if (!camp) return;
+  const docTypes = getDocTypesForCamp(camp);
+
+  document.getElementById('comp-doc-table-body').innerHTML = docTypes.map(dt => {
+    const rec = getDocRecord(camp.id, dt.id);
+    const sm = DOC_STATUS_META[rec.status] || DOC_STATUS_META['not_requested'];
+    const fileHtml = rec.file ? `<a href="${rec.fileLink||'#'}" target="_blank" style="color:var(--blue);font-weight:700;font-size:11px">📎 ${rec.file.name}</a>` : rec.fileLink ? `<a href="${rec.fileLink}" target="_blank" style="color:var(--blue);font-size:11px">🔗 Link</a>` : '—';
+    const adminEdit = `<td class="admin-only" style="display:${ADMIN_MODE?'':'none'}"><button class="btn btn-sm btn-outline" onclick="openDocEdit('${camp.id}','${dt.id}',event)">Edit</button></td>`;
+    return `<tr>
+      <td class="doc-name-cell">${dt.name}${dt.required?'<span class="doc-required-star"> ★</span>':''}</td>
+      <td><span class="doc-status ${sm.cls}">${sm.icon} ${sm.label}</span></td>
+      <td>${rec.dueDate?fmtDateShort(rec.dueDate):'—'}</td>
+      <td>${rec.dateReceived?fmtDateShort(rec.dateReceived):'—'}</td>
+      <td>${rec.dateApproved?fmtDateShort(rec.dateApproved):'—'}</td>
+      <td>${fileHtml}</td>
+      ${adminEdit}
+    </tr>`;
+  }).join('');
+}
+
+function saveAssignee() {
+  if (!currentDetailCampId) return;
+  ensureComplianceState();
+  STATE.complianceData.assignees[currentDetailCampId] = document.getElementById('comp-assignee-input').value.trim();
+  saveState();
+  showToast('Assignment saved', 'success');
+}
+
+/* ============================================================
+   DOC EDIT MODAL
+============================================================ */
+let editingDocCampId = null, editingDocTypeId = null;
+
+function openDocEdit(campId, dtId, e) {
+  if (e) { e.stopPropagation(); }
+  if (!ADMIN_MODE) { showToast('Enable Admin Mode to edit documents', 'info'); return; }
+  editingDocCampId = String(campId);
+  editingDocTypeId = dtId;
+
+  const allCamps = getAllCampsForCompliance();
+  const camp = allCamps.find(c => String(c.id) === editingDocCampId);
+  const dt = STATE.complianceData.docTypes.find(d => d.id === dtId);
+  if (!camp || !dt) return;
+
+  document.getElementById('doc-edit-title').textContent = dt.name;
+  document.getElementById('doc-edit-camp-label').textContent = camp.name;
+
+  const rec = getDocRecord(campId, dtId);
+  document.getElementById('de-status').value    = rec.status || 'not_requested';
+  document.getElementById('de-due').value       = rec.dueDate || '';
+  document.getElementById('de-requested').value = rec.dateRequested || '';
+  document.getElementById('de-received').value  = rec.dateReceived || '';
+  document.getElementById('de-approved').value  = rec.dateApproved || '';
+  document.getElementById('de-notes').value     = rec.notes || '';
+  document.getElementById('de-file-link').value = rec.fileLink || '';
+  document.getElementById('de-file-preview').innerHTML = rec.file ? `<div class="file-attached"><span class="file-attached-name">📎 ${rec.file.name}</span><button class="file-remove" onclick="clearAttachedFile()">✕</button></div>` : '';
+
+  openModal('doc-edit-overlay');
+}
+
+let pendingFileAttach = null;
+
+function handleFileAttach(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  pendingFileAttach = { name: file.name, uploadedBy: 'Staff', uploadedAt: nowISO(), size: file.size };
+  document.getElementById('de-file-preview').innerHTML = `<div class="file-attached"><span class="file-attached-name">📎 ${file.name}</span><button class="file-remove" onclick="clearAttachedFile()">✕</button></div>`;
+  showToast('File metadata attached (file not stored on server)', 'info');
+}
+
+function clearAttachedFile() {
+  pendingFileAttach = null;
+  document.getElementById('de-file-preview').innerHTML = '';
+  document.getElementById('de-file-input').value = '';
+}
+
+function saveDocRecord() {
+  if (!editingDocCampId || !editingDocTypeId) return;
+  const rec = getDocRecord(editingDocCampId, editingDocTypeId);
+  rec.status        = document.getElementById('de-status').value;
+  rec.dueDate       = document.getElementById('de-due').value || null;
+  rec.dateRequested = document.getElementById('de-requested').value || null;
+  rec.dateReceived  = document.getElementById('de-received').value || null;
+  rec.dateApproved  = document.getElementById('de-approved').value || null;
+  rec.notes         = document.getElementById('de-notes').value.trim();
+  rec.fileLink      = document.getElementById('de-file-link').value.trim();
+  if (pendingFileAttach) { rec.file = pendingFileAttach; pendingFileAttach = null; }
+
+  saveState();
+  closeModal('doc-edit-overlay');
+  // Refresh open detail modal if visible
+  if (document.getElementById('comp-detail-overlay').classList.contains('open')) {
+    renderDetailChecklist();
+    renderDetailDocTable();
+    const allCamps = getAllCampsForCompliance();
+    const camp = allCamps.find(c => String(c.id) === currentDetailCampId);
+    if (camp) {
+      const sc = getComplianceScore(camp);
+      document.getElementById('comp-detail-prog-fill').style.width = sc.pct + '%';
+      document.getElementById('comp-detail-prog-pct').textContent = sc.pct + '%';
+      document.getElementById('comp-detail-prog-label').textContent = `${sc.approved} of ${sc.total} required documents approved`;
+    }
+  }
+  renderComplianceStats();
+  renderComplianceAlertStrip('comp-alert-strip');
+  renderComplianceAlertStrip('overview-alert-strip');
+  showToast('Document record saved', 'success');
+}
+
+/* ============================================================
+   EXPORT COMPLIANCE REPORT
+============================================================ */
+function exportComplianceReport(format) {
+  ensureComplianceState();
+  const allCamps = getAllCampsForCompliance();
+  const dtList = STATE.complianceData.docTypes;
+
+  if (format === 'json') {
+    const report = allCamps.map(camp => {
+      const sc = getComplianceScore(camp);
+      const docs = {};
+      dtList.forEach(dt => { docs[dt.name] = getDocRecord(camp.id, dt.id); });
+      return { campName: camp.name, type: camp.type, checkin: camp.checkin, checkout: camp.checkout, compliancePct: sc.pct, approvedDocs: sc.approved, totalRequired: sc.total, missingCount: sc.missing.length, overdueCount: sc.overdue.length, assignee: (STATE.complianceData.assignees||{})[String(camp.id)]||'', documents: docs };
+    });
+    downloadBlob(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),'davidson-compliance-2026.json');
+    showToast('Compliance report exported as JSON','success');
+    return;
+  }
+
+  // CSV
+  const headers = ['Camp Name','Type','Check-In','Check-Out','Compliance %','Approved','Total Required','Missing','Overdue','Assignee',...dtList.map(d=>d.name)];
+  const rows = allCamps.map(camp => {
+    const sc = getComplianceScore(camp);
+    const docStatuses = dtList.map(dt => getDocRecord(camp.id, dt.id).status);
+    return [`"${camp.name}"`, camp.type||'overnight', camp.checkin, camp.checkout||'', sc.pct+'%', sc.approved, sc.total, sc.missing.length, sc.overdue.length, `"${(STATE.complianceData.assignees||{})[String(camp.id)]||''}"`, ...docStatuses];
+  });
+  const csv = [headers.join(','), ...rows.map(r=>r.join(','))].join('\n');
+  downloadBlob(new Blob([csv],{type:'text/csv'}),'davidson-compliance-2026.csv');
+  showToast('Compliance report exported as CSV','success');
+}
+
+/* ============================================================
+   INIT MISSING DOCS FILTER
+============================================================ */
+function initMissDocFilter() {
+  ensureComplianceState();
+  const sel = document.getElementById('miss-doctype');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">All documents</option>';
+  STATE.complianceData.docTypes.forEach(dt => {
+    const o = document.createElement('option'); o.value=dt.id; o.textContent=dt.name; sel.appendChild(o);
+  });
+}
+
+/* ============================================================
+   COMPLIANCE RENDER (called from refreshAll)
+============================================================ */
+function renderCompliance() {
+  ensureComplianceState();
+  renderComplianceAlertStrip('comp-alert-strip');
+  renderComplianceAlertStrip('overview-alert-strip');
+  renderComplianceStats();
+  if (currentCompTab) showCompTab(currentCompTab);
+  else renderCompOverviewTab();
+  initMissDocFilter();
+}
+
 </script>
 </body>
 </html>
