@@ -705,6 +705,125 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
 .imp-cancelled { background: var(--gray-bg); opacity: .7; }
 .imp-no-meals  { background: var(--smoke); }
 
+
+/* ============================================================
+   HOUSEKEEPING MODULE — CSS
+============================================================ */
+
+/* Delivery / Pickup status badges */
+.hk-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+}
+.hkb-not_needed    { background: var(--gray-bg);   color: var(--gray); }
+.hkb-not_submitted { background: #FEF2F2;           color: #DC2626; }
+.hkb-requested     { background: #FEFCE8;           color: #854D0E; }
+.hkb-confirmed     { background: var(--blue-bg);    color: var(--blue); }
+.hkb-delivered     { background: var(--green-bg);   color: var(--green); }
+.hkb-completed     { background: var(--green-bg);   color: var(--green); }
+.hkb-not_requested { background: #FEF2F2;           color: #DC2626; }
+
+/* Readiness score pill */
+.hk-ready-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700; padding: 4px 11px; border-radius: 20px;
+}
+.hkr-green  { background: var(--green-bg); color: var(--green); }
+.hkr-yellow { background: #FEFCE8;         color: #854D0E; }
+.hkr-red    { background: #FEF2F2;         color: #DC2626; }
+
+/* Housekeeping camp card */
+.hk-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; transition: box-shadow .15s; cursor:pointer;
+}
+.hk-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.hk-card-ribbon { height: 4px; width: 100%; }
+.hkr-ribbon-green  { background: var(--green); }
+.hkr-ribbon-yellow { background: #EAB308; }
+.hkr-ribbon-red    { background: #DC2626; }
+.hkr-ribbon-gray   { background: var(--gray); }
+.hk-card-body { padding: 14px 16px 10px; }
+.hk-card-name { font-size: 15px; font-weight: 700; color: var(--slate); margin-bottom: 4px; }
+.hk-card-meta { font-size: 12px; color: var(--gray); margin-bottom: 10px; }
+.hk-card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.hk-card-linen-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.hk-linen-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+  background: var(--smoke); border: 1px solid var(--border); color: var(--slate);
+}
+.hk-card-footer {
+  border-top: 1px solid var(--border); padding: 7px 16px;
+  background: var(--smoke); font-size: 11px; color: var(--gray);
+  display: flex; align-items: center; gap: 8px;
+}
+.hk-card-actions { display: flex; gap: 6px; padding: 8px 16px; border-top: 1px solid var(--border); background: var(--smoke); }
+
+/* HK stat tiles */
+.hk-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-bottom: 24px; }
+.hk-stat-tile { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; box-shadow: var(--shadow); text-align: center; }
+.hk-stat-num   { font-size: 28px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.hk-stat-label { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+
+/* HK table */
+.hk-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); font-size: 12px; overflow: hidden; }
+.hk-table th { background: var(--slate); color: var(--white); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.hk-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.hk-table tr:last-child td { border-bottom: none; }
+.hk-table tr:hover td { background: var(--smoke); }
+.hk-table .hk-camp-link { font-weight: 700; color: var(--blue); cursor: pointer; text-decoration: underline; }
+
+/* HK checklist */
+.hk-checklist { display: flex; flex-direction: column; gap: 6px; }
+.hk-check-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--radius); border: 1px solid var(--border); }
+.hk-check-item.hkc-ok      { background: var(--green-bg); border-color: #A7D7BC; }
+.hk-check-item.hkc-warn    { background: #FEF2F2; border-color: #FECACA; }
+.hk-check-item.hkc-pending { background: #FEFCE8; border-color: #FDE68A; }
+.hk-check-item.hkc-na      { background: var(--smoke); opacity: .7; }
+.hk-check-icon  { font-size: 14px; flex-shrink: 0; }
+.hk-check-label { font-size: 13px; font-weight: 600; flex: 1; color: var(--slate); }
+.hk-check-date  { font-size: 11px; color: var(--gray); }
+
+/* HK sub-tabs */
+.hk-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; overflow-x: auto; }
+.hk-tab {
+  border: none; background: none; cursor: pointer; font-family: var(--font);
+  font-size: 13px; font-weight: 600; color: var(--gray);
+  padding: 10px 16px; border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: color .15s, border-color .15s; white-space: nowrap;
+}
+.hk-tab:hover { color: var(--slate); }
+.hk-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.hk-tab-panel { display: none; }
+.hk-tab-panel.active { display: block; }
+
+/* HK edit modal form specifics */
+.hk-qty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 12px; }
+.hk-qty-item { display: flex; flex-direction: column; gap: 5px; }
+.hk-qty-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); }
+.hk-qty-input { font-family: var(--font); font-size: 16px; font-weight: 800; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; text-align: center; width: 100%; font-variant-numeric: tabular-nums; }
+.hk-qty-input:focus { outline: none; border-color: var(--red); }
+
+/* Inventory tracker */
+.inv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; }
+.inv-tile { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); text-align: center; }
+.inv-num   { font-size: 32px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.inv-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); margin-top: 4px; }
+.inv-available { border-top: 3px solid var(--green); }
+.inv-assigned  { border-top: 3px solid var(--blue); }
+.inv-cleaning  { border-top: 3px solid var(--orange); }
+.inv-damaged   { border-top: 3px solid #DC2626; }
+
+/* Upcoming schedule row urgency */
+.urg-today  { background: #FFFEF5 !important; }
+.urg-soon   { background: var(--orange-bg) !important; }
+.urg-border-today  { border-left: 4px solid var(--red) !important; }
+.urg-border-soon   { border-left: 4px solid var(--orange) !important; }
+
+/* Alert action button inside alert banner (for HK) */
+.hk-action-row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+
 </style>
 </head>
 <body>
@@ -735,6 +854,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <button onclick="showPage('actions')">⚡ Action Items</button>
   <button onclick="showPage('compliance')">📋 Compliance</button>
   <button onclick="showPage('dining')">🍽️ Dining</button>
+  <button onclick="showPage('housekeeping')">🧹 Housekeeping</button>
 </nav>
 
 <div id="toast-container"></div>
@@ -768,6 +888,8 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <div class="action-list" id="today-actions-container"></div>
   <div class="divider"></div>
   <div id="dining-widget"></div>
+  <div class="divider"></div>
+  <div id="hk-widget"></div>
 </div>
 
 <!-- ===================== OVERNIGHT ===================== -->
@@ -1341,6 +1463,349 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   </div>
 </div>
 
+
+<!-- ===================== HOUSEKEEPING PAGE ===================== -->
+<div class="page" id="page-housekeeping">
+
+  <!-- Sub-tabs -->
+  <div class="hk-tabs" id="hk-tabs">
+    <button class="hk-tab active" onclick="showHKTab('overview')">🧹 Overview</button>
+    <button class="hk-tab" onclick="showHKTab('deliveries')">📦 Deliveries</button>
+    <button class="hk-tab" onclick="showHKTab('pickups')">🚚 Pickups</button>
+    <button class="hk-tab" onclick="showHKTab('all')">📋 All Camps</button>
+    <button class="hk-tab" onclick="showHKTab('inventory')">🗃️ Inventory</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar" style="margin-bottom:20px">
+    <span class="toolbar-label">Housekeeping:</span>
+    <button class="btn-toolbar export-btn" onclick="exportHKReport('csv')">📄 Export CSV</button>
+    <button class="btn-toolbar export-btn" onclick="exportHKReport('json')">🗂 Export JSON</button>
+    <button class="btn-toolbar admin-only" onclick="openBulkUpdate()" style="display:none">⚡ Bulk Update</button>
+  </div>
+
+  <!-- ---- OVERVIEW TAB ---- -->
+  <div class="hk-tab-panel active" id="hktab-overview">
+
+    <!-- Stat tiles -->
+    <div class="hk-stat-grid" id="hk-stat-grid"></div>
+
+    <!-- Action Required strip -->
+    <div class="section-header" style="margin-bottom:12px">
+      <div class="section-title">⚠️ Action Required</div>
+      <div class="section-count" id="hk-action-count">—</div>
+    </div>
+    <div id="hk-action-strip" style="margin-bottom:24px"></div>
+
+    <!-- Upcoming deliveries (7 days) -->
+    <div class="section-header" style="margin-bottom:12px">
+      <div class="section-title">📦 Upcoming Deliveries — Next 7 Days</div>
+    </div>
+    <div style="overflow-x:auto;margin-bottom:24px">
+      <table class="hk-table" id="hk-upcoming-deliveries">
+        <thead><tr><th>Camp</th><th>Arrival</th><th>Dorm(s)</th><th>Sets</th><th>Towels</th><th>Delivery Status</th><th class="admin-only" style="display:none">Update</th></tr></thead>
+        <tbody id="hk-deliveries-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Upcoming pickups (7 days) -->
+    <div class="section-header" style="margin-bottom:12px">
+      <div class="section-title">🚚 Upcoming Pickups — Next 7 Days</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="hk-table" id="hk-upcoming-pickups">
+        <thead><tr><th>Camp</th><th>Departure</th><th>Dorm(s)</th><th>Sets</th><th>Pickup Status</th><th class="admin-only" style="display:none">Update</th></tr></thead>
+        <tbody id="hk-pickups-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---- DELIVERIES TAB ---- -->
+  <div class="hk-tab-panel" id="hktab-deliveries">
+    <div class="filter-bar">
+      <div><label>Search</label><input type="text" id="hk-del-search" placeholder="Camp name or dorm…" oninput="renderHKDeliveriesTab()"></div>
+      <div>
+        <label>Delivery Status</label>
+        <select id="hk-del-status" onchange="renderHKDeliveriesTab()">
+          <option value="">All statuses</option>
+          <option value="not_submitted">Action Required</option>
+          <option value="requested">Requested</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="delivered">Delivered</option>
+          <option value="not_needed">Not Needed</option>
+        </select>
+      </div>
+      <div>
+        <label>Window</label>
+        <select id="hk-del-window" onchange="renderHKDeliveriesTab()">
+          <option value="7">Next 7 days</option>
+          <option value="14">Next 14 days</option>
+          <option value="30">Next 30 days</option>
+          <option value="all">All upcoming</option>
+        </select>
+      </div>
+      <button class="filter-clear" onclick="clearHKDelFilters()">Clear</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="hk-table">
+        <thead><tr><th>Camp</th><th>Arrival</th><th>Dorm(s)</th><th>Sets</th><th>Towels</th><th>Blankets</th><th>Pillows</th><th>Requested</th><th>Delivery Status</th><th class="admin-only" style="display:none">Edit</th></tr></thead>
+        <tbody id="hk-del-full-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---- PICKUPS TAB ---- -->
+  <div class="hk-tab-panel" id="hktab-pickups">
+    <div class="filter-bar">
+      <div><label>Search</label><input type="text" id="hk-pu-search" placeholder="Camp name or dorm…" oninput="renderHKPickupsTab()"></div>
+      <div>
+        <label>Pickup Status</label>
+        <select id="hk-pu-status" onchange="renderHKPickupsTab()">
+          <option value="">All statuses</option>
+          <option value="not_requested">Action Required</option>
+          <option value="requested">Requested</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="not_needed">Not Needed</option>
+        </select>
+      </div>
+      <button class="filter-clear" onclick="clearHKPuFilters()">Clear</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="hk-table">
+        <thead><tr><th>Camp</th><th>Departure</th><th>Dorm(s)</th><th>Sets</th><th>Pickup Date</th><th>Pickup Status</th><th class="admin-only" style="display:none">Edit</th></tr></thead>
+        <tbody id="hk-pu-full-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---- ALL CAMPS TAB ---- -->
+  <div class="hk-tab-panel" id="hktab-all">
+    <div class="filter-bar">
+      <div><label>Search</label><input type="text" id="hk-all-search" placeholder="Camp name or dorm…" oninput="renderHKAllTab()"></div>
+      <div>
+        <label>Readiness</label>
+        <select id="hk-all-ready" onchange="renderHKAllTab()">
+          <option value="">All</option>
+          <option value="green">🟢 Ready</option>
+          <option value="yellow">🟡 Needs Follow-Up</option>
+          <option value="red">🔴 Action Required</option>
+        </select>
+      </div>
+      <div>
+        <label>Dorm</label>
+        <select id="hk-all-dorm" onchange="renderHKAllTab()"><option value="">All dorms</option></select>
+      </div>
+      <div>
+        <label>Linens</label>
+        <select id="hk-all-linens" onchange="renderHKAllTab()">
+          <option value="">All</option>
+          <option value="yes">Requires Linens</option>
+          <option value="no">No Linens</option>
+        </select>
+      </div>
+      <button class="filter-clear" onclick="clearHKAllFilters()">Clear</button>
+    </div>
+    <div class="card-grid" id="hk-all-grid"></div>
+  </div>
+
+  <!-- ---- INVENTORY TAB ---- -->
+  <div class="hk-tab-panel" id="hktab-inventory">
+    <div class="section-header">
+      <div class="section-title">Linen Inventory (Optional Tracker)</div>
+      <button class="btn btn-primary btn-sm admin-only" onclick="openInventoryEdit()" style="display:none;margin-left:auto">✏️ Update Inventory</button>
+    </div>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Simple tracker for linen set availability. This does not connect to Housekeeping's official inventory system.</p>
+    <div class="inv-grid" id="hk-inv-grid"></div>
+    <div class="divider"></div>
+    <div class="section-header"><div class="section-title">Sets by Camp</div></div>
+    <div style="overflow-x:auto">
+      <table class="hk-table">
+        <thead><tr><th>Camp</th><th>Dorm(s)</th><th>Arrival</th><th>Departure</th><th>Sets Needed</th><th>Delivery</th><th>Pickup</th></tr></thead>
+        <tbody id="hk-inv-camps-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HK DETAIL MODAL ===================== -->
+<div class="modal-overlay" id="hk-detail-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="hk-detail-title">Housekeeping Details</div>
+        <div id="hk-detail-meta" style="font-size:12px;color:var(--gray);margin-top:2px"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:12px" id="hk-detail-readiness"></div>
+      <button class="modal-close" onclick="closeModal('hk-detail-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Tabs -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="showHKDetailTab('checklist')">✅ Checklist</button>
+        <button class="modal-tab" onclick="showHKDetailTab('details')">📦 Linen Details</button>
+        <button class="modal-tab admin-only" onclick="showHKDetailTab('edit')" style="display:none">✏️ Edit</button>
+      </div>
+      <!-- Checklist -->
+      <div class="tab-panel active" id="hkd-tab-checklist" style="padding-bottom:8px">
+        <div class="hk-checklist" id="hk-detail-checklist"></div>
+      </div>
+      <!-- Details -->
+      <div class="tab-panel" id="hkd-tab-details">
+        <div id="hk-detail-info"></div>
+      </div>
+      <!-- Edit -->
+      <div class="tab-panel" id="hkd-tab-edit">
+        <div id="hk-edit-form-body"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('hk-detail-overlay')">Close</button>
+      <button class="btn btn-primary admin-only" onclick="showHKDetailTab('edit')" style="display:none" id="hk-detail-edit-btn">✏️ Edit Linen Info</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HK QUICK UPDATE MODAL ===================== -->
+<div class="modal-overlay" id="hk-quick-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="hk-quick-title">Update Status</div>
+        <div id="hk-quick-camp" style="font-size:12px;color:var(--gray);margin-top:2px"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('hk-quick-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Delivery Status</label>
+          <select class="form-select" id="hkq-delivery">
+            <option value="not_needed">Not Needed</option>
+            <option value="not_submitted">Not Submitted</option>
+            <option value="requested">Requested</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="delivered">Delivered</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pickup Status</label>
+          <select class="form-select" id="hkq-pickup">
+            <option value="not_needed">Not Needed</option>
+            <option value="not_requested">Not Requested</option>
+            <option value="requested">Requested</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Delivery Date</label>
+          <input type="date" class="form-input" id="hkq-deldate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pickup Date</label>
+          <input type="date" class="form-input" id="hkq-pudate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Requested</label>
+          <input type="date" class="form-input" id="hkq-reqdate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Delivery Confirmed</label>
+          <input type="date" class="form-input" id="hkq-delconfdate">
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">Notes</label>
+          <textarea class="form-textarea" id="hkq-notes" style="min-height:60px" placeholder="Any coordination notes…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('hk-quick-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveHKQuickUpdate()">💾 Save Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HK FULL EDIT MODAL ===================== -->
+<div class="modal-overlay" id="hk-edit-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header">
+      <div class="modal-title" id="hk-edit-title">Edit Linen Requirements</div>
+      <button class="modal-close" onclick="closeModal('hk-edit-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-section">
+        <div class="form-section-title">Linen Requirements</div>
+        <div style="margin-bottom:14px">
+          <label class="form-check">
+            <input type="checkbox" id="hke-linens-req">
+            Linens Required for this camp
+          </label>
+        </div>
+        <div class="hk-qty-grid">
+          <div class="hk-qty-item"><div class="hk-qty-label">🛏 Sets</div><input type="number" class="hk-qty-input" id="hke-sets" min="0" value="0"></div>
+          <div class="hk-qty-item"><div class="hk-qty-label">🚿 Towels</div><input type="number" class="hk-qty-input" id="hke-towels" min="0" value="0"></div>
+          <div class="hk-qty-item"><div class="hk-qty-label">🛌 Pillows</div><input type="number" class="hk-qty-input" id="hke-pillows" min="0" value="0"></div>
+          <div class="hk-qty-item"><div class="hk-qty-label">🧣 Blankets</div><input type="number" class="hk-qty-input" id="hke-blankets" min="0" value="0"></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">Special Requests & Notes</div>
+        <div class="form-grid cols-1">
+          <div class="form-group">
+            <label class="form-label">Special Requests</label>
+            <input type="text" class="form-input" id="hke-special" placeholder="e.g. Extra blankets needed, wheelchair accessible rooms">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Internal Notes</label>
+            <textarea class="form-textarea" id="hke-notes" style="min-height:60px" placeholder="Coordination notes for staff…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">Scheduling</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Linen Delivery Date</label>
+            <input type="date" class="form-input" id="hke-deldate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Linen Pickup Date</label>
+            <input type="date" class="form-input" id="hke-pudate">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('hk-edit-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveHKEdit()">💾 Save Requirements</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== INVENTORY EDIT MODAL ===================== -->
+<div class="modal-overlay" id="hk-inv-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title">Update Linen Inventory</div>
+      <button class="modal-close" onclick="closeModal('hk-inv-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="hk-qty-grid">
+        <div class="hk-qty-item"><div class="hk-qty-label">✅ Available</div><input type="number" class="hk-qty-input" id="inv-available" min="0"></div>
+        <div class="hk-qty-item"><div class="hk-qty-label">📦 Assigned</div><input type="number" class="hk-qty-input" id="inv-assigned" min="0"></div>
+        <div class="hk-qty-item"><div class="hk-qty-label">🧺 Cleaning</div><input type="number" class="hk-qty-input" id="inv-cleaning" min="0"></div>
+        <div class="hk-qty-item"><div class="hk-qty-label">⚠️ Damaged</div><input type="number" class="hk-qty-input" id="inv-damaged" min="0"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('hk-inv-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveInventory()">Save Inventory</button>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <!-- ===================== CAMP FORM MODAL ===================== -->
@@ -1587,6 +2052,7 @@ function resetToDefaults() {
   STATE.nextId         = 100;
   if(STATE.complianceData) STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES||[])), campDocs: {}, assignees: {} };
   STATE.diningData = null;
+  STATE.housekeepingData = null;
   saveState();
   refreshAll();
   showToast('Data reset to original spreadsheet defaults', 'info');
@@ -2052,6 +2518,7 @@ function refreshAll() {
   rebuildDayCampFilter();
   if(typeof renderCompliance === "function") renderCompliance();
   if(typeof renderDining === "function") renderDining();
+  if(typeof renderHousekeeping === "function") renderHousekeeping();
 }
 
 /* ============================================================
@@ -2257,10 +2724,11 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance','dining'].indexOf(id);
+  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance','dining','housekeeping'].indexOf(id);
   if(idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
   if(id==='compliance' && typeof renderCompliance==='function') renderCompliance();
   if(id==='dining' && typeof renderDining==='function') renderDining();
+  if(id==='housekeeping' && typeof renderHousekeeping==='function') renderHousekeeping();
 }
 
 /* ============================================================
@@ -3691,6 +4159,734 @@ function renderDining() {
   renderDiningWidget();
   if (currentDiningTab) showDiningTab(currentDiningTab);
   else showDiningTab('today');
+}
+
+
+
+/* ============================================================
+   HOUSEKEEPING MODULE
+   Coordinates linen delivery/pickup for overnight camps.
+   Reads camp/dorm/date data from STATE.overnightCamps.
+   Stores only HK-specific data in STATE.housekeepingData.
+============================================================ */
+
+/* ---- Defaults ---- */
+function buildDefaultHKRecords() {
+  const records = {};
+  // Pre-populate overnight camps that need linens
+  const needsLinens = {
+    1:  { sets:0,  towels:0,  pillows:0, blankets:0, linensRequired:false }, // Late Stays
+    2:  { sets:332,towels:332,pillows:0, blankets:0, linensRequired:true  }, // Summer Students Belk
+    3:  { sets:100,towels:100,pillows:0, blankets:0, linensRequired:true  }, // Summer Students Sentelle
+    4:  { sets:250,towels:250,pillows:0, blankets:0, linensRequired:true  }, // Alumni Reunion
+    5:  { sets:10, towels:10, pillows:0, blankets:0, linensRequired:true  }, // Volleyball Staff
+    6:  { sets:270,towels:270,pillows:0, blankets:270,linensRequired:true }, // Men's Basketball
+    7:  { sets:30, towels:30, pillows:0, blankets:30, linensRequired:true }, // Theatre
+    8:  { sets:65, towels:65, pillows:0, blankets:65, linensRequired:true }, // Summer Promise
+    9:  { sets:40, towels:40, pillows:0, blankets:40, linensRequired:true }, // Tennis
+    10: { sets:20, towels:20, pillows:0, blankets:20, linensRequired:true }, // MBB Ryburn
+    11: { sets:25, towels:25, pillows:0, blankets:25, linensRequired:true }, // Service Odyssey
+    12: { sets:168,towels:168,pillows:0, blankets:168,linensRequired:true }, // Women's Basketball
+  };
+  Object.entries(needsLinens).forEach(([id, qty]) => {
+    records[id] = {
+      linensRequired:   qty.linensRequired,
+      sets:             qty.sets,
+      towels:           qty.towels,
+      pillows:          qty.pillows,
+      blankets:         qty.blankets,
+      specialRequests:  '',
+      notes:            '',
+      deliveryStatus:   qty.linensRequired ? 'not_submitted' : 'not_needed',
+      pickupStatus:     qty.linensRequired ? 'not_requested' : 'not_needed',
+      deliveryDate:     null,
+      pickupDate:       null,
+      dateRequested:    null,
+      dateDeliveryConfirmed: null,
+      datePickupConfirmed:   null,
+      modified:         null,
+    };
+  });
+  return records;
+}
+
+function ensureHKState() {
+  if (!STATE.housekeepingData) {
+    STATE.housekeepingData = {
+      records:   buildDefaultHKRecords(),
+      inventory: { available: 500, assigned: 0, cleaning: 0, damaged: 0 },
+    };
+  }
+  if (!STATE.housekeepingData.records)   STATE.housekeepingData.records = buildDefaultHKRecords();
+  if (!STATE.housekeepingData.inventory) STATE.housekeepingData.inventory = { available:500,assigned:0,cleaning:0,damaged:0 };
+}
+
+/* Get or init a record for a camp */
+function getHKRecord(campId) {
+  ensureHKState();
+  const cid = String(campId);
+  if (!STATE.housekeepingData.records[cid]) {
+    STATE.housekeepingData.records[cid] = {
+      linensRequired:false, sets:0, towels:0, pillows:0, blankets:0,
+      specialRequests:'', notes:'',
+      deliveryStatus:'not_needed', pickupStatus:'not_needed',
+      deliveryDate:null, pickupDate:null, dateRequested:null,
+      dateDeliveryConfirmed:null, datePickupConfirmed:null, modified:null,
+    };
+  }
+  return STATE.housekeepingData.records[cid];
+}
+
+/* Only overnight camps can need linens */
+function getHKCamps() {
+  return STATE.overnightCamps || [];
+}
+
+/* ---- Readiness score for a camp ---- */
+function getHKReadiness(camp) {
+  const rec = getHKRecord(camp.id);
+  if (!rec.linensRequired) return { level:'green', label:'Not Required', score:100 };
+
+  const issues = [];
+  const now = TODAY_STR;
+  const arrival = camp.checkin;
+  const daysToArrival = arrival ? Math.round((parseDate(arrival)-TODAY)/86400000) : 999;
+
+  // Check submission
+  if (rec.deliveryStatus === 'not_submitted' || rec.deliveryStatus === 'not_needed' && rec.linensRequired) {
+    if (daysToArrival <= 14) issues.push({ level:'red', msg:'Linen request not submitted' });
+  }
+  // Check delivery confirmation
+  if (rec.deliveryStatus === 'requested' && daysToArrival <= 7) {
+    issues.push({ level:'yellow', msg:'Delivery not yet confirmed — arrival in ' + daysToArrival + 'd' });
+  }
+  if (rec.deliveryStatus === 'not_submitted' && daysToArrival <= 7) {
+    issues.push({ level:'red', msg:'Delivery not requested — arrival in ' + daysToArrival + 'd' });
+  }
+  // Check arrived but not delivered
+  if (daysToArrival <= 0 && rec.deliveryStatus !== 'delivered') {
+    issues.push({ level:'red', msg:'Camp arrived — verify delivery completed' });
+  }
+  // Departed but pickup not done
+  const departure = camp.checkout;
+  if (departure && departure < now && rec.pickupStatus !== 'completed' && rec.pickupStatus !== 'not_needed') {
+    issues.push({ level:'red', msg:'Camp departed — pickup not completed' });
+  }
+  // Pickup approaching
+  if (departure && departure >= now) {
+    const daysToDep = Math.round((parseDate(departure)-TODAY)/86400000);
+    if (daysToDep <= 7 && rec.pickupStatus === 'not_requested') {
+      issues.push({ level:'yellow', msg:'Pickup not requested — departure in ' + daysToDep + 'd' });
+    }
+  }
+
+  if (!issues.length) return { level:'green', label:'Ready', score:100, issues:[] };
+  const hasRed = issues.some(i=>i.level==='red');
+  return { level: hasRed?'red':'yellow', label: hasRed?'Action Required':'Needs Follow-Up', score: hasRed?0:50, issues };
+}
+
+/* ---- Status badge HTML ---- */
+const HK_DELIVERY_LABELS = {
+  not_needed:    'Not Needed',
+  not_submitted: 'Not Submitted',
+  requested:     'Requested',
+  confirmed:     'Confirmed',
+  delivered:     'Delivered',
+};
+const HK_PICKUP_LABELS = {
+  not_needed:    'Not Needed',
+  not_requested: 'Not Requested',
+  requested:     'Requested',
+  confirmed:     'Confirmed',
+  completed:     'Completed',
+};
+
+function hkDeliveryBadge(status) {
+  const icons = {not_needed:'○',not_submitted:'⚠️',requested:'📤',confirmed:'✅',delivered:'📦'};
+  return `<span class="hk-badge hkb-${status}">${icons[status]||''} ${HK_DELIVERY_LABELS[status]||status}</span>`;
+}
+function hkPickupBadge(status) {
+  const icons = {not_needed:'○',not_requested:'⚠️',requested:'📤',confirmed:'✅',completed:'🚚'};
+  return `<span class="hk-badge hkb-${status}">${icons[status]||''} ${HK_PICKUP_LABELS[status]||status}</span>`;
+}
+function hkReadinessBadge(readiness) {
+  const icons = {green:'🟢',yellow:'🟡',red:'🔴'};
+  return `<span class="hk-ready-pill hkr-${readiness.level}">${icons[readiness.level]} ${readiness.label}</span>`;
+}
+
+/* ---- Render HK camp card ---- */
+function renderHKCard(camp) {
+  const rec = getHKRecord(camp.id);
+  const readiness = getHKReadiness(camp);
+  const ribbonCls = `hkr-ribbon-${readiness.level}`;
+  const dormTags = (camp.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('');
+  const adminBtns = ADMIN_MODE ? `<div class="hk-card-actions">
+    <button class="card-btn edit-btn" onclick="openHKEdit(${camp.id},event)">✏️ Edit Requirements</button>
+    <button class="card-btn" onclick="openHKQuick(${camp.id},event)">⚡ Update Status</button>
+  </div>` : '';
+
+  return `<div class="hk-card" onclick="openHKDetail(${camp.id})">
+    <div class="hk-card-ribbon ${ribbonCls}"></div>
+    <div class="hk-card-body">
+      <div class="hk-card-name">${camp.name}</div>
+      <div class="hk-card-meta">
+        ${(camp.dorms||[]).length ? dormTags : '<span style="color:var(--gray)">No dorm assigned</span>'}
+        &nbsp;·&nbsp; ${fmtDateShort(camp.checkin)} → ${camp.checkout?fmtDateShort(camp.checkout):'Ongoing'}
+      </div>
+      <div class="hk-card-badges">
+        ${hkReadinessBadge(readiness)}
+        ${hkDeliveryBadge(rec.deliveryStatus)}
+        ${hkPickupBadge(rec.pickupStatus)}
+      </div>
+      ${rec.linensRequired ? `<div class="hk-card-linen-row">
+        ${rec.sets     ? `<span class="hk-linen-chip">🛏 ${rec.sets} sets</span>` : ''}
+        ${rec.towels   ? `<span class="hk-linen-chip">🚿 ${rec.towels} towels</span>` : ''}
+        ${rec.pillows  ? `<span class="hk-linen-chip">🛌 ${rec.pillows} pillows</span>` : ''}
+        ${rec.blankets ? `<span class="hk-linen-chip">🧣 ${rec.blankets} blankets</span>` : ''}
+      </div>` : '<div style="font-size:12px;color:var(--gray);margin-bottom:8px">— Linens not required</div>'}
+      ${rec.specialRequests ? `<div style="font-size:11px;color:var(--orange);margin-bottom:6px">⭐ ${rec.specialRequests}</div>` : ''}
+    </div>
+    <div class="hk-card-footer">
+      ${rec.linensRequired ? `<span>${rec.sets} sets total</span>` : '<span>No linens</span>'}
+      ${rec.deliveryDate ? `<span>📦 Del: ${fmtDateShort(rec.deliveryDate)}</span>` : ''}
+      ${rec.pickupDate   ? `<span>🚚 Pickup: ${fmtDateShort(rec.pickupDate)}</span>` : ''}
+    </div>
+    ${adminBtns}
+  </div>`;
+}
+
+/* ============================================================
+   HK TABS
+============================================================ */
+let currentHKTab = 'overview';
+
+function showHKTab(tab) {
+  currentHKTab = tab;
+  document.querySelectorAll('.hk-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.hk-tab-panel').forEach(p=>p.classList.remove('active'));
+  const tabs=['overview','deliveries','pickups','all','inventory'];
+  const idx=tabs.indexOf(tab);
+  if(idx>-1) document.querySelectorAll('.hk-tab')[idx]?.classList.add('active');
+  document.getElementById('hktab-'+tab)?.classList.add('active');
+  if(tab==='overview')   renderHKOverviewTab();
+  if(tab==='deliveries') renderHKDeliveriesTab();
+  if(tab==='pickups')    renderHKPickupsTab();
+  if(tab==='all')        renderHKAllTab();
+  if(tab==='inventory')  renderHKInventoryTab();
+}
+
+/* ============================================================
+   OVERVIEW TAB
+============================================================ */
+function renderHKOverviewTab() {
+  ensureHKState();
+  const camps = getHKCamps();
+  const weekEnd = addDays(TODAY_STR,7);
+
+  // Stats
+  let needsLinens=0, delPending=0, delConfirmed=0, puPending=0, puDone=0, actionReq=0;
+  camps.forEach(c=>{
+    const rec=getHKRecord(c.id);
+    if(rec.linensRequired) needsLinens++;
+    if(['not_submitted','requested'].includes(rec.deliveryStatus) && rec.linensRequired) delPending++;
+    if(rec.deliveryStatus==='confirmed' || rec.deliveryStatus==='delivered') delConfirmed++;
+    if(['not_requested','requested'].includes(rec.pickupStatus) && rec.linensRequired) puPending++;
+    if(rec.pickupStatus==='completed') puDone++;
+    const r=getHKReadiness(c);
+    if(r.level==='red') actionReq++;
+  });
+
+  document.getElementById('hk-stat-grid').innerHTML=`
+    <div class="hk-stat-tile" style="border-left:4px solid var(--blue)"><div class="hk-stat-num" style="color:var(--blue)">${needsLinens}</div><div class="hk-stat-label">Require Linens</div></div>
+    <div class="hk-stat-tile" style="border-left:4px solid var(--orange)"><div class="hk-stat-num" style="color:var(--orange)">${delPending}</div><div class="hk-stat-label">Deliveries Pending</div></div>
+    <div class="hk-stat-tile" style="border-left:4px solid var(--green)"><div class="hk-stat-num" style="color:var(--green)">${delConfirmed}</div><div class="hk-stat-label">Deliveries Confirmed</div></div>
+    <div class="hk-stat-tile" style="border-left:4px solid var(--orange)"><div class="hk-stat-num" style="color:var(--orange)">${puPending}</div><div class="hk-stat-label">Pickups Pending</div></div>
+    <div class="hk-stat-tile" style="border-left:4px solid var(--green)"><div class="hk-stat-num" style="color:var(--green)">${puDone}</div><div class="hk-stat-label">Pickups Completed</div></div>
+    <div class="hk-stat-tile" style="border-left:4px solid #DC2626"><div class="hk-stat-num" style="color:#DC2626">${actionReq}</div><div class="hk-stat-label">Action Required</div></div>`;
+
+  // Action required strip
+  const actions=[];
+  camps.forEach(c=>{
+    const rec=getHKRecord(c.id); if(!rec.linensRequired) return;
+    const r=getHKReadiness(c);
+    r.issues?.forEach(issue=>{
+      actions.push({camp:c, issue, rec});
+    });
+    // Automated reminders
+    const daysToArrival = c.checkin ? Math.round((parseDate(c.checkin)-TODAY)/86400000) : 999;
+    const daysToDep     = c.checkout? Math.round((parseDate(c.checkout)-TODAY)/86400000): 999;
+    if(daysToArrival===14) actions.push({camp:c,issue:{level:'yellow',msg:'📋 Submit linen request (14 days to arrival)'},rec});
+    if(daysToArrival===7  && rec.deliveryStatus!=='confirmed' && rec.deliveryStatus!=='delivered')
+      actions.push({camp:c,issue:{level:'yellow',msg:'📞 Confirm linen delivery (7 days to arrival)'},rec});
+    if(daysToArrival===0  && rec.deliveryStatus!=='delivered')
+      actions.push({camp:c,issue:{level:'red',msg:'🔍 Verify delivery completed (arrival today)'},rec});
+    if(daysToDep===0      && rec.pickupStatus!=='completed' && rec.pickupStatus!=='not_needed')
+      actions.push({camp:c,issue:{level:'red',msg:'📦 Coordinate linen pickup (departure today)'},rec});
+    if(daysToDep===-1     && rec.pickupStatus!=='completed' && rec.pickupStatus!=='not_needed')
+      actions.push({camp:c,issue:{level:'red',msg:'✅ Verify pickup completed (departed yesterday)'},rec});
+  });
+
+  document.getElementById('hk-action-count').textContent=actions.length;
+  document.getElementById('hk-action-strip').innerHTML = actions.length ? actions.map(a=>`
+    <div class="alert-banner alert-${a.issue.level==='red'?'red':'orange'}" style="margin-bottom:8px">
+      <div class="alert-icon">${a.issue.level==='red'?'🚨':'⚠️'}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.camp.name}</div>
+        <div class="alert-sub">${a.issue.msg} · ${(a.camp.dorms||[]).join(', ')||'TBD'}</div>
+      </div>
+      <div class="alert-action" onclick="openHKQuick(${a.camp.id})">Update →</div>
+    </div>`).join('') : '<div class="no-results" style="padding:12px">No action items — all housekeeping coordination up to date.</div>';
+
+  // Upcoming deliveries (7 days)
+  const delRows = camps.filter(c=>{
+    const rec=getHKRecord(c.id);
+    return rec.linensRequired && c.checkin && c.checkin>=TODAY_STR && c.checkin<=weekEnd;
+  }).sort((a,b)=>a.checkin.localeCompare(b.checkin));
+  document.getElementById('hk-deliveries-tbody').innerHTML = delRows.length ? delRows.map(c=>{
+    const rec=getHKRecord(c.id);
+    const isToday=c.checkin===TODAY_STR;
+    return `<tr class="${isToday?'urg-today':''}">
+      <td class="hk-camp-link" onclick="openHKDetail(${c.id})">${c.name}</td>
+      <td style="font-weight:${isToday?'800':'400'};color:${isToday?'var(--red)':'inherit'}">${fmtDateShort(c.checkin)}${isToday?' (TODAY)':''}</td>
+      <td>${(c.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'—'}</td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums">${rec.sets||0}</td>
+      <td style="font-variant-numeric:tabular-nums">${rec.towels||0}</td>
+      <td>${hkDeliveryBadge(rec.deliveryStatus)}</td>
+      ${ADMIN_MODE?`<td style="display:${ADMIN_MODE?'':'none'}"><button class="btn btn-sm btn-outline" onclick="openHKQuick(${c.id},event)">Update</button></td>`:''}
+    </tr>`;
+  }).join('') : '<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--gray)">No deliveries in next 7 days.</td></tr>';
+
+  // Upcoming pickups (7 days)
+  const puRows = camps.filter(c=>{
+    const rec=getHKRecord(c.id);
+    return rec.linensRequired && c.checkout && c.checkout>=TODAY_STR && c.checkout<=weekEnd;
+  }).sort((a,b)=>a.checkout.localeCompare(b.checkout));
+  document.getElementById('hk-pickups-tbody').innerHTML = puRows.length ? puRows.map(c=>{
+    const rec=getHKRecord(c.id);
+    const isToday=c.checkout===TODAY_STR;
+    return `<tr class="${isToday?'urg-today':''}">
+      <td class="hk-camp-link" onclick="openHKDetail(${c.id})">${c.name}</td>
+      <td style="font-weight:${isToday?'800':'400'};color:${isToday?'var(--red)':'inherit'}">${fmtDateShort(c.checkout)}${isToday?' (TODAY)':''}</td>
+      <td>${(c.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'—'}</td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums">${rec.sets||0}</td>
+      <td>${hkPickupBadge(rec.pickupStatus)}</td>
+      ${ADMIN_MODE?`<td style="display:${ADMIN_MODE?'':'none'}"><button class="btn btn-sm btn-outline" onclick="openHKQuick(${c.id},event)">Update</button></td>`:''}
+    </tr>`;
+  }).join('') : '<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--gray)">No pickups in next 7 days.</td></tr>';
+
+  // Show/hide admin columns
+  document.querySelectorAll('#hktab-overview .admin-only').forEach(el=>el.style.display=ADMIN_MODE?'':'none');
+}
+
+/* ============================================================
+   DELIVERIES FULL TAB
+============================================================ */
+function clearHKDelFilters(){
+  document.getElementById('hk-del-search').value='';
+  document.getElementById('hk-del-status').value='';
+  document.getElementById('hk-del-window').value='7';
+  renderHKDeliveriesTab();
+}
+function renderHKDeliveriesTab(){
+  ensureHKState();
+  const search=(document.getElementById('hk-del-search')?.value||'').toLowerCase();
+  const status=document.getElementById('hk-del-status')?.value||'';
+  const window_days=document.getElementById('hk-del-window')?.value;
+  const cutoff=window_days==='all'?'9999-12-31':addDays(TODAY_STR,parseInt(window_days)||7);
+
+  let camps=getHKCamps().filter(c=>{
+    const rec=getHKRecord(c.id);
+    if(!rec.linensRequired) return false;
+    if(!c.checkin||c.checkin<TODAY_STR||c.checkin>cutoff) return false;
+    if(search && !c.name.toLowerCase().includes(search) && !(c.dorms||[]).join(' ').toLowerCase().includes(search)) return false;
+    if(status && rec.deliveryStatus!==status) return false;
+    return true;
+  }).sort((a,b)=>a.checkin.localeCompare(b.checkin));
+
+  document.getElementById('hk-del-full-tbody').innerHTML=camps.length?camps.map(c=>{
+    const rec=getHKRecord(c.id);
+    return `<tr>
+      <td class="hk-camp-link" onclick="openHKDetail(${c.id})">${c.name}</td>
+      <td>${fmtDateShort(c.checkin)}</td>
+      <td>${(c.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'—'}</td>
+      <td style="font-variant-numeric:tabular-nums;font-weight:700">${rec.sets||0}</td>
+      <td style="font-variant-numeric:tabular-nums">${rec.towels||0}</td>
+      <td style="font-variant-numeric:tabular-nums">${rec.blankets||0}</td>
+      <td style="font-variant-numeric:tabular-nums">${rec.pillows||0}</td>
+      <td>${rec.dateRequested?fmtDateShort(rec.dateRequested):'—'}</td>
+      <td>${hkDeliveryBadge(rec.deliveryStatus)}</td>
+      ${ADMIN_MODE?`<td><button class="btn btn-sm btn-outline" onclick="openHKQuick(${c.id},event)">Update</button></td>`:''}
+    </tr>`;
+  }).join(''):'<tr><td colspan="10" style="text-align:center;padding:16px;color:var(--gray)">No deliveries match filters.</td></tr>';
+  document.querySelectorAll('#hktab-deliveries .admin-only').forEach(el=>el.style.display=ADMIN_MODE?'':'none');
+}
+
+/* ============================================================
+   PICKUPS FULL TAB
+============================================================ */
+function clearHKPuFilters(){
+  document.getElementById('hk-pu-search').value='';
+  document.getElementById('hk-pu-status').value='';
+  renderHKPickupsTab();
+}
+function renderHKPickupsTab(){
+  ensureHKState();
+  const search=(document.getElementById('hk-pu-search')?.value||'').toLowerCase();
+  const status=document.getElementById('hk-pu-status')?.value||'';
+  let camps=getHKCamps().filter(c=>{
+    const rec=getHKRecord(c.id);
+    if(!rec.linensRequired) return false;
+    if(search && !c.name.toLowerCase().includes(search) && !(c.dorms||[]).join(' ').toLowerCase().includes(search)) return false;
+    if(status && rec.pickupStatus!==status) return false;
+    return true;
+  }).sort((a,b)=>(a.checkout||'9999').localeCompare(b.checkout||'9999'));
+
+  document.getElementById('hk-pu-full-tbody').innerHTML=camps.length?camps.map(c=>{
+    const rec=getHKRecord(c.id);
+    const isPast=c.checkout&&c.checkout<TODAY_STR;
+    return `<tr style="${isPast&&rec.pickupStatus!=='completed'?'background:#FEF2F2':''}">
+      <td class="hk-camp-link" onclick="openHKDetail(${c.id})">${c.name}</td>
+      <td style="font-weight:${isPast?'700':'400'};color:${isPast&&rec.pickupStatus!=='completed'?'#DC2626':'inherit'}">${c.checkout?fmtDateShort(c.checkout):'Ongoing'}${isPast?' (Past)':''}</td>
+      <td>${(c.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'—'}</td>
+      <td style="font-variant-numeric:tabular-nums;font-weight:700">${rec.sets||0}</td>
+      <td>${rec.pickupDate?fmtDateShort(rec.pickupDate):'—'}</td>
+      <td>${hkPickupBadge(rec.pickupStatus)}</td>
+      ${ADMIN_MODE?`<td><button class="btn btn-sm btn-outline" onclick="openHKQuick(${c.id},event)">Update</button></td>`:''}
+    </tr>`;
+  }).join(''):'<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--gray)">No pickups match filters.</td></tr>';
+  document.querySelectorAll('#hktab-pickups .admin-only').forEach(el=>el.style.display=ADMIN_MODE?'':'none');
+}
+
+/* ============================================================
+   ALL CAMPS TAB
+============================================================ */
+function clearHKAllFilters(){
+  document.getElementById('hk-all-search').value='';
+  document.getElementById('hk-all-ready').value='';
+  document.getElementById('hk-all-dorm').value='';
+  document.getElementById('hk-all-linens').value='';
+  renderHKAllTab();
+}
+function renderHKAllTab(){
+  ensureHKState();
+  const search=(document.getElementById('hk-all-search')?.value||'').toLowerCase();
+  const ready=document.getElementById('hk-all-ready')?.value||'';
+  const dorm=document.getElementById('hk-all-dorm')?.value||'';
+  const linens=document.getElementById('hk-all-linens')?.value||'';
+
+  let camps=getHKCamps().filter(c=>{
+    const rec=getHKRecord(c.id);
+    if(search && !c.name.toLowerCase().includes(search) && !(c.dorms||[]).join(' ').toLowerCase().includes(search)) return false;
+    if(ready && getHKReadiness(c).level!==ready) return false;
+    if(dorm && !(c.dorms||[]).includes(dorm)) return false;
+    if(linens==='yes' && !rec.linensRequired) return false;
+    if(linens==='no'  &&  rec.linensRequired) return false;
+    return true;
+  });
+
+  document.getElementById('hk-all-grid').innerHTML=camps.length?camps.map(renderHKCard).join(''):'<div class="no-results">No camps match current filters.</div>';
+}
+function initHKDormFilter(){
+  const sel=document.getElementById('hk-all-dorm');
+  if(!sel) return;
+  const cur=sel.value;
+  sel.innerHTML='<option value="">All dorms</option>';
+  [...new Set(getHKCamps().flatMap(c=>c.dorms||[]))].sort().forEach(d=>{
+    const o=document.createElement('option');o.value=d;o.textContent=d;sel.appendChild(o);
+  });
+  sel.value=cur;
+}
+
+/* ============================================================
+   INVENTORY TAB
+============================================================ */
+function renderHKInventoryTab(){
+  ensureHKState();
+  const inv=STATE.housekeepingData.inventory;
+  const totalNeeded=getHKCamps().reduce((sum,c)=>{const r=getHKRecord(c.id);return sum+(r.linensRequired?r.sets:0);},0);
+
+  document.getElementById('hk-inv-grid').innerHTML=`
+    <div class="inv-tile inv-available"><div class="inv-num" style="color:var(--green)">${inv.available}</div><div class="inv-label">Available Sets</div></div>
+    <div class="inv-tile inv-assigned"><div class="inv-num" style="color:var(--blue)">${inv.assigned}</div><div class="inv-label">Assigned</div></div>
+    <div class="inv-tile inv-cleaning"><div class="inv-num" style="color:var(--orange)">${inv.cleaning}</div><div class="inv-label">Out for Cleaning</div></div>
+    <div class="inv-tile inv-damaged"><div class="inv-num" style="color:#DC2626">${inv.damaged}</div><div class="inv-label">Damaged</div></div>
+    <div class="inv-tile" style="border-top:3px solid var(--slate)"><div class="inv-num">${totalNeeded}</div><div class="inv-label">Total Needed This Summer</div></div>`;
+
+  const camps=getHKCamps().filter(c=>getHKRecord(c.id).linensRequired);
+  document.getElementById('hk-inv-camps-tbody').innerHTML=camps.length?camps.map(c=>{
+    const rec=getHKRecord(c.id);
+    return `<tr>
+      <td style="font-weight:700">${c.name}</td>
+      <td>${(c.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'—'}</td>
+      <td>${fmtDateShort(c.checkin)}</td>
+      <td>${c.checkout?fmtDateShort(c.checkout):'Ongoing'}</td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums">${rec.sets}</td>
+      <td>${hkDeliveryBadge(rec.deliveryStatus)}</td>
+      <td>${hkPickupBadge(rec.pickupStatus)}</td>
+    </tr>`;
+  }).join(''):'<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--gray)">No linen camps.</td></tr>';
+}
+
+/* ============================================================
+   DETAIL MODAL
+============================================================ */
+let hkDetailCampId=null;
+
+function openHKDetail(campId){
+  const camp=getHKCamps().find(c=>c.id===campId||String(c.id)===String(campId));
+  if(!camp) return;
+  hkDetailCampId=campId;
+  const rec=getHKRecord(campId);
+  const readiness=getHKReadiness(camp);
+
+  document.getElementById('hk-detail-title').textContent=camp.name;
+  document.getElementById('hk-detail-meta').innerHTML=`${(camp.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('')||'No dorm'} &nbsp;·&nbsp; ${fmtDate(camp.checkin)} → ${camp.checkout?fmtDate(camp.checkout):'Ongoing'}`;
+  document.getElementById('hk-detail-readiness').innerHTML=hkReadinessBadge(readiness);
+
+  // Admin buttons
+  document.querySelectorAll('#hk-detail-overlay .admin-only').forEach(el=>el.style.display=ADMIN_MODE?'':'none');
+
+  showHKDetailTab('checklist');
+  openModal('hk-detail-overlay');
+}
+
+function showHKDetailTab(tab){
+  document.querySelectorAll('#hk-detail-overlay .modal-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#hk-detail-overlay .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('hkd-tab-'+tab)?.classList.add('active');
+  const tabs=['checklist','details','edit'];
+  const idx=tabs.indexOf(tab);
+  if(idx>-1) document.querySelectorAll('#hk-detail-overlay .modal-tab')[idx]?.classList.add('active');
+  if(tab==='checklist') renderHKDetailChecklist();
+  if(tab==='details')   renderHKDetailInfo();
+  if(tab==='edit')      renderHKDetailEditForm();
+}
+
+function renderHKDetailChecklist(){
+  const camp=getHKCamps().find(c=>String(c.id)===String(hkDetailCampId));
+  if(!camp) return;
+  const rec=getHKRecord(hkDetailCampId);
+  const daysToArrival=camp.checkin?Math.round((parseDate(camp.checkin)-TODAY)/86400000):null;
+  const items=[
+    { ok: rec.linensRequired!==undefined, warn: false, na: !rec.linensRequired, label:'Linen requirements recorded', date: rec.modified?'Updated '+fmtDateShort(rec.modified):'' },
+    { ok: rec.deliveryStatus!=='not_submitted' && rec.deliveryStatus!=='not_needed', warn: rec.deliveryStatus==='not_submitted', na: !rec.linensRequired, label:'Linen request submitted', date: rec.dateRequested?'Submitted '+fmtDateShort(rec.dateRequested):'' },
+    { ok: ['confirmed','delivered'].includes(rec.deliveryStatus), warn: rec.deliveryStatus==='requested', na: !rec.linensRequired, label:'Delivery confirmed with Housekeeping', date: rec.dateDeliveryConfirmed?'Confirmed '+fmtDateShort(rec.dateDeliveryConfirmed):'' },
+    { ok: rec.deliveryStatus==='delivered', warn: rec.deliveryStatus==='confirmed' && daysToArrival!==null && daysToArrival<=0, na: !rec.linensRequired, label:'Delivery completed', date: '' },
+    { ok: ['confirmed','completed'].includes(rec.pickupStatus), warn: rec.pickupStatus==='not_requested' && camp.checkout && camp.checkout<=TODAY_STR, na: !rec.linensRequired||!camp.checkout, label:'Pickup coordinated with Housekeeping', date: rec.datePickupConfirmed?'Confirmed '+fmtDateShort(rec.datePickupConfirmed):'' },
+    { ok: rec.pickupStatus==='completed', warn: rec.pickupStatus!=='completed' && camp.checkout && camp.checkout<TODAY_STR, na: !rec.linensRequired||!camp.checkout, label:'Pickup completed', date: '' },
+  ];
+  document.getElementById('hk-detail-checklist').innerHTML=items.map(item=>{
+    let cls='hkc-na', icon='○';
+    if(!item.na){
+      if(item.ok){cls='hkc-ok';icon='✅';}
+      else if(item.warn){cls='hkc-warn';icon='⚠️';}
+      else{cls='hkc-pending';icon='○';}
+    }
+    return `<div class="hk-check-item ${cls}"><span class="hk-check-icon">${icon}</span><span class="hk-check-label">${item.label}</span><span class="hk-check-date">${item.date}</span></div>`;
+  }).join('');
+}
+
+function renderHKDetailInfo(){
+  const camp=getHKCamps().find(c=>String(c.id)===String(hkDetailCampId));
+  const rec=getHKRecord(hkDetailCampId);
+  document.getElementById('hk-detail-info').innerHTML=`
+    <div class="form-grid" style="padding:4px 0">
+      <div class="meta-item"><div class="meta-key">Linens Required</div><div class="meta-val">${rec.linensRequired?'✅ Yes':'— No'}</div></div>
+      <div class="meta-item"><div class="meta-key">Sets Needed</div><div class="meta-val" style="font-variant-numeric:tabular-nums">${rec.sets||0}</div></div>
+      <div class="meta-item"><div class="meta-key">Towels</div><div class="meta-val">${rec.towels||0}</div></div>
+      <div class="meta-item"><div class="meta-key">Pillows</div><div class="meta-val">${rec.pillows||0}</div></div>
+      <div class="meta-item"><div class="meta-key">Blankets</div><div class="meta-val">${rec.blankets||0}</div></div>
+      <div class="meta-item"><div class="meta-key">Delivery Status</div><div class="meta-val">${hkDeliveryBadge(rec.deliveryStatus)}</div></div>
+      <div class="meta-item"><div class="meta-key">Pickup Status</div><div class="meta-val">${hkPickupBadge(rec.pickupStatus)}</div></div>
+      <div class="meta-item"><div class="meta-key">Delivery Date</div><div class="meta-val">${rec.deliveryDate?fmtDate(rec.deliveryDate):'—'}</div></div>
+      <div class="meta-item"><div class="meta-key">Pickup Date</div><div class="meta-val">${rec.pickupDate?fmtDate(rec.pickupDate):'—'}</div></div>
+      <div class="meta-item"><div class="meta-key">Date Requested</div><div class="meta-val">${rec.dateRequested?fmtDate(rec.dateRequested):'—'}</div></div>
+      <div class="meta-item"><div class="meta-key">Delivery Confirmed</div><div class="meta-val">${rec.dateDeliveryConfirmed?fmtDate(rec.dateDeliveryConfirmed):'—'}</div></div>
+      ${rec.specialRequests?`<div class="meta-item" style="grid-column:1/-1"><div class="meta-key">Special Requests</div><div class="meta-val" style="color:var(--orange)">${rec.specialRequests}</div></div>`:''}
+      ${rec.notes?`<div class="meta-item" style="grid-column:1/-1"><div class="meta-key">Notes</div><div class="meta-val">${rec.notes}</div></div>`:''}
+    </div>`;
+}
+
+function renderHKDetailEditForm(){
+  // Opens the full edit modal instead
+  closeModal('hk-detail-overlay');
+  openHKEdit(hkDetailCampId);
+}
+
+/* ============================================================
+   QUICK STATUS UPDATE
+============================================================ */
+let hkQuickCampId=null;
+
+function openHKQuick(campId,e){
+  if(e) e.stopPropagation();
+  if(!ADMIN_MODE){showToast('Enable Admin Mode to update statuses','info');return;}
+  const camp=getHKCamps().find(c=>String(c.id)===String(campId));
+  if(!camp) return;
+  hkQuickCampId=campId;
+  const rec=getHKRecord(campId);
+  document.getElementById('hk-quick-title').textContent='Update: '+camp.name;
+  document.getElementById('hk-quick-camp').textContent=(camp.dorms||[]).join(', ')||'No dorm';
+  document.getElementById('hkq-delivery').value=rec.deliveryStatus||'not_needed';
+  document.getElementById('hkq-pickup').value=rec.pickupStatus||'not_needed';
+  document.getElementById('hkq-deldate').value=rec.deliveryDate||'';
+  document.getElementById('hkq-pudate').value=rec.pickupDate||'';
+  document.getElementById('hkq-reqdate').value=rec.dateRequested||'';
+  document.getElementById('hkq-delconfdate').value=rec.dateDeliveryConfirmed||'';
+  document.getElementById('hkq-notes').value=rec.notes||'';
+  openModal('hk-quick-overlay');
+}
+
+function saveHKQuickUpdate(){
+  if(!hkQuickCampId) return;
+  const rec=getHKRecord(hkQuickCampId);
+  rec.deliveryStatus       = document.getElementById('hkq-delivery').value;
+  rec.pickupStatus         = document.getElementById('hkq-pickup').value;
+  rec.deliveryDate         = document.getElementById('hkq-deldate').value||null;
+  rec.pickupDate           = document.getElementById('hkq-pudate').value||null;
+  rec.dateRequested        = document.getElementById('hkq-reqdate').value||null;
+  rec.dateDeliveryConfirmed= document.getElementById('hkq-delconfdate').value||null;
+  rec.notes                = document.getElementById('hkq-notes').value.trim();
+  rec.modified             = nowISO();
+  saveState(); closeModal('hk-quick-overlay');
+  renderHousekeeping(); showToast('Housekeeping status updated','success');
+}
+
+/* ============================================================
+   FULL EDIT (linen requirements)
+============================================================ */
+let hkEditCampId=null;
+
+function openHKEdit(campId,e){
+  if(e) e.stopPropagation();
+  if(!ADMIN_MODE){showToast('Enable Admin Mode to edit','info');return;}
+  const camp=getHKCamps().find(c=>String(c.id)===String(campId));
+  if(!camp) return;
+  hkEditCampId=campId;
+  const rec=getHKRecord(campId);
+  document.getElementById('hk-edit-title').textContent='Edit Linens: '+camp.name;
+  document.getElementById('hke-linens-req').checked=rec.linensRequired||false;
+  document.getElementById('hke-sets').value=rec.sets||0;
+  document.getElementById('hke-towels').value=rec.towels||0;
+  document.getElementById('hke-pillows').value=rec.pillows||0;
+  document.getElementById('hke-blankets').value=rec.blankets||0;
+  document.getElementById('hke-special').value=rec.specialRequests||'';
+  document.getElementById('hke-notes').value=rec.notes||'';
+  document.getElementById('hke-deldate').value=rec.deliveryDate||'';
+  document.getElementById('hke-pudate').value=rec.pickupDate||'';
+  openModal('hk-edit-overlay');
+}
+
+function saveHKEdit(){
+  if(!hkEditCampId) return;
+  const rec=getHKRecord(hkEditCampId);
+  const wasRequired=rec.linensRequired;
+  rec.linensRequired  = document.getElementById('hke-linens-req').checked;
+  rec.sets            = parseInt(document.getElementById('hke-sets').value)||0;
+  rec.towels          = parseInt(document.getElementById('hke-towels').value)||0;
+  rec.pillows         = parseInt(document.getElementById('hke-pillows').value)||0;
+  rec.blankets        = parseInt(document.getElementById('hke-blankets').value)||0;
+  rec.specialRequests = document.getElementById('hke-special').value.trim();
+  rec.notes           = document.getElementById('hke-notes').value.trim();
+  rec.deliveryDate    = document.getElementById('hke-deldate').value||null;
+  rec.pickupDate      = document.getElementById('hke-pudate').value||null;
+  rec.modified        = nowISO();
+  // Auto-set status defaults when enabling linens
+  if(rec.linensRequired && !wasRequired){
+    rec.deliveryStatus='not_submitted'; rec.pickupStatus='not_requested';
+  }
+  if(!rec.linensRequired){
+    rec.deliveryStatus='not_needed'; rec.pickupStatus='not_needed';
+  }
+  saveState(); closeModal('hk-edit-overlay');
+  renderHousekeeping(); showToast('Linen requirements saved','success');
+}
+
+/* ============================================================
+   INVENTORY
+============================================================ */
+function openInventoryEdit(){
+  ensureHKState();
+  const inv=STATE.housekeepingData.inventory;
+  document.getElementById('inv-available').value=inv.available||0;
+  document.getElementById('inv-assigned').value=inv.assigned||0;
+  document.getElementById('inv-cleaning').value=inv.cleaning||0;
+  document.getElementById('inv-damaged').value=inv.damaged||0;
+  openModal('hk-inv-overlay');
+}
+function saveInventory(){
+  ensureHKState();
+  STATE.housekeepingData.inventory={
+    available:parseInt(document.getElementById('inv-available').value)||0,
+    assigned: parseInt(document.getElementById('inv-assigned').value)||0,
+    cleaning: parseInt(document.getElementById('inv-cleaning').value)||0,
+    damaged:  parseInt(document.getElementById('inv-damaged').value)||0,
+  };
+  saveState(); closeModal('hk-inv-overlay'); renderHKInventoryTab();
+  showToast('Inventory updated','success');
+}
+
+/* ============================================================
+   EXPORT
+============================================================ */
+function exportHKReport(format){
+  ensureHKState();
+  const camps=getHKCamps();
+  if(format==='json'){
+    const data=camps.map(c=>({camp:c.name,dorms:(c.dorms||[]).join(', '),arrival:c.checkin,departure:c.checkout||'',readiness:getHKReadiness(c).label,...getHKRecord(c.id)}));
+    downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'davidson-housekeeping-2026.json');
+    showToast('Exported as JSON','success'); return;
+  }
+  const headers=['Camp','Dorms','Arrival','Departure','Linens Required','Sets','Towels','Pillows','Blankets','Delivery Status','Pickup Status','Delivery Date','Pickup Date','Date Requested','Special Requests','Readiness','Notes'];
+  const rows=camps.map(c=>{
+    const rec=getHKRecord(c.id);
+    const r=getHKReadiness(c);
+    return [`"${c.name}"`,`"${(c.dorms||[]).join(', ')}"`,c.checkin,c.checkout||'',rec.linensRequired?'Yes':'No',rec.sets||0,rec.towels||0,rec.pillows||0,rec.blankets||0,rec.deliveryStatus,rec.pickupStatus,rec.deliveryDate||'',rec.pickupDate||'',rec.dateRequested||'',`"${rec.specialRequests||''}"`,r.label,`"${rec.notes||''}"`];
+  });
+  const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+  downloadBlob(new Blob([csv],{type:'text/csv'}),'davidson-housekeeping-2026.csv');
+  showToast('Exported as CSV','success');
+}
+
+/* ============================================================
+   HK HOMEPAGE WIDGET
+============================================================ */
+function renderHKWidget(){
+  ensureHKState();
+  const widget=document.getElementById('hk-widget');
+  if(!widget) return;
+  const camps=getHKCamps();
+  let actionReq=0, needsLinens=0;
+  camps.forEach(c=>{
+    const rec=getHKRecord(c.id);
+    if(rec.linensRequired) needsLinens++;
+    if(getHKReadiness(c).level==='red') actionReq++;
+  });
+
+  const weekEnd=addDays(TODAY_STR,7);
+  const upcoming=camps.filter(c=>{
+    const rec=getHKRecord(c.id);
+    return rec.linensRequired && c.checkin && c.checkin>=TODAY_STR && c.checkin<=weekEnd;
+  });
+
+  widget.innerHTML=`
+    <div class="section-header" style="margin-top:0"><div class="section-title">🧹 Housekeeping</div></div>
+    <div class="hk-stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+      <div class="hk-stat-tile" style="border-left:4px solid var(--blue)"><div class="hk-stat-num" style="color:var(--blue)">${needsLinens}</div><div class="hk-stat-label">Need Linens</div></div>
+      <div class="hk-stat-tile" style="border-left:4px solid var(--orange)"><div class="hk-stat-num" style="color:var(--orange)">${upcoming.length}</div><div class="hk-stat-label">Deliveries This Week</div></div>
+      <div class="hk-stat-tile" style="border-left:4px solid #DC2626;cursor:pointer" onclick="showPage('housekeeping')"><div class="hk-stat-num" style="color:#DC2626">${actionReq}</div><div class="hk-stat-label">Action Required</div></div>
+    </div>`;
+}
+
+/* ============================================================
+   MAIN RENDER
+============================================================ */
+function renderHousekeeping(){
+  ensureHKState();
+  initHKDormFilter();
+  renderHKWidget();
+  if(currentHKTab) showHKTab(currentHKTab);
+  else showHKTab('overview');
 }
 
 
