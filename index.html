@@ -1209,7 +1209,7 @@ function resetToDefaults() {
   STATE.overnightCamps = JSON.parse(JSON.stringify(DEFAULT_OVERNIGHT));
   STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
   STATE.nextId         = 100;
-  STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES)), campDocs: {}, assignees: {} };
+  if(STATE.complianceData) STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES||[])), campDocs: {}, assignees: {} };
   saveState();
   refreshAll();
   showToast('Data reset to original spreadsheet defaults', 'info');
@@ -1673,7 +1673,7 @@ function refreshAll() {
   renderActions();
   rebuildOvernightDormFilter();
   rebuildDayCampFilter();
-  renderCompliance();
+  if(typeof renderCompliance === "function") renderCompliance();
 }
 
 /* ============================================================
@@ -1880,18 +1880,13 @@ function showPage(id) {
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance'].indexOf(id);
-  if (idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
-  if (id === 'compliance') renderCompliance();
+  if(idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
+  if(id==='compliance' && typeof renderCompliance==='function') renderCompliance();
 }
 
 /* ============================================================
    INIT
 ============================================================ */
-(function init() {
-  document.getElementById('header-date-display').textContent = TODAY.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  loadState();
-  refreshAll();
-})();
 
 /* ============================================================
    COMPLIANCE MODULE — Data defaults
@@ -2546,6 +2541,12 @@ function renderCompliance() {
   initMissDocFilter();
 }
 
+
+(function init() {
+  document.getElementById('header-date-display').textContent = TODAY.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  loadState();
+  refreshAll();
+})();
 </script>
 </body>
 </html>
