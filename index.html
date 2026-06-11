@@ -531,6 +531,180 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
 .comp-filter-bar input, .comp-filter-bar select { font-family:var(--font); font-size:13px; border:1px solid var(--border); border-radius:var(--radius); padding:7px 10px; background:var(--smoke); color:var(--slate); outline:none; }
 .comp-filter-bar input:focus, .comp-filter-bar select:focus { border-color:var(--red); }
 
+
+/* ============================================================
+   DINING MODULE — CSS
+============================================================ */
+
+/* Meal count chips */
+.meal-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+}
+.meal-b { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+.meal-l { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+.meal-d { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.meal-none { background: var(--gray-bg); color: var(--gray); border: 1px solid var(--border); }
+
+/* Big meal stat tiles */
+.meal-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.meal-stat {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 14px; box-shadow: var(--shadow); text-align: center;
+}
+.meal-stat .ms-icon { font-size: 20px; margin-bottom: 6px; }
+.meal-stat .ms-num { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.meal-stat .ms-label { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+.meal-stat.ms-b { border-top: 3px solid #C2410C; }
+.meal-stat.ms-l { border-top: 3px solid #15803D; }
+.meal-stat.ms-d { border-top: 3px solid #1D4ED8; }
+.meal-stat.ms-total { border-top: 3px solid var(--slate); }
+.meal-stat.ms-peak  { border-top: 3px solid var(--purple); }
+
+/* Dining day section */
+.dining-day-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; background: var(--slate); color: var(--white);
+  border-radius: var(--radius) var(--radius) 0 0; margin-top: 20px;
+}
+.dining-day-date { font-size: 14px; font-weight: 800; }
+.dining-day-totals { display: flex; gap: 10px; margin-left: auto; font-size: 12px; font-weight: 600; opacity: .85; }
+
+/* Dining camp row */
+.dining-camp-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); font-size: 13px; margin-bottom: 4px; }
+.dining-camp-table th { background: var(--smoke); color: var(--gray); padding: 8px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+.dining-camp-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.dining-camp-table tr:last-child td { border-bottom: none; }
+.dining-camp-table tr:hover td { background: var(--smoke); }
+.camp-meal-name { font-weight: 700; color: var(--slate); }
+.camp-meal-type-tag { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 20px; margin-left: 6px; }
+.tag-full   { background: #EFF6FF; color: #1D4ED8; }
+.tag-lunch  { background: #F0FDF4; color: #15803D; }
+.tag-catered { background: var(--purple-bg); color: var(--purple); }
+
+/* Inline editable meal count */
+.meal-edit-wrap { display: flex; align-items: center; gap: 6px; }
+.meal-count-display {
+  font-variant-numeric: tabular-nums; font-weight: 700;
+  min-width: 36px; text-align: center;
+}
+.meal-count-input {
+  width: 64px; font-family: var(--font); font-size: 13px; font-weight: 700;
+  border: 1px solid var(--border); border-radius: 4px; padding: 3px 6px;
+  text-align: center; font-variant-numeric: tabular-nums;
+  background: var(--smoke);
+}
+.meal-count-input:focus { outline: none; border-color: var(--red); background: var(--white); }
+.meal-edit-btn {
+  border: 1px solid var(--border); border-radius: 4px; background: var(--white);
+  cursor: pointer; font-size: 11px; padding: 3px 7px; color: var(--gray);
+  font-family: var(--font); font-weight: 600; transition: all .15s;
+}
+.meal-edit-btn:hover { border-color: var(--blue); color: var(--blue); }
+.meal-save-btn {
+  border: none; border-radius: 4px; background: var(--green); color: var(--white);
+  cursor: pointer; font-size: 11px; padding: 3px 9px; font-family: var(--font); font-weight: 700;
+}
+.meal-cancel-btn {
+  border: 1px solid var(--border); border-radius: 4px; background: var(--white);
+  cursor: pointer; font-size: 11px; padding: 3px 7px; font-family: var(--font); color: var(--gray);
+}
+
+/* Camp meal detail card */
+.camp-meal-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; margin-bottom: 14px;
+}
+.camp-meal-header {
+  padding: 12px 16px; background: var(--slate-mid); color: var(--white);
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.camp-meal-title { font-size: 14px; font-weight: 700; flex: 1; }
+.camp-meal-body { padding: 14px 16px; }
+
+/* Weekly forecast table */
+.forecast-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); font-size: 12px; overflow: hidden; }
+.forecast-table th { background: var(--slate); color: var(--white); padding: 10px 14px; text-align: center; font-size: 11px; font-weight: 700; }
+.forecast-table th:first-child { text-align: left; }
+.forecast-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; font-variant-numeric: tabular-nums; }
+.forecast-table td:first-child { text-align: left; font-weight: 700; color: var(--slate); }
+.forecast-table tr:last-child td { border-bottom: none; }
+.forecast-table .total-row td { background: var(--smoke); font-weight: 800; }
+.forecast-table .today-col { background: #FFFEF5; }
+
+/* Meal bar chart */
+.meal-bar-wrap { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+.meal-bar { border-radius: 2px 2px 0 0; min-width: 8px; transition: height .3s; }
+
+/* Dining calendar */
+.dining-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(110px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.dining-cal-cell { background: var(--white); padding: 7px; min-height: 90px; cursor: pointer; transition: background .1s; }
+.dining-cal-cell:hover { background: #F8F9FF; }
+.dining-cal-cell.other-month { background: var(--smoke); opacity: .5; }
+.dining-cal-cell.today-cell { background: #FFFEF5; }
+.dining-cal-cell.today-cell .dc-daynum { color: var(--red); }
+.dining-cal-cell.has-meals { border-top: 3px solid var(--green); }
+.dc-daynum { font-size: 12px; font-weight: 700; color: var(--gray); margin-bottom: 4px; }
+.dc-meal-row { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; margin-top: 2px; }
+.dc-b { color: #C2410C; }
+.dc-l { color: #15803D; }
+.dc-d { color: #1D4ED8; }
+.dc-total { font-size: 10px; font-weight: 800; color: var(--slate); margin-top: 3px; }
+
+/* Status badges for meal types */
+.meal-type-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px;
+}
+.mtb-full    { background: #EFF6FF; color: #1D4ED8; }
+.mtb-lunch   { background: #F0FDF4; color: #15803D; }
+.mtb-catered { background: var(--purple-bg); color: var(--purple); }
+.mtb-none    { background: var(--gray-bg); color: var(--gray); }
+.mtb-cancel  { background: #FEF2F2; color: #DC2626; }
+.mtb-offsite { background: var(--orange-bg); color: var(--orange); }
+
+/* Change log */
+.changelog-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px;
+  border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.changelog-item:last-child { border-bottom: none; }
+.cl-icon { font-size: 14px; flex-shrink: 0; }
+.cl-body { flex: 1; }
+.cl-title { font-weight: 700; color: var(--slate); }
+.cl-meta { color: var(--gray); font-size: 11px; }
+.cl-change { font-size: 12px; color: var(--orange); font-weight: 700; }
+
+/* Alert for large change */
+.meal-large-change {
+  background: var(--orange-bg); border: 1px solid #F5C98E; border-radius: var(--radius);
+  padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--orange);
+  margin-bottom: 8px;
+}
+
+/* Dining sub-tabs */
+.dining-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+.dining-tab {
+  border: none; background: none; cursor: pointer; font-family: var(--font);
+  font-size: 13px; font-weight: 600; color: var(--gray);
+  padding: 10px 16px; border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: color .15s, border-color .15s; white-space: nowrap;
+}
+.dining-tab:hover { color: var(--slate); }
+.dining-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.dining-tab-panel { display: none; }
+.dining-tab-panel.active { display: block; }
+
+/* Import preview table */
+.import-dining-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.import-dining-table th { background: var(--slate); color: var(--white); padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 700; }
+.import-dining-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.import-dining-table tr:last-child td { border-bottom: none; }
+.imp-matched   { background: var(--green-bg); }
+.imp-unmatched { background: #FEF2F2; }
+.imp-cancelled { background: var(--gray-bg); opacity: .7; }
+.imp-no-meals  { background: var(--smoke); }
+
 </style>
 </head>
 <body>
@@ -560,6 +734,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <button onclick="showPage('dorms')">🏢 Dorm Status</button>
   <button onclick="showPage('actions')">⚡ Action Items</button>
   <button onclick="showPage('compliance')">📋 Compliance</button>
+  <button onclick="showPage('dining')">🍽️ Dining</button>
 </nav>
 
 <div id="toast-container"></div>
@@ -591,6 +766,8 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
     <div class="section-count" id="today-actions-badge">—</div>
   </div>
   <div class="action-list" id="today-actions-container"></div>
+  <div class="divider"></div>
+  <div id="dining-widget"></div>
 </div>
 
 <!-- ===================== OVERNIGHT ===================== -->
@@ -965,6 +1142,205 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   </div>
 </div>
 
+
+<!-- ===================== DINING PAGE ===================== -->
+<div class="page" id="page-dining">
+
+  <!-- Sub-tabs -->
+  <div class="dining-tabs" id="dining-tabs">
+    <button class="dining-tab active" onclick="showDiningTab('today')">🍽️ Today & Tomorrow</button>
+    <button class="dining-tab" onclick="showDiningTab('forecast')">📈 Weekly Forecast</button>
+    <button class="dining-tab" onclick="showDiningTab('camps')">🏕️ By Camp</button>
+    <button class="dining-tab" onclick="showDiningTab('calendar')">📅 Dining Calendar</button>
+    <button class="dining-tab" onclick="showDiningTab('changelog')">📝 Change Log</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar" style="margin-bottom:20px">
+    <span class="toolbar-label">Dining:</span>
+    <button class="btn-toolbar import-btn" onclick="openDiningImport()">📥 Import Meal Sheet</button>
+    <button class="btn-toolbar export-btn" onclick="exportDiningReport('csv')">📄 Export CSV</button>
+    <button class="btn-toolbar export-btn" onclick="exportDiningReport('json')">🗂 Export JSON</button>
+    <button class="btn-toolbar" onclick="exportDailyDiningReport()">📋 Daily Report</button>
+  </div>
+
+  <!-- ---- TODAY & TOMORROW TAB ---- -->
+  <div class="dining-tab-panel active" id="diningtab-today">
+
+    <!-- Meal stat tiles - Today -->
+    <div style="margin-bottom:8px;font-size:13px;font-weight:700;color:var(--slate)">📅 Today — <span id="dining-today-label"></span></div>
+    <div class="meal-stat-grid" id="dining-today-stats"></div>
+
+    <!-- Camp breakdown today -->
+    <div id="dining-today-breakdown"></div>
+
+    <div class="divider"></div>
+
+    <!-- Meal stat tiles - Tomorrow -->
+    <div style="margin-bottom:8px;font-size:13px;font-weight:700;color:var(--slate)">📅 Tomorrow — <span id="dining-tomorrow-label"></span></div>
+    <div class="meal-stat-grid" id="dining-tomorrow-stats"></div>
+    <div id="dining-tomorrow-breakdown"></div>
+
+  </div>
+
+  <!-- ---- WEEKLY FORECAST TAB ---- -->
+  <div class="dining-tab-panel" id="diningtab-forecast">
+    <div class="section-header" style="margin-bottom:16px">
+      <div class="section-title">7-Day Meal Forecast</div>
+    </div>
+    <div style="overflow-x:auto;margin-bottom:24px">
+      <table class="forecast-table" id="forecast-table"></table>
+    </div>
+
+    <div class="section-header" style="margin-bottom:16px">
+      <div class="section-title">All Active Meal Dates</div>
+      <div class="section-count" id="all-meal-dates-count">—</div>
+    </div>
+    <div id="all-dates-breakdown"></div>
+  </div>
+
+  <!-- ---- BY CAMP TAB ---- -->
+  <div class="dining-tab-panel" id="diningtab-camps">
+    <div class="filter-bar">
+      <div>
+        <label>Search Camp</label>
+        <input type="text" id="dining-camp-search" placeholder="Camp name…" oninput="renderDiningCampsTab()">
+      </div>
+      <div>
+        <label>Meal Type</label>
+        <select id="dining-meal-type-filter" onchange="renderDiningCampsTab()">
+          <option value="">All types</option>
+          <option value="full">Full meals (B/L/D)</option>
+          <option value="lunch">Lunch only</option>
+          <option value="catered">Catered</option>
+          <option value="none">No meals</option>
+        </select>
+      </div>
+    </div>
+    <div id="dining-camps-container"></div>
+  </div>
+
+  <!-- ---- DINING CALENDAR TAB ---- -->
+  <div class="dining-tab-panel" id="diningtab-calendar">
+    <div class="cal-controls">
+      <button class="cal-nav-btn" onclick="diningCalPrev()">‹</button>
+      <div class="cal-month-label" id="dining-cal-month-label"></div>
+      <button class="cal-nav-btn" onclick="diningCalNext()">›</button>
+      <button class="cal-today-btn" onclick="diningCalToday()">Today</button>
+    </div>
+    <div style="overflow-x:auto">
+      <div style="display:grid;grid-template-columns:repeat(7,minmax(110px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px" id="dining-cal-grid">
+        <div class="cal-dow-header">Sun</div><div class="cal-dow-header">Mon</div>
+        <div class="cal-dow-header">Tue</div><div class="cal-dow-header">Wed</div>
+        <div class="cal-dow-header">Thu</div><div class="cal-dow-header">Fri</div>
+        <div class="cal-dow-header">Sat</div>
+      </div>
+    </div>
+    <div class="cal-legend">
+      <div class="legend-item"><span style="font-size:12px">🟠</span> Breakfast</div>
+      <div class="legend-item"><span style="font-size:12px">🟢</span> Lunch</div>
+      <div class="legend-item"><span style="font-size:12px">🔵</span> Dinner</div>
+    </div>
+  </div>
+
+  <!-- ---- CHANGE LOG TAB ---- -->
+  <div class="dining-tab-panel" id="diningtab-changelog">
+    <div class="section-header">
+      <div class="section-title">Meal Change Log</div>
+      <div class="section-count" id="changelog-count">—</div>
+      <button class="btn btn-sm btn-secondary" onclick="clearChangeLog()" style="margin-left:auto">Clear Log</button>
+    </div>
+    <div class="dorm-table-wrap">
+      <table class="comp-table">
+        <thead><tr><th>Date Changed</th><th>Camp</th><th>Meal Date</th><th>Meal</th><th>Change</th><th>Reason</th></tr></thead>
+        <tbody id="changelog-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== DINING IMPORT MODAL ===================== -->
+<div class="modal-overlay" id="dining-import-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:720px">
+    <div class="modal-header">
+      <div class="modal-title">📥 Import Meal Sheet</div>
+      <button class="modal-close" onclick="closeModal('dining-import-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Upload the Excel meal spreadsheet. The system will parse camp names, dates, participant counts, and meal types automatically.</p>
+      <div class="form-section">
+        <div class="form-section-title">Upload File</div>
+        <input type="file" id="dining-import-input" accept=".xlsx,.xls,.csv" style="font-size:13px;width:100%;margin-bottom:8px">
+        <div class="form-hint">Accepts Excel (.xlsx) or CSV files. The current Davidson meal spreadsheet format is detected automatically.</div>
+      </div>
+      <div id="dining-import-preview-section" style="display:none;margin-top:16px">
+        <div class="form-section-title">Import Preview</div>
+        <div style="overflow-x:auto;max-height:320px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius)">
+          <table class="import-dining-table">
+            <thead><tr><th>Camp Name</th><th>Dates</th><th>Participants</th><th>Meal Type</th><th>Notes</th><th>Status</th></tr></thead>
+            <tbody id="dining-import-tbody"></tbody>
+          </table>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap">
+          <label class="form-check"><input type="radio" name="dining-import-mode" value="replace" checked> Replace all meal data</label>
+          <label class="form-check"><input type="radio" name="dining-import-mode" value="merge"> Merge (keep manual edits)</label>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--gray)" id="dining-import-summary"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('dining-import-overlay')">Cancel</button>
+      <button class="btn btn-primary" id="dining-import-confirm-btn" onclick="confirmDiningImport()" disabled>Import Meal Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DINING DAY DETAIL MODAL ===================== -->
+<div class="modal-overlay" id="dining-day-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="dining-day-modal-title">Dining Details</div>
+        <div id="dining-day-modal-meta" style="font-size:12px;color:var(--gray);margin-top:2px"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('dining-day-overlay')">✕</button>
+    </div>
+    <div class="modal-body" id="dining-day-modal-body"></div>
+  </div>
+</div>
+
+<!-- ===================== MEAL EDIT REASON MODAL ===================== -->
+<div class="modal-overlay" id="meal-reason-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <div class="modal-title" id="reason-modal-title">Update Meal Count</div>
+      <button class="modal-close" onclick="closeModal('meal-reason-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="reason-change-summary" style="background:var(--smoke);border-radius:var(--radius);padding:12px;margin-bottom:16px;font-size:13px"></div>
+      <div class="form-group">
+        <label class="form-label">Reason for Change <span class="required">*</span></label>
+        <select class="form-select" id="reason-preset" onchange="handleReasonPreset()">
+          <option value="">Select a reason…</option>
+          <option value="Updated registration numbers">Updated registration numbers</option>
+          <option value="Camp schedule change">Camp schedule change</option>
+          <option value="Attendance correction">Attendance correction</option>
+          <option value="Director request">Director request</option>
+          <option value="Data entry correction">Data entry correction</option>
+          <option value="custom">Other (type below)…</option>
+        </select>
+        <textarea class="form-textarea" id="reason-text" placeholder="Enter reason…" style="min-height:60px;margin-top:8px"></textarea>
+        <div class="form-error" id="err-reason"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('meal-reason-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmMealSave()">Save Change</button>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <!-- ===================== CAMP FORM MODAL ===================== -->
@@ -1210,6 +1586,7 @@ function resetToDefaults() {
   STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
   STATE.nextId         = 100;
   if(STATE.complianceData) STATE.complianceData = { docTypes: JSON.parse(JSON.stringify(DEFAULT_DOC_TYPES||[])), campDocs: {}, assignees: {} };
+  STATE.diningData = null;
   saveState();
   refreshAll();
   showToast('Data reset to original spreadsheet defaults', 'info');
@@ -1674,6 +2051,7 @@ function refreshAll() {
   rebuildOvernightDormFilter();
   rebuildDayCampFilter();
   if(typeof renderCompliance === "function") renderCompliance();
+  if(typeof renderDining === "function") renderDining();
 }
 
 /* ============================================================
@@ -1879,9 +2257,10 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance'].indexOf(id);
+  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance','dining'].indexOf(id);
   if(idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
   if(id==='compliance' && typeof renderCompliance==='function') renderCompliance();
+  if(id==='dining' && typeof renderDining==='function') renderDining();
 }
 
 /* ============================================================
@@ -2539,6 +2918,779 @@ function renderCompliance() {
   if (currentCompTab) showCompTab(currentCompTab);
   else renderCompOverviewTab();
   initMissDocFilter();
+}
+
+
+
+/* ============================================================
+   DINING MODULE — Data & State
+============================================================ */
+
+// Pre-parsed meal data from the uploaded spreadsheet
+// Each entry = one camp's meal configuration
+const DEFAULT_DINING_CAMPS = [
+  { id:'dc_iDTech',    name:'iD-Tech Day Campers',          contact:'Weston Lawrence',      participants:40,  mealType:'lunch', dates:'2026-06-15 to 2026-07-24', firstMeal:'Lunch on June 15', lastMeal:'Lunch on July 24', notes:'Mon-Fri lunch only each week. No 4th of July week.', status:'active' },
+  { id:'dc_MBB1',      name:"Men's Basketball (1) Overnight",contact:'Matt McKillop',        participants:270, mealType:'full',  dates:'2026-06-14 to 2026-06-18', firstMeal:'Dinner June 14',  lastMeal:'Breakfast June 18', notes:'Dinner only June 14. B/L/D for 270 June 15-17. Breakfast only June 18.', status:'active' },
+  { id:'dc_MBB2',      name:"Men's Basketball (2) Day Camp", contact:'Matt McKillop',        participants:270, mealType:'lunch', dates:'2026-06-22 to 2026-06-25', firstMeal:'Lunch June 22',   lastMeal:'Lunch June 25', notes:'Lunch only each day for 270.', status:'active' },
+  { id:'dc_MBB3',      name:"Men's Basketball (3) Day Camp", contact:'Matt McKillop',        participants:270, mealType:'lunch', dates:'2026-07-27 to 2026-07-30', firstMeal:'Lunch July 27',   lastMeal:'Lunch July 30', notes:'Lunch only each day for 270.', status:'active' },
+  { id:'dc_Tennis',    name:'Tennis Overnight/Day Camp',     contact:'Drew Barrett',         participants:40,  mealType:'full',  dates:'2026-06-21 to 2026-06-26', firstMeal:'Dinner June 21',  lastMeal:'Dinner June 26', notes:'Staff dinner June 21. B&D for overnight/staff June 22-25. Staff dinner June 26.', status:'active' },
+  { id:'dc_WBB4',      name:"Women's Basketball (4) Overnight",contact:'Lara Barry',        participants:168, mealType:'full',  dates:'2026-06-28 to 2026-07-01', firstMeal:'Dinner June 28',  lastMeal:'Lunch July 1', notes:'Dinner 168 June 28. Breakfast 140 June 29-30. B&L July 1.', status:'active' },
+  { id:'dc_Football2', name:'Football (2) Day Camp',         contact:'Saj Thakkar',          participants:110, mealType:'lunch', dates:'2026-06-15 to 2026-06-18', firstMeal:'Lunch June 15',   lastMeal:'Lunch June 18', notes:'Lunch only each day for 110.', status:'active' },
+  { id:'dc_WSoc2',     name:"Women's Soccer (2) Day Camp",   contact:'Riley Piechnick',      participants:56,  mealType:'lunch', dates:'2026-06-22 to 2026-06-25', firstMeal:'Lunch June 22',   lastMeal:'Lunch June 25', notes:'Lunch each day for 56.', status:'active' },
+  { id:'dc_MSoc1',     name:"Men's Soccer (1) June Day Camp",contact:'Mike Babst',           participants:55,  mealType:'lunch', dates:'2026-06-11 to 2026-06-12', firstMeal:'Lunch June 11',   lastMeal:'Lunch June 12', notes:'Lunch both days.', status:'active' },
+  { id:'dc_MSoc2',     name:"Men's Soccer (2) June Day Camp",contact:'Mike Babst',           participants:155, mealType:'lunch', dates:'2026-06-15 to 2026-06-18', firstMeal:'Lunch June 15',   lastMeal:'Lunch June 18', notes:'Lunch Mon-Thu only. No Friday June 19.', status:'active' },
+  { id:'dc_MSoc4',     name:"Men's Soccer (4) July Day Camp",contact:'Mike Babst',           participants:155, mealType:'lunch', dates:'2026-07-20 to 2026-07-23', firstMeal:'Lunch July 20',   lastMeal:'Lunch July 23', notes:'Lunch Mon-Thu only. No Friday July 24.', status:'active' },
+  { id:'dc_LAX',       name:'Lacrosse Day Camp',             contact:'Kim Wayne',            participants:55,  mealType:'lunch', dates:'2026-07-13',              firstMeal:'Lunch July 13',   lastMeal:'Lunch July 13', notes:'Lunch only for 50-60 on July 13.', status:'active' },
+  { id:'dc_VB1',       name:'Volleyball (1) Day Camp',       contact:'Chris Willis',         participants:105, mealType:'lunch', dates:'2026-06-12 to 2026-06-13', firstMeal:'Lunch June 12',   lastMeal:'Lunch June 13', notes:'Lunch both days for 105.', status:'active' },
+  { id:'dc_VB2',       name:'Volleyball (2) Day Camp',       contact:'Chris Willis',         participants:105, mealType:'lunch', dates:'2026-07-06 to 2026-07-07', firstMeal:'Lunch July 6',    lastMeal:'Lunch July 7', notes:'Lunch both days for 105. No lunch July 8.', status:'active' },
+  { id:'dc_VB4',       name:'Volleyball (4) Day Camp',       contact:'Chris Willis',         participants:105, mealType:'lunch', dates:'2026-07-10 to 2026-07-11', firstMeal:'Lunch July 10',   lastMeal:'Lunch July 11', notes:'Lunch both days for 105. No lunch July 12.', status:'active' },
+  { id:'dc_DSP',       name:'Davidson Summer Promise Program',contact:'Tracy Bailey',         participants:65,  mealType:'full',  dates:'2026-06-21 to 2026-06-27', firstMeal:'Dinner June 21',  lastMeal:'Breakfast June 27', notes:'B/L/D each day. Catered lunch by local restaurants.', status:'active' },
+  { id:'dc_NCYO',      name:'NC Youth Orchestra',            contact:'Eric Boruff',          participants:100, mealType:'lunch', dates:'2026-07-30 to 2026-08-01', firstMeal:'Lunch July 30',   lastMeal:'Lunch Aug 1', notes:'Lunch only each day.', status:'active' },
+  { id:'dc_Lavner',    name:'Lavner Education',              contact:'Michael Lavner',       participants:45,  mealType:'lunch', dates:'2026-06-08 to 2026-07-31', firstMeal:'Lunch June 8',    lastMeal:'Lunch July 31', notes:'Lunch Mon-Fri each week. Day campers only. New set each week.', status:'active' },
+  { id:'dc_VB6',       name:'Volleyball (6) Teams Day Camp', contact:'Chris Willis',         participants:202, mealType:'full',  dates:'2026-07-14 to 2026-07-16', firstMeal:'Lunch July 14',   lastMeal:'Breakfast July 16', notes:'CANCELLED. L&D 180 July 14-15. Breakfast 20 July 16.', status:'cancelled' },
+  // No-meal camps (tracked for reference)
+  { id:'dc_WBB1',  name:"Women's Basketball (1) Elite Skills",  contact:'Lara Barry',  participants:25,  mealType:'none', dates:'Multiple sessions', notes:'No Meals', status:'active' },
+  { id:'dc_Cheer', name:'Cheer',                                 contact:'Kaylee Smith',participants:0,   mealType:'none', dates:'2026-07-20 to 2026-07-24', notes:'No Meals', status:'active' },
+  { id:'dc_FB1',   name:'Football (1) Day Camp',                 contact:'Saj Thakkar', participants:300, mealType:'none', dates:'2026-06-13', notes:'No Meals', status:'active' },
+  { id:'dc_McNab', name:'McNab',                                  contact:'Tammy Forthofer', participants:175, mealType:'catered', dates:'2026-06-04 to 2026-06-05', notes:'All Meals Catered', status:'active' },
+  { id:'dc_Alumni',name:'Alumni Reunion Weekend',                 contact:'Lauren Lausier', participants:1200, mealType:'catered', dates:'2026-06-05 to 2026-06-07', notes:'All Meals Catered', status:'active' },
+];
+
+// Pre-built meal schedule from spreadsheet data
+// Format: { [campId]: { [YYYY-MM-DD]: { breakfast, lunch, dinner, notes, source } } }
+const DEFAULT_MEAL_SCHEDULE = {
+  'dc_iDTech': {
+    // Mon-Fri lunch, June 15 - July 24, no 4th of July week
+    ...buildWeekdayMeals('2026-06-15','2026-07-24',{lunch:40},['2026-06-29','2026-06-30','2026-07-01','2026-07-02','2026-07-03'])
+  },
+  'dc_MBB1': {
+    '2026-06-14': {breakfast:0,  lunch:0,   dinner:270, notes:'Dinner only', source:'imported'},
+    '2026-06-15': {breakfast:270,lunch:270, dinner:270, notes:'Full day',    source:'imported'},
+    '2026-06-16': {breakfast:270,lunch:270, dinner:270, notes:'Full day',    source:'imported'},
+    '2026-06-17': {breakfast:270,lunch:270, dinner:270, notes:'Full day',    source:'imported'},
+    '2026-06-18': {breakfast:270,lunch:0,   dinner:0,   notes:'Departure - breakfast only', source:'imported'},
+  },
+  'dc_MBB2': buildRangeMeals('2026-06-22','2026-06-25',{lunch:270}),
+  'dc_MBB3': buildRangeMeals('2026-07-27','2026-07-30',{lunch:270}),
+  'dc_Tennis': {
+    '2026-06-21': {breakfast:0,  lunch:0,  dinner:5,  notes:'Staff dinner only', source:'imported'},
+    '2026-06-22': {breakfast:30, lunch:0,  dinner:30, notes:'Overnight+staff B&D', source:'imported'},
+    '2026-06-23': {breakfast:30, lunch:0,  dinner:30, notes:'Overnight+staff B&D', source:'imported'},
+    '2026-06-24': {breakfast:30, lunch:0,  dinner:30, notes:'Overnight+staff B&D', source:'imported'},
+    '2026-06-25': {breakfast:30, lunch:0,  dinner:30, notes:'Overnight+staff B&D', source:'imported'},
+    '2026-06-26': {breakfast:0,  lunch:0,  dinner:5,  notes:'Staff dinner only', source:'imported'},
+  },
+  'dc_WBB4': {
+    '2026-06-28': {breakfast:0,   lunch:0,   dinner:168, notes:'All participants dinner', source:'imported'},
+    '2026-06-29': {breakfast:140, lunch:0,   dinner:0,   notes:'Overnighters + staff', source:'imported'},
+    '2026-06-30': {breakfast:140, lunch:0,   dinner:0,   notes:'Overnighters + staff', source:'imported'},
+    '2026-07-01': {breakfast:140, lunch:140, dinner:0,   notes:'Departure day B&L', source:'imported'},
+  },
+  'dc_Football2': buildRangeMeals('2026-06-15','2026-06-18',{lunch:110}),
+  'dc_WSoc2':     buildRangeMeals('2026-06-22','2026-06-25',{lunch:56}),
+  'dc_MSoc1':     buildRangeMeals('2026-06-11','2026-06-12',{lunch:55}),
+  'dc_MSoc2':     buildRangeMeals('2026-06-15','2026-06-18',{lunch:155}),  // Mon-Thu only
+  'dc_MSoc4':     buildRangeMeals('2026-07-20','2026-07-23',{lunch:155}),  // Mon-Thu only
+  'dc_LAX':       {'2026-07-13': {breakfast:0,lunch:55,dinner:0,notes:'Lunch only',source:'imported'}},
+  'dc_VB1':       buildRangeMeals('2026-06-12','2026-06-13',{lunch:105}),
+  'dc_VB2':       buildRangeMeals('2026-07-06','2026-07-07',{lunch:105}),
+  'dc_VB4':       buildRangeMeals('2026-07-10','2026-07-11',{lunch:105}),
+  'dc_DSP': {
+    '2026-06-21': {breakfast:0,  lunch:0,  dinner:65, notes:'Arrival - dinner only', source:'imported'},
+    '2026-06-22': {breakfast:65, lunch:65, dinner:65, notes:'Full day', source:'imported'},
+    '2026-06-23': {breakfast:65, lunch:65, dinner:65, notes:'Full day', source:'imported'},
+    '2026-06-24': {breakfast:65, lunch:65, dinner:65, notes:'Full day', source:'imported'},
+    '2026-06-25': {breakfast:65, lunch:65, dinner:65, notes:'Full day', source:'imported'},
+    '2026-06-26': {breakfast:65, lunch:65, dinner:65, notes:'Full day', source:'imported'},
+    '2026-06-27': {breakfast:65, lunch:0,  dinner:0,  notes:'Departure - breakfast only', source:'imported'},
+  },
+  'dc_NCYO': buildRangeMeals('2026-07-30','2026-08-01',{lunch:100}),
+  'dc_Lavner': {
+    ...buildWeekdayMeals('2026-06-08','2026-07-31',{lunch:45},[])
+  },
+};
+
+/* Helper: build range of daily meals */
+function buildRangeMeals(start, end, meals) {
+  const result = {};
+  let cur = start;
+  while (cur <= end) {
+    result[cur] = {breakfast: meals.breakfast||0, lunch: meals.lunch||0, dinner: meals.dinner||0, notes:'', source:'imported'};
+    cur = addDays(cur, 1);
+  }
+  return result;
+}
+
+/* Helper: build weekday-only meals, with exclusion list */
+function buildWeekdayMeals(start, end, meals, excludes) {
+  const result = {};
+  let cur = start;
+  while (cur <= end) {
+    const d = parseDate(cur);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6 && !excludes.includes(cur)) {
+      result[cur] = {breakfast: meals.breakfast||0, lunch: meals.lunch||0, dinner: meals.dinner||0, notes:'', source:'imported'};
+    }
+    cur = addDays(cur, 1);
+  }
+  return result;
+}
+
+/* ============================================================
+   DINING STATE HELPERS
+============================================================ */
+function ensureDiningState() {
+  if (!STATE.diningData) {
+    STATE.diningData = {
+      camps:     JSON.parse(JSON.stringify(DEFAULT_DINING_CAMPS)),
+      schedule:  JSON.parse(JSON.stringify(DEFAULT_MEAL_SCHEDULE)),
+      changeLog: [],
+    };
+  }
+  if (!STATE.diningData.camps)     STATE.diningData.camps = JSON.parse(JSON.stringify(DEFAULT_DINING_CAMPS));
+  if (!STATE.diningData.schedule)  STATE.diningData.schedule = JSON.parse(JSON.stringify(DEFAULT_MEAL_SCHEDULE));
+  if (!STATE.diningData.changeLog) STATE.diningData.changeLog = [];
+}
+
+/* Get all meal counts for a specific date across all camps */
+function getDayTotals(dateStr) {
+  ensureDiningState();
+  let b=0, l=0, d=0;
+  Object.entries(STATE.diningData.schedule).forEach(([campId, days]) => {
+    const rec = days[dateStr];
+    if (rec) { b += rec.breakfast||0; l += rec.lunch||0; d += rec.dinner||0; }
+  });
+  return {breakfast:b, lunch:l, dinner:d, total:b+l+d};
+}
+
+/* Get camps with meals on a date */
+function getCampsOnDate(dateStr) {
+  ensureDiningState();
+  const result = [];
+  Object.entries(STATE.diningData.schedule).forEach(([campId, days]) => {
+    const rec = days[dateStr];
+    if (rec && (rec.breakfast||rec.lunch||rec.dinner)) {
+      const campMeta = STATE.diningData.camps.find(c => c.id === campId);
+      result.push({ campId, name: campMeta?.name || campId, breakfast:rec.breakfast||0, lunch:rec.lunch||0, dinner:rec.dinner||0, notes:rec.notes||'', source:rec.source||'manual' });
+    }
+  });
+  return result.sort((a,b) => (b.breakfast+b.lunch+b.dinner) - (a.breakfast+a.lunch+a.dinner));
+}
+
+/* Meal type label */
+function mealTypeLabel(type) {
+  if (type==='full')    return '<span class="meal-type-badge mtb-full">🍽️ Full Meals</span>';
+  if (type==='lunch')   return '<span class="meal-type-badge mtb-lunch">🥗 Lunch Only</span>';
+  if (type==='catered') return '<span class="meal-type-badge mtb-catered">🎩 Catered</span>';
+  if (type==='none')    return '<span class="meal-type-badge mtb-none">— No Meals</span>';
+  if (type==='cancelled') return '<span class="meal-type-badge mtb-cancel">✕ Cancelled</span>';
+  return '';
+}
+
+/* ============================================================
+   DINING NAV & TABS
+============================================================ */
+let currentDiningTab = 'today';
+let diningCalYear = TODAY.getFullYear();
+let diningCalMonth = TODAY.getMonth();
+
+function showDiningTab(tab) {
+  currentDiningTab = tab;
+  document.querySelectorAll('.dining-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.dining-tab-panel').forEach(p => p.classList.remove('active'));
+  const tabs = ['today','forecast','camps','calendar','changelog'];
+  const idx = tabs.indexOf(tab);
+  if (idx > -1) document.querySelectorAll('.dining-tab')[idx]?.classList.add('active');
+  document.getElementById('diningtab-' + tab)?.classList.add('active');
+  if (tab==='today')     renderDiningToday();
+  if (tab==='forecast')  renderDiningForecast();
+  if (tab==='camps')     renderDiningCampsTab();
+  if (tab==='calendar')  renderDiningCalendar();
+  if (tab==='changelog') renderChangeLog();
+}
+
+/* ============================================================
+   TODAY & TOMORROW TAB
+============================================================ */
+function renderDiningToday() {
+  ensureDiningState();
+  const tomorrow = addDays(TODAY_STR, 1);
+  document.getElementById('dining-today-label').textContent    = fmtDate(TODAY_STR) + ' (' + fmtDOW(TODAY_STR) + ')';
+  document.getElementById('dining-tomorrow-label').textContent = fmtDate(tomorrow) + ' (' + fmtDOW(tomorrow) + ')';
+  renderDayStats('dining-today-stats',    TODAY_STR);
+  renderDayBreakdown('dining-today-breakdown',    TODAY_STR);
+  renderDayStats('dining-tomorrow-stats', tomorrow);
+  renderDayBreakdown('dining-tomorrow-breakdown', tomorrow);
+}
+
+function renderDayStats(containerId, dateStr) {
+  const t = getDayTotals(dateStr);
+  document.getElementById(containerId).innerHTML = `
+    <div class="meal-stat ms-b"><div class="ms-icon">🟠</div><div class="ms-num" style="color:#C2410C">${t.breakfast}</div><div class="ms-label">Breakfast</div></div>
+    <div class="meal-stat ms-l"><div class="ms-icon">🟢</div><div class="ms-num" style="color:#15803D">${t.lunch}</div><div class="ms-label">Lunch</div></div>
+    <div class="meal-stat ms-d"><div class="ms-icon">🔵</div><div class="ms-num" style="color:#1D4ED8">${t.dinner}</div><div class="ms-label">Dinner</div></div>
+    <div class="meal-stat ms-total"><div class="ms-icon">🍽️</div><div class="ms-num">${t.total}</div><div class="ms-label">Total Meals</div></div>`;
+}
+
+function renderDayBreakdown(containerId, dateStr) {
+  const camps = getCampsOnDate(dateStr);
+  const container = document.getElementById(containerId);
+  if (!camps.length) {
+    container.innerHTML = '<div class="no-results" style="padding:16px">No meals scheduled for this day.</div>';
+    return;
+  }
+  const rows = camps.map(c => `
+    <tr>
+      <td class="camp-meal-name">${c.name}</td>
+      <td>${c.breakfast ? `<span class="meal-chip meal-b">🟠 ${c.breakfast}</span>` : '<span style="color:var(--gray);font-size:11px">—</span>'}</td>
+      <td>${c.lunch    ? `<span class="meal-chip meal-l">🟢 ${c.lunch}</span>`    : '<span style="color:var(--gray);font-size:11px">—</span>'}</td>
+      <td>${c.dinner   ? `<span class="meal-chip meal-d">🔵 ${c.dinner}</span>`   : '<span style="color:var(--gray);font-size:11px">—</span>'}</td>
+      <td style="font-size:11px;color:var(--gray)">${c.notes}</td>
+      ${ADMIN_MODE ? `<td><button class="meal-edit-btn" onclick="openInlineEdit('${c.campId}','${dateStr}')">✏️ Edit</button></td>` : ''}
+    </tr>`).join('');
+
+  container.innerHTML = `
+    <div style="overflow-x:auto">
+      <table class="dining-camp-table" style="border-radius:var(--radius)">
+        <thead><tr><th>Camp</th><th>🟠 Breakfast</th><th>🟢 Lunch</th><th>🔵 Dinner</th><th>Notes</th>${ADMIN_MODE?'<th>Edit</th>':''}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+/* ============================================================
+   WEEKLY FORECAST TAB
+============================================================ */
+function renderDiningForecast() {
+  ensureDiningState();
+  // 7-day table
+  const days = Array.from({length:7}, (_,i) => addDays(TODAY_STR,i));
+  const thCols = days.map(d => {
+    const isToday = d===TODAY_STR;
+    return `<th style="${isToday?'background:#CC0000':''}"><div>${fmtDOW(d)}</div><div style="font-weight:400;opacity:.8">${fmtDateShort(d)}</div></th>`;
+  }).join('');
+
+  const totals = days.map(d => getDayTotals(d));
+  const bRow = `<tr><td>🟠 Breakfast</td>${days.map((d,i)=>`<td style="color:#C2410C;font-weight:700">${totals[i].breakfast||'—'}</td>`).join('')}</tr>`;
+  const lRow = `<tr><td>🟢 Lunch</td>${days.map((d,i)=>`<td style="color:#15803D;font-weight:700">${totals[i].lunch||'—'}</td>`).join('')}</tr>`;
+  const dRow = `<tr><td>🔵 Dinner</td>${days.map((d,i)=>`<td style="color:#1D4ED8;font-weight:700">${totals[i].dinner||'—'}</td>`).join('')}</tr>`;
+  const tRow = `<tr class="total-row"><td>🍽️ Total</td>${totals.map(t=>`<td>${t.total||'—'}</td>`).join('')}</tr>`;
+
+  document.getElementById('forecast-table').innerHTML = `<thead><tr><th>Meal</th>${thCols}</tr></thead><tbody>${bRow}${lRow}${dRow}${tRow}</tbody>`;
+
+  // All active meal dates
+  const allDates = new Set();
+  Object.values(STATE.diningData.schedule).forEach(days => Object.keys(days).forEach(d => allDates.add(d)));
+  const sortedDates = [...allDates].filter(d => d >= TODAY_STR).sort();
+  document.getElementById('all-meal-dates-count').textContent = sortedDates.length + ' upcoming days';
+
+  const breakdown = sortedDates.slice(0, 30).map(d => {
+    const camps = getCampsOnDate(d);
+    if (!camps.length) return '';
+    const t = getDayTotals(d);
+    const isToday = d===TODAY_STR;
+    const campChips = camps.map(c=>`<span style="font-size:11px;color:var(--gray)">${c.name}</span>`).join(', ');
+    return `<div style="margin-bottom:4px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:12px;flex-wrap:wrap${isToday?';border-left:4px solid var(--red)':''}">
+      <span style="font-size:13px;font-weight:700;min-width:90px;color:${isToday?'var(--red)':'var(--slate)'}">${fmtDateShort(d)} ${fmtDOW(d)}${isToday?' (TODAY)':''}</span>
+      ${t.breakfast?`<span class="meal-chip meal-b">🟠 ${t.breakfast}</span>`:''}
+      ${t.lunch?`<span class="meal-chip meal-l">🟢 ${t.lunch}</span>`:''}
+      ${t.dinner?`<span class="meal-chip meal-d">🔵 ${t.dinner}</span>`:''}
+      <span style="font-size:12px;color:var(--gray);margin-left:auto">${campChips}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('all-dates-breakdown').innerHTML = breakdown || '<div class="no-results">No upcoming meal dates.</div>';
+}
+
+/* ============================================================
+   BY CAMP TAB
+============================================================ */
+const DINING_CAMP_OPEN = {};
+
+function renderDiningCampsTab() {
+  ensureDiningState();
+  const search = (document.getElementById('dining-camp-search')?.value||'').toLowerCase();
+  const typeFilter = document.getElementById('dining-meal-type-filter')?.value||'';
+
+  let camps = STATE.diningData.camps;
+  if (search)     camps = camps.filter(c => c.name.toLowerCase().includes(search));
+  if (typeFilter) camps = camps.filter(c => c.mealType === typeFilter);
+
+  const html = camps.map(camp => {
+    const isOpen = DINING_CAMP_OPEN[camp.id] !== false;
+    const schedule = STATE.diningData.schedule[camp.id] || {};
+    const futureDates = Object.keys(schedule).filter(d => d >= TODAY_STR).sort();
+    const allDates = Object.keys(schedule).sort();
+
+    const mealRows = (isOpen ? allDates : allDates.filter(d => d >= TODAY_STR).slice(0,5)).map(d => {
+      const rec = schedule[d];
+      const isToday = d===TODAY_STR;
+      return `<tr style="${isToday?'background:#FFFEF5;':''}">
+        <td style="font-weight:${isToday?'800':'600'};color:${isToday?'var(--red)':'var(--slate)'};white-space:nowrap">${fmtDOW(d)} ${fmtDateShort(d)}${isToday?' ★':''}</td>
+        <td>${renderMealCell(camp.id, d, 'breakfast', rec.breakfast)}</td>
+        <td>${renderMealCell(camp.id, d, 'lunch', rec.lunch)}</td>
+        <td>${renderMealCell(camp.id, d, 'dinner', rec.dinner)}</td>
+        <td style="font-size:11px;color:var(--gray)">${rec.notes||''}</td>
+      </tr>`;
+    }).join('');
+
+    const totalMeals = allDates.reduce((sum, d) => { const r=schedule[d]; return sum+(r.breakfast||0)+(r.lunch||0)+(r.dinner||0); }, 0);
+
+    return `<div class="camp-meal-card">
+      <div class="camp-meal-header" onclick="toggleDiningCamp('${camp.id}')">
+        <span class="camp-meal-title">${camp.name}</span>
+        ${mealTypeLabel(camp.status==='cancelled'?'cancelled':camp.mealType)}
+        <span style="font-size:11px;opacity:.7;margin-left:8px">${camp.participants} participants · ${allDates.length} meal days · ${totalMeals.toLocaleString()} total meals</span>
+        <span style="margin-left:auto;font-size:16px;transition:transform .2s${isOpen?';transform:rotate(90deg)':''}"  >›</span>
+      </div>
+      ${isOpen ? `<div class="camp-meal-body">
+        <p style="font-size:12px;color:var(--gray);margin-bottom:12px">📋 ${camp.notes}</p>
+        ${camp.mealType!=='none'&&camp.mealType!=='catered' ? `
+        <div style="overflow-x:auto">
+          <table class="dining-camp-table">
+            <thead><tr><th>Date</th><th>🟠 Breakfast</th><th>🟢 Lunch</th><th>🔵 Dinner</th><th>Notes</th></tr></thead>
+            <tbody>${mealRows}</tbody>
+          </table>
+        </div>
+        ${ADMIN_MODE ? `<div style="margin-top:10px;display:flex;gap:8px">
+          <button class="btn btn-sm btn-outline" onclick="openAddMealDate('${camp.id}')">＋ Add Date</button>
+        </div>` : ''}
+        ` : `<div style="padding:12px;background:var(--smoke);border-radius:var(--radius);font-size:13px;color:var(--gray)">${camp.mealType==='catered'?'🎩 All meals are externally catered.':'— No meals required.'}</div>`}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('dining-camps-container').innerHTML = html || '<div class="no-results">No camps match filters.</div>';
+}
+
+function renderMealCell(campId, dateStr, mealField, value) {
+  if (!ADMIN_MODE) {
+    return value ? `<span class="meal-chip meal-${mealField[0]}">${value}</span>` : '<span style="color:var(--gray);font-size:11px">—</span>';
+  }
+  return `<div class="meal-edit-wrap">
+    <span class="meal-count-display meal-${mealField[0]}-val" id="mv-${campId}-${dateStr}-${mealField}">${value||0}</span>
+    <button class="meal-edit-btn" onclick="startMealEdit('${campId}','${dateStr}','${mealField}',${value||0})">✏️</button>
+  </div>`;
+}
+
+function toggleDiningCamp(campId) {
+  DINING_CAMP_OPEN[campId] = !(DINING_CAMP_OPEN[campId] !== false);
+  renderDiningCampsTab();
+}
+
+/* ============================================================
+   INLINE MEAL EDITING
+============================================================ */
+let pendingMealEdit = null;
+
+function startMealEdit(campId, dateStr, mealField, currentVal) {
+  pendingMealEdit = { campId, dateStr, mealField, oldVal: currentVal };
+  const displayId = `mv-${campId}-${dateStr}-${mealField}`;
+  const el = document.getElementById(displayId);
+  if (!el) return;
+
+  const inp = document.createElement('input');
+  inp.type='number'; inp.className='meal-count-input'; inp.value=currentVal;
+  inp.min='0'; inp.id='inp-'+displayId;
+  const saveBtn = document.createElement('button');
+  saveBtn.className='meal-save-btn'; saveBtn.textContent='✓';
+  saveBtn.onclick = () => promptMealReason(campId, dateStr, mealField, currentVal, parseInt(inp.value)||0);
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className='meal-cancel-btn'; cancelBtn.textContent='✕';
+  cancelBtn.onclick = () => renderDiningCampsTab();
+
+  const wrap = el.parentElement;
+  wrap.innerHTML = '';
+  wrap.appendChild(inp);
+  wrap.appendChild(saveBtn);
+  wrap.appendChild(cancelBtn);
+  inp.focus(); inp.select();
+}
+
+function openInlineEdit(campId, dateStr) {
+  // Quick edit via today tab
+  const rec = (STATE.diningData.schedule[campId]||{})[dateStr] || {};
+  const camp = STATE.diningData.camps.find(c=>c.id===campId);
+
+  document.getElementById('reason-modal-title').textContent = `Edit: ${camp?.name||campId}`;
+  document.getElementById('reason-change-summary').innerHTML = `
+    <strong>Date:</strong> ${fmtDate(dateStr)}<br>
+    <div style="display:flex;gap:16px;margin-top:8px">
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:12px"><strong>🟠 Breakfast</strong><input type="number" id="qe-b" class="meal-count-input" value="${rec.breakfast||0}" min="0" style="width:80px"></label>
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:12px"><strong>🟢 Lunch</strong><input type="number" id="qe-l" class="meal-count-input" value="${rec.lunch||0}" min="0" style="width:80px"></label>
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:12px"><strong>🔵 Dinner</strong><input type="number" id="qe-d" class="meal-count-input" value="${rec.dinner||0}" min="0" style="width:80px"></label>
+    </div>`;
+  pendingMealEdit = { campId, dateStr, bulk: true, oldRec: {...rec} };
+  document.getElementById('reason-preset').value='';
+  document.getElementById('reason-text').value='';
+  document.getElementById('err-reason').textContent='';
+  openModal('meal-reason-overlay');
+}
+
+function promptMealReason(campId, dateStr, mealField, oldVal, newVal) {
+  if (oldVal === newVal) { renderDiningCampsTab(); return; }
+  const pct = oldVal > 0 ? Math.abs((newVal-oldVal)/oldVal*100) : 100;
+  const largeChange = pct >= 10;
+  pendingMealEdit = { campId, dateStr, mealField, oldVal, newVal, pct };
+
+  document.getElementById('reason-modal-title').textContent = 'Confirm Meal Change';
+  document.getElementById('reason-change-summary').innerHTML = `
+    ${largeChange?`<div class="meal-large-change">⚠️ Large change detected: ${pct.toFixed(0)}% ${newVal>oldVal?'increase':'decrease'}</div>`:''}
+    <strong>${mealField.charAt(0).toUpperCase()+mealField.slice(1)}</strong> on ${fmtDate(dateStr)}<br>
+    <span style="color:var(--gray);font-size:22px;font-weight:800">${oldVal}</span>
+    <span style="color:var(--gray);margin:0 8px">→</span>
+    <span style="color:var(--green);font-size:22px;font-weight:800">${newVal}</span>`;
+  document.getElementById('reason-preset').value='';
+  document.getElementById('reason-text').value='';
+  document.getElementById('err-reason').textContent='';
+  openModal('meal-reason-overlay');
+}
+
+function handleReasonPreset() {
+  const val = document.getElementById('reason-preset').value;
+  if (val && val !== 'custom') document.getElementById('reason-text').value = val;
+  else if (val === 'custom') { document.getElementById('reason-text').value=''; document.getElementById('reason-text').focus(); }
+}
+
+function confirmMealSave() {
+  ensureDiningState();
+  const reason = document.getElementById('reason-text').value.trim() || document.getElementById('reason-preset').value;
+  if (!reason || reason==='custom') { document.getElementById('err-reason').textContent='Please provide a reason.'; return; }
+
+  if (pendingMealEdit?.bulk) {
+    // Bulk edit from quick-edit modal
+    const campId=pendingMealEdit.campId, dateStr=pendingMealEdit.dateStr, old=pendingMealEdit.oldRec||{};
+    const nb=parseInt(document.getElementById('qe-b')?.value)||0;
+    const nl=parseInt(document.getElementById('qe-l')?.value)||0;
+    const nd=parseInt(document.getElementById('qe-d')?.value)||0;
+    if (!STATE.diningData.schedule[campId]) STATE.diningData.schedule[campId]={};
+    const rec = STATE.diningData.schedule[campId][dateStr] || {breakfast:0,lunch:0,dinner:0,notes:'',source:'manual'};
+    ['breakfast','lunch','dinner'].forEach((f,i) => {
+      const newVal=[nb,nl,nd][i], oldVal=old[f]||0;
+      if (newVal!==oldVal) logMealChange(campId,dateStr,f,oldVal,newVal,reason);
+    });
+    STATE.diningData.schedule[campId][dateStr] = {...rec, breakfast:nb, lunch:nl, dinner:nd, source:'manual'};
+  } else if (pendingMealEdit) {
+    const {campId,dateStr,mealField,oldVal,newVal} = pendingMealEdit;
+    if (!STATE.diningData.schedule[campId]) STATE.diningData.schedule[campId]={};
+    if (!STATE.diningData.schedule[campId][dateStr]) STATE.diningData.schedule[campId][dateStr]={breakfast:0,lunch:0,dinner:0,notes:'',source:'manual'};
+    STATE.diningData.schedule[campId][dateStr][mealField] = newVal;
+    STATE.diningData.schedule[campId][dateStr].source = 'manual';
+    logMealChange(campId,dateStr,mealField,oldVal,newVal,reason);
+  }
+
+  saveState();
+  closeModal('meal-reason-overlay');
+  pendingMealEdit = null;
+  renderDining();
+  showToast('Meal counts updated', 'success');
+}
+
+function logMealChange(campId, dateStr, mealField, oldVal, newVal, reason) {
+  STATE.diningData.changeLog.unshift({
+    campId, dateStr, mealField,
+    oldVal, newVal, reason,
+    changedAt: nowISO(),
+  });
+  // Keep log to 200 entries
+  if (STATE.diningData.changeLog.length > 200) STATE.diningData.changeLog = STATE.diningData.changeLog.slice(0,200);
+}
+
+function openAddMealDate(campId) {
+  const d = prompt('Enter date to add (YYYY-MM-DD):');
+  if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+  if (!STATE.diningData.schedule[campId]) STATE.diningData.schedule[campId]={};
+  if (!STATE.diningData.schedule[campId][d]) {
+    STATE.diningData.schedule[campId][d] = {breakfast:0,lunch:0,dinner:0,notes:'',source:'manual'};
+    saveState(); renderDining(); showToast('Date added','success');
+  } else { showToast('Date already exists','info'); }
+}
+
+/* ============================================================
+   DINING CALENDAR
+============================================================ */
+function diningCalPrev() { diningCalMonth--; if(diningCalMonth<0){diningCalMonth=11;diningCalYear--;} renderDiningCalendar(); }
+function diningCalNext() { diningCalMonth++; if(diningCalMonth>11){diningCalMonth=0;diningCalYear++;} renderDiningCalendar(); }
+function diningCalToday() { diningCalYear=TODAY.getFullYear(); diningCalMonth=TODAY.getMonth(); renderDiningCalendar(); }
+
+function renderDiningCalendar() {
+  ensureDiningState();
+  document.getElementById('dining-cal-month-label').textContent = `${MONTHS[diningCalMonth]} ${diningCalYear}`;
+  const firstDay=new Date(diningCalYear,diningCalMonth,1);
+  const lastDay=new Date(diningCalYear,diningCalMonth+1,0);
+  const startDOW=firstDay.getDay();
+
+  // Collect all meal data for this month
+  const grid = document.getElementById('dining-cal-grid');
+  // Clear all but day-of-week headers
+  const headers = Array.from(grid.children).slice(0,7);
+  grid.innerHTML = '';
+  headers.forEach(h => grid.appendChild(h));
+
+  function makeCell(ds, other) {
+    const t = getDayTotals(ds);
+    const hasMeals = t.total > 0;
+    const isToday = ds===TODAY_STR;
+    const dayNum = parseInt(ds.slice(8),10);
+    const cell = document.createElement('div');
+    cell.className = `dining-cal-cell${other?' other-month':''}${isToday?' today-cell':''}${hasMeals?' has-meals':''}`;
+    cell.innerHTML = `<div class="dc-daynum">${dayNum}</div>
+      ${hasMeals ? `
+      <div class="dc-meal-row">
+        <span class="dc-b">${t.breakfast?'🟠'+t.breakfast:''}</span>
+        <span class="dc-l">${t.lunch?'🟢'+t.lunch:''}</span>
+        <span class="dc-d">${t.dinner?'🔵'+t.dinner:''}</span>
+      </div>
+      <div class="dc-total">${t.total} meals</div>` : ''}`;
+    if (hasMeals) cell.onclick = () => openDiningDayDetail(ds);
+    return cell;
+  }
+
+  for (let i=0;i<startDOW;i++) {
+    const d=new Date(diningCalYear,diningCalMonth,-startDOW+1+i);
+    grid.appendChild(makeCell(d.toISOString().slice(0,10),true));
+  }
+  for (let d=1;d<=lastDay.getDate();d++) {
+    const ds=`${diningCalYear}-${String(diningCalMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    grid.appendChild(makeCell(ds,false));
+  }
+  const total=startDOW+lastDay.getDate(), rem=total%7===0?0:7-(total%7);
+  for (let i=0;i<rem;i++) {
+    const d=new Date(diningCalYear,diningCalMonth+1,i+1);
+    grid.appendChild(makeCell(d.toISOString().slice(0,10),true));
+  }
+}
+
+function openDiningDayDetail(dateStr) {
+  const camps = getCampsOnDate(dateStr);
+  const t = getDayTotals(dateStr);
+  document.getElementById('dining-day-modal-title').textContent = `Dining — ${fmtDate(dateStr)}`;
+  document.getElementById('dining-day-modal-meta').innerHTML = `
+    <span class="meal-chip meal-b">🟠 ${t.breakfast}</span>
+    <span class="meal-chip meal-l">🟢 ${t.lunch}</span>
+    <span class="meal-chip meal-d">🔵 ${t.dinner}</span>
+    &nbsp;&nbsp;Total: <strong>${t.total}</strong>`;
+
+  const rows = camps.map(c=>`<tr>
+    <td style="font-weight:700">${c.name}</td>
+    <td>${c.breakfast?`<span class="meal-chip meal-b">${c.breakfast}</span>`:'—'}</td>
+    <td>${c.lunch?`<span class="meal-chip meal-l">${c.lunch}</span>`:'—'}</td>
+    <td>${c.dinner?`<span class="meal-chip meal-d">${c.dinner}</span>`:'—'}</td>
+    <td style="font-size:11px;color:var(--gray)">${c.notes}</td>
+  </tr>`).join('');
+
+  document.getElementById('dining-day-modal-body').innerHTML = `
+    <div style="overflow-x:auto;padding:0 24px 20px">
+      <table class="doc-table">
+        <thead><tr><th>Camp</th><th>🟠 Breakfast</th><th>🟢 Lunch</th><th>🔵 Dinner</th><th>Notes</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  openModal('dining-day-overlay');
+}
+
+/* ============================================================
+   CHANGE LOG
+============================================================ */
+function renderChangeLog() {
+  ensureDiningState();
+  const log = STATE.diningData.changeLog;
+  document.getElementById('changelog-count').textContent = log.length + ' entries';
+  if (!log.length) {
+    document.getElementById('changelog-body').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--gray)">No changes recorded yet.</td></tr>';
+    return;
+  }
+  document.getElementById('changelog-body').innerHTML = log.map(entry => {
+    const camp = STATE.diningData.camps.find(c=>c.id===entry.campId);
+    const pct = entry.oldVal > 0 ? Math.round(Math.abs((entry.newVal-entry.oldVal)/entry.oldVal*100)) : 100;
+    const dir = entry.newVal > entry.oldVal ? '↑' : '↓';
+    return `<tr>
+      <td style="font-size:11px;color:var(--gray);white-space:nowrap">${new Date(entry.changedAt).toLocaleString()}</td>
+      <td style="font-weight:700">${camp?.name||entry.campId}</td>
+      <td>${fmtDateShort(entry.dateStr)}</td>
+      <td><span class="meal-chip meal-${(entry.mealField||'')[0]||'l'}">${entry.mealField}</span></td>
+      <td><span style="color:var(--gray)">${entry.oldVal}</span> <strong style="color:${entry.newVal>entry.oldVal?'var(--green)':'var(--red)'}">${dir}${entry.newVal}</strong> <span style="font-size:11px;color:var(--gray)">(${pct}%)</span></td>
+      <td style="font-size:12px;color:var(--gray)">${entry.reason||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function clearChangeLog() {
+  ensureDiningState();
+  STATE.diningData.changeLog = [];
+  saveState();
+  renderChangeLog();
+  showToast('Change log cleared', 'info');
+}
+
+/* ============================================================
+   EXPORT
+============================================================ */
+function exportDiningReport(format) {
+  ensureDiningState();
+  if (format==='json') {
+    downloadBlob(new Blob([JSON.stringify(STATE.diningData,null,2)],{type:'application/json'}),'davidson-dining-2026.json');
+    showToast('Dining data exported as JSON','success'); return;
+  }
+  // CSV: one row per camp per date
+  const headers=['Camp','Date','Day','Breakfast','Lunch','Dinner','Total','Notes','Source'];
+  const rows=[];
+  Object.entries(STATE.diningData.schedule).forEach(([campId,days])=>{
+    const camp=STATE.diningData.camps.find(c=>c.id===campId);
+    Object.entries(days).sort(([a],[b])=>a.localeCompare(b)).forEach(([d,rec])=>{
+      const t=(rec.breakfast||0)+(rec.lunch||0)+(rec.dinner||0);
+      rows.push([`"${camp?.name||campId}"`,d,fmtDOW(d),rec.breakfast||0,rec.lunch||0,rec.dinner||0,t,`"${rec.notes||''}"`,rec.source||'imported']);
+    });
+  });
+  const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+  downloadBlob(new Blob([csv],{type:'text/csv'}),'davidson-dining-2026.csv');
+  showToast('Dining report exported as CSV','success');
+}
+
+function exportDailyDiningReport() {
+  ensureDiningState();
+  // Generate a printable daily report
+  const allDates=new Set();
+  Object.values(STATE.diningData.schedule).forEach(days=>Object.keys(days).forEach(d=>allDates.add(d)));
+  const sorted=[...allDates].filter(d=>d>=TODAY_STR).sort().slice(0,14);
+  const headers=['Date','Day','Breakfast Total','Lunch Total','Dinner Total','Total Meals','Active Camps'];
+  const rows=sorted.map(d=>{
+    const t=getDayTotals(d);
+    const nc=getCampsOnDate(d).length;
+    return [d,fmtDOW(d),t.breakfast,t.lunch,t.dinner,t.total,nc];
+  });
+  const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+  downloadBlob(new Blob([csv],{type:'text/csv'}),`davidson-daily-dining-${TODAY_STR}.csv`);
+  showToast('Daily dining report exported','success');
+}
+
+/* ============================================================
+   DINING IMPORT
+============================================================ */
+let diningImportBuffer = null;
+
+function openDiningImport() {
+  diningImportBuffer = null;
+  document.getElementById('dining-import-confirm-btn').disabled=true;
+  document.getElementById('dining-import-preview-section').style.display='none';
+  document.getElementById('dining-import-input').value='';
+  openModal('dining-import-overlay');
+}
+
+// File input handler - attached in DOMContentLoaded
+function initDiningImportListener() {
+  const input = document.getElementById('dining-import-input');
+  if (!input || input._diningListenerAttached) return;
+  input._diningListenerAttached = true;
+  input.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      parseDiningImportFile(file.name, ev.target.result);
+    };
+    reader.readAsText(file);
+  });
+}
+
+function parseDiningImportFile(filename, text) {
+  // CSV parser
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h=>h.replace(/"/g,'').trim().toLowerCase());
+  const parsed = [];
+
+  lines.slice(1).forEach(line => {
+    const vals = line.match(/(".*?"|[^,\n]+)(?=,|$)/g)||[];
+    const obj = {};
+    headers.forEach((h,i) => { obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim(); });
+    const name = obj['summer camps'] || obj['camp name'] || obj.camp || '';
+    if (!name || name.toLowerCase().includes('cancelled')) return;
+    const notes = (obj['specific requests and notes']||obj.notes||'').toLowerCase();
+    const mealType = notes.includes('no meal') ? 'none' : notes.includes('all meals catered') ? 'catered' : notes.includes('lunch only') || (notes.includes('lunch') && !notes.includes('breakfast') && !notes.includes('dinner')) ? 'lunch' : 'full';
+    const status = (obj['# of total participants/overnighters']||'').toLowerCase().includes('cancelled') ? 'cancelled' : 'active';
+    parsed.push({ name, dates: obj.dates||'', participants: obj['# of total participants/overnighters']||'', mealType, status, notes: obj['specific requests and notes']||'' });
+  });
+
+  diningImportBuffer = parsed;
+  const tbody = document.getElementById('dining-import-tbody');
+  tbody.innerHTML = parsed.map(c => `<tr class="imp-${c.status==='cancelled'?'cancelled':c.mealType==='none'?'no-meals':'matched'}">
+    <td style="font-weight:700">${c.name}</td>
+    <td>${c.dates}</td>
+    <td>${c.participants}</td>
+    <td>${mealTypeLabel(c.status==='cancelled'?'cancelled':c.mealType)}</td>
+    <td style="font-size:11px;color:var(--gray)">${(c.notes||'').slice(0,60)}${c.notes?.length>60?'…':''}</td>
+    <td><span class="urgency-pill ${c.status==='cancelled'?'urg-overdue':c.mealType==='none'?'':' urg-ok'}">${c.status==='cancelled'?'Cancelled':c.mealType==='none'?'No meals':'Parsed'}</span></td>
+  </tr>`).join('');
+
+  const total=parsed.length, withMeals=parsed.filter(c=>c.mealType!=='none'&&c.status!=='cancelled').length;
+  document.getElementById('dining-import-summary').textContent = `${total} camps found · ${withMeals} with meals · ${parsed.filter(c=>c.status==='cancelled').length} cancelled`;
+  document.getElementById('dining-import-preview-section').style.display='';
+  document.getElementById('dining-import-confirm-btn').disabled = parsed.length===0;
+}
+
+function confirmDiningImport() {
+  if (!diningImportBuffer?.length) return;
+  ensureDiningState();
+  const mode = document.querySelector('input[name="dining-import-mode"]:checked')?.value || 'merge';
+  if (mode==='replace') {
+    STATE.diningData.camps = diningImportBuffer.map((c,i) => ({
+      id: 'imported_'+(Date.now()+i), name:c.name, contact:'', participants:0,
+      mealType:c.mealType, dates:c.dates, notes:c.notes, status:c.status,
+    }));
+    STATE.diningData.schedule = {};
+  } else {
+    // Merge: add new camps not already in list
+    const existingNames = new Set(STATE.diningData.camps.map(c=>c.name.toLowerCase()));
+    diningImportBuffer.forEach((c,i) => {
+      if (!existingNames.has(c.name.toLowerCase())) {
+        STATE.diningData.camps.push({ id:'imported_'+(Date.now()+i), name:c.name, contact:'', participants:0, mealType:c.mealType, dates:c.dates, notes:c.notes, status:c.status });
+      }
+    });
+  }
+  saveState();
+  closeModal('dining-import-overlay');
+  renderDining();
+  showToast(`Imported ${diningImportBuffer.length} camps from meal sheet`, 'success');
+  diningImportBuffer = null;
+}
+
+/* ============================================================
+   DINING HOMEPAGE WIDGET (renders in overview)
+============================================================ */
+function renderDiningWidget() {
+  ensureDiningState();
+  const todayTotals = getDayTotals(TODAY_STR);
+  const tomorrowTotals = getDayTotals(addDays(TODAY_STR,1));
+
+  // Find peak day in next 7 days
+  let peakDay='', peakTotal=0;
+  for (let i=0;i<7;i++) {
+    const d=addDays(TODAY_STR,i);
+    const t=getDayTotals(d);
+    if (t.total>peakTotal){peakTotal=t.total;peakDay=d;}
+  }
+
+  const widget = document.getElementById('dining-widget');
+  if (!widget) return;
+  widget.innerHTML = `
+    <div class="section-header" style="margin-top:0"><div class="section-title">🍽️ Dining Today</div></div>
+    <div class="meal-stat-grid">
+      <div class="meal-stat ms-b"><div class="ms-icon">🟠</div><div class="ms-num" style="color:#C2410C">${todayTotals.breakfast}</div><div class="ms-label">Breakfast</div></div>
+      <div class="meal-stat ms-l"><div class="ms-icon">🟢</div><div class="ms-num" style="color:#15803D">${todayTotals.lunch}</div><div class="ms-label">Lunch</div></div>
+      <div class="meal-stat ms-d"><div class="ms-icon">🔵</div><div class="ms-num" style="color:#1D4ED8">${todayTotals.dinner}</div><div class="ms-label">Dinner</div></div>
+      <div class="meal-stat ms-total"><div class="ms-icon">🍽️</div><div class="ms-num">${todayTotals.total}</div><div class="ms-label">Total Today</div></div>
+      <div class="meal-stat ms-peak" style="cursor:pointer" onclick="showPage('dining')"><div class="ms-icon">📈</div><div class="ms-num" style="color:var(--purple)">${peakTotal}</div><div class="ms-label">Peak Day (${peakDay?fmtDateShort(peakDay):'—'})</div></div>
+    </div>`;
+}
+
+/* ============================================================
+   MAIN RENDER ENTRY POINT
+============================================================ */
+function renderDining() {
+  ensureDiningState();
+  initDiningImportListener();
+  renderDiningWidget();
+  if (currentDiningTab) showDiningTab(currentDiningTab);
+  else showDiningTab('today');
 }
 
 
