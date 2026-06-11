@@ -5,496 +5,393 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Davidson Summer Programs — Operations Dashboard 2026</title>
 <style>
-  /* =============================================
-     DESIGN TOKENS
-     Palette: Davidson red + slate + warm white
-     Type: System stack for speed; tabular figures
-     Signature: The "status ribbon" on each card
-  ============================================= */
-  :root {
-    --red:      #CC0000;
-    --red-dim:  #99000022;
-    --slate:    #1E2A3A;
-    --slate-mid:#2E3F55;
-    --smoke:    #F4F5F7;
-    --border:   #D8DCE3;
-    --white:    #FFFFFF;
+/* =============================================
+   DESIGN TOKENS
+============================================= */
+:root {
+  --red:      #CC0000;
+  --slate:    #1E2A3A;
+  --slate-mid:#2E3F55;
+  --smoke:    #F4F5F7;
+  --border:   #D8DCE3;
+  --white:    #FFFFFF;
+  --green:    #1A7A4A;
+  --green-bg: #E8F5EE;
+  --blue:     #1A4D8A;
+  --blue-bg:  #E8EFF8;
+  --gray:     #5C6470;
+  --gray-bg:  #ECEDEF;
+  --orange:   #C05A00;
+  --orange-bg:#FDF0E6;
+  --purple:   #6B21A8;
+  --purple-bg:#F3E8FF;
+  --font:     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius:   6px;
+  --shadow:   0 1px 4px rgba(0,0,0,.10), 0 0 0 1px rgba(0,0,0,.04);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.06);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--smoke); color: var(--slate); min-height: 100vh; font-size: 14px; line-height: 1.5; }
 
-    --green:    #1A7A4A;
-    --green-bg: #E8F5EE;
-    --blue:     #1A4D8A;
-    --blue-bg:  #E8EFF8;
-    --gray:     #5C6470;
-    --gray-bg:  #ECEDEF;
-    --orange:   #C05A00;
-    --orange-bg:#FDF0E6;
+/* ===== HEADER ===== */
+header {
+  background: var(--slate); color: var(--white);
+  padding: 0 24px; display: flex; align-items: center; gap: 12px;
+  height: 56px; position: sticky; top: 0; z-index: 200;
+  border-bottom: 3px solid var(--red);
+}
+.header-logo { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--red); white-space: nowrap; }
+.header-title { font-size: 15px; font-weight: 600; opacity: .9; }
+.header-date { font-size: 12px; opacity: .6; white-space: nowrap; }
+#today-indicator { background: var(--red); color: white; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.header-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.btn-admin {
+  background: var(--red); color: white; border: none; cursor: pointer;
+  font-family: var(--font); font-size: 12px; font-weight: 700;
+  padding: 6px 14px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 6px;
+  transition: background .15s;
+}
+.btn-admin:hover { background: #aa0000; }
+.btn-add {
+  background: var(--green); color: white; border: none; cursor: pointer;
+  font-family: var(--font); font-size: 12px; font-weight: 700;
+  padding: 6px 14px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 6px;
+  transition: background .15s;
+}
+.btn-add:hover { background: #156038; }
 
-    --font:     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --mono:     'SF Mono', 'Fira Code', Consolas, monospace;
-    --radius:   6px;
-    --shadow:   0 1px 4px rgba(0,0,0,.10), 0 0 0 1px rgba(0,0,0,.04);
-  }
+/* ===== NAV ===== */
+nav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; position: sticky; top: 56px; z-index: 100;
+}
+nav button {
+  border: none; background: none; cursor: pointer; font-family: var(--font);
+  font-size: 13px; font-weight: 600; color: var(--gray);
+  padding: 14px 16px 12px; border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: color .15s, border-color .15s;
+}
+nav button:hover  { color: var(--slate); }
+nav button.active { color: var(--red); border-bottom-color: var(--red); }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ===== MAIN ===== */
+main { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.page { display: none; }
+.page.active { display: block; }
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+.no-results { padding: 24px; text-align: center; color: var(--gray); font-size: 13px; }
 
-  body {
-    font-family: var(--font);
-    background: var(--smoke);
-    color: var(--slate);
-    min-height: 100vh;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+/* ===== SECTION HEADERS ===== */
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.section-title { font-size: 18px; font-weight: 700; color: var(--slate); }
+.section-count { font-size: 12px; font-weight: 600; color: var(--gray); background: var(--gray-bg); padding: 2px 8px; border-radius: 20px; }
 
-  /* ===== HEADER ===== */
-  header {
-    background: var(--slate);
-    color: var(--white);
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 3px solid var(--red);
-  }
-  .header-logo {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--red);
-    white-space: nowrap;
-  }
-  .header-title {
-    font-size: 15px;
-    font-weight: 600;
-    opacity: .9;
-  }
-  .header-date {
-    margin-left: auto;
-    font-size: 12px;
-    opacity: .6;
-    white-space: nowrap;
-  }
-  #today-indicator {
-    margin-left: 8px;
-    background: var(--red);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 20px;
-  }
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
+  margin-bottom: 20px; box-shadow: var(--shadow);
+}
+.filter-bar input, .filter-bar select {
+  font-family: var(--font); font-size: 13px; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 6px 10px; background: var(--smoke);
+  color: var(--slate); outline: none; transition: border-color .15s;
+}
+.filter-bar input:focus, .filter-bar select:focus { border-color: var(--red); background: var(--white); }
+.filter-bar input { min-width: 180px; }
+.filter-bar label { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 4px; }
+.filter-clear { font-size: 12px; font-weight: 600; color: var(--red); cursor: pointer; text-decoration: underline; border: none; background: none; font-family: var(--font); }
 
-  /* ===== NAV TABS ===== */
-  nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-  }
-  nav button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gray);
-    padding: 14px 16px 12px;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    transition: color .15s, border-color .15s;
-  }
-  nav button:hover  { color: var(--slate); }
-  nav button.active { color: var(--red); border-bottom-color: var(--red); }
+/* ===== STAT TILES ===== */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-tile { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+.stat-tile .stat-num { font-size: 28px; font-weight: 800; line-height: 1; color: var(--slate); font-variant-numeric: tabular-nums; }
+.stat-tile .stat-label { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+.stat-tile.active-tile   { border-left: 4px solid var(--green); }
+.stat-tile.upcoming-tile { border-left: 4px solid var(--blue); }
+.stat-tile.action-tile   { border-left: 4px solid var(--orange); }
+.stat-tile.complete-tile { border-left: 4px solid var(--gray); }
 
-  /* ===== MAIN LAYOUT ===== */
-  main { max-width: 1280px; margin: 0 auto; padding: 24px; }
+/* ===== CAMP CARDS ===== */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+.camp-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+  transition: box-shadow .15s; cursor: pointer;
+}
+.camp-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06); }
+.camp-ribbon { height: 4px; width: 100%; }
+.ribbon-active   { background: var(--green); }
+.ribbon-upcoming { background: var(--blue); }
+.ribbon-departed { background: var(--gray); }
+.camp-body { padding: 14px 16px 12px; flex: 1; }
+.camp-name { font-size: 15px; font-weight: 700; color: var(--slate); margin-bottom: 4px; }
+.camp-type-tag {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; padding: 2px 8px; border-radius: 20px; margin-bottom: 10px;
+}
+.tag-overnight { background: #E8EFF8; color: var(--blue); }
+.tag-day       { background: #FDF4E7; color: var(--orange); }
+.camp-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin-bottom: 10px; }
+.meta-key { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); }
+.meta-val { font-size: 13px; font-weight: 600; color: var(--slate); }
+.status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+.badge-active   { background: var(--green-bg); color: var(--green); }
+.badge-upcoming { background: var(--blue-bg);  color: var(--blue); }
+.badge-departed { background: var(--gray-bg);  color: var(--gray); }
+.badge-action   { background: var(--orange-bg);color: var(--orange); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.dot-active   { background: var(--green); }
+.dot-upcoming { background: var(--blue); }
+.dot-departed { background: var(--gray); }
+.dot-action   { background: var(--orange); animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.camp-footer {
+  border-top: 1px solid var(--border); padding: 8px 16px;
+  background: var(--smoke); font-size: 12px; color: var(--gray);
+  display: flex; align-items: center; gap: 6px;
+}
+.nights-badge { background: var(--slate); color: var(--white); font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 20px; margin-left: auto; font-variant-numeric: tabular-nums; }
+.dorm-tag { display: inline-block; background: var(--slate-mid); color: var(--white); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin: 2px 3px 2px 0; }
 
-  /* ===== SECTION TITLES ===== */
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--slate);
-  }
-  .section-count {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray);
-    background: var(--gray-bg);
-    padding: 2px 8px;
-    border-radius: 20px;
-  }
+/* Card action buttons */
+.card-actions { display: flex; gap: 6px; padding: 8px 16px; border-top: 1px solid var(--border); background: var(--smoke); }
+.card-btn {
+  flex: 1; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--white); cursor: pointer; font-family: var(--font);
+  font-size: 11px; font-weight: 700; padding: 5px 8px; color: var(--gray);
+  transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.card-btn:hover { background: var(--smoke); color: var(--slate); }
+.card-btn.edit-btn:hover  { border-color: var(--blue); color: var(--blue); }
+.card-btn.dupe-btn:hover  { border-color: var(--orange); color: var(--orange); }
+.card-btn.del-btn:hover   { border-color: var(--red); color: var(--red); }
 
-  /* ===== FILTER BAR ===== */
-  .filter-bar {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
-  }
-  .filter-bar input, .filter-bar select {
-    font-family: var(--font);
-    font-size: 13px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 6px 10px;
-    background: var(--smoke);
-    color: var(--slate);
-    outline: none;
-    transition: border-color .15s;
-  }
-  .filter-bar input:focus, .filter-bar select:focus {
-    border-color: var(--red);
-    background: var(--white);
-  }
-  .filter-bar input { min-width: 200px; }
-  .filter-bar label { font-size: 12px; font-weight: 600; color: var(--gray); }
-  .filter-clear {
-    margin-left: auto;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--red);
-    cursor: pointer;
-    text-decoration: underline;
-    border: none;
-    background: none;
-    font-family: var(--font);
-  }
+/* ===== ACTION ITEMS ===== */
+.action-list { display: flex; flex-direction: column; gap: 8px; }
+.action-item {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; box-shadow: var(--shadow);
+}
+.action-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.icon-action { background: var(--orange-bg); }
+.icon-arrive { background: var(--blue-bg); }
+.icon-depart { background: var(--gray-bg); }
+.icon-active { background: var(--green-bg); }
+.action-content .action-title { font-size: 13px; font-weight: 700; color: var(--slate); }
+.action-content .action-sub   { font-size: 12px; color: var(--gray); }
 
-  /* ===== STAT TILES ===== */
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .stat-tile {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-  }
-  .stat-tile .stat-num {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--slate);
-    font-variant-numeric: tabular-nums;
-  }
-  .stat-tile .stat-label { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
-  .stat-tile.active-tile { border-left: 4px solid var(--green); }
-  .stat-tile.upcoming-tile { border-left: 4px solid var(--blue); }
-  .stat-tile.action-tile { border-left: 4px solid var(--orange); }
-  .stat-tile.complete-tile { border-left: 4px solid var(--gray); }
+/* ===== CALENDAR ===== */
+.cal-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.cal-nav-btn { border: 1px solid var(--border); border-radius: var(--radius); background: var(--white); cursor: pointer; font-size: 18px; line-height: 1; padding: 6px 12px; color: var(--slate); transition: background .15s; font-family: var(--font); }
+.cal-nav-btn:hover { background: var(--smoke); }
+.cal-month-label { font-size: 16px; font-weight: 700; color: var(--slate); min-width: 160px; text-align: center; }
+.cal-today-btn { border: 1px solid var(--red); border-radius: var(--radius); background: var(--white); cursor: pointer; color: var(--red); font-size: 12px; font-weight: 700; padding: 6px 12px; font-family: var(--font); transition: background .15s, color .15s; }
+.cal-today-btn:hover { background: var(--red); color: var(--white); }
+.cal-grid-wrap { overflow-x: auto; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(120px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.cal-dow-header { background: var(--slate); color: var(--white); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 8px; text-align: center; }
+.cal-cell { background: var(--white); padding: 8px; min-height: 100px; position: relative; }
+.cal-cell.other-month { background: var(--smoke); }
+.cal-cell.today-cell { background: #FFFEF5; }
+.cal-cell.today-cell::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+.cal-day-num { font-size: 12px; font-weight: 700; color: var(--gray); margin-bottom: 4px; }
+.cal-cell.today-cell .cal-day-num { color: var(--red); }
+.cal-event { font-size: 10px; font-weight: 600; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block; }
+.ev-arrive   { background: var(--blue-bg);   color: var(--blue); }
+.ev-depart   { background: var(--gray-bg);   color: var(--gray); }
+.ev-active   { background: var(--green-bg);  color: var(--green); }
+.ev-day      { background: var(--orange-bg); color: var(--orange); }
+.ev-sign     { background: #FFF3E0; color: #B45309; }
+.ev-turnover { background: var(--purple-bg); color: var(--purple); }
+.cal-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--gray); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
-  /* ===== CAMP CARDS ===== */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 14px;
-  }
-  .camp-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow .15s;
-  }
-  .camp-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06); }
+/* ===== DORM TABLE ===== */
+.dorm-table-wrap { overflow-x: auto; }
+.dorm-table { border-collapse: collapse; width: 100%; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); font-size: 12px; }
+.dorm-table th { background: var(--slate); color: var(--white); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.dorm-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.dorm-table tr:last-child td { border-bottom: none; }
+.dorm-table tr:hover td { background: var(--smoke); }
+.dorm-table .dorm-name-cell { font-weight: 700; color: var(--slate); }
+.dorm-table .beds-cell { font-variant-numeric: tabular-nums; color: var(--gray); }
 
-  /* Status ribbon — the signature element */
-  .camp-ribbon {
-    height: 4px;
-    width: 100%;
-  }
-  .ribbon-active   { background: var(--green); }
-  .ribbon-upcoming { background: var(--blue); }
-  .ribbon-departed { background: var(--gray); }
-  .ribbon-action   { background: var(--orange); }
+/* ===== DAY CAMP SESSIONS ===== */
+.session-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 14px; }
+.session-header { padding: 12px 16px; background: var(--slate); color: var(--white); display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; user-select: none; }
+.session-header-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.session-name { font-size: 14px; font-weight: 700; }
+.session-toggle { font-size: 16px; transition: transform .2s; }
+.session-toggle.open { transform: rotate(90deg); }
+.session-body { padding: 14px 16px; }
+.session-timeline { display: flex; flex-direction: column; gap: 6px; }
+.session-day { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--smoke); }
+.session-day.day-active   { background: var(--green-bg); border-color: #A7D7BC; }
+.session-day.day-tomorrow { background: var(--orange-bg); border-color: #F5C98E; }
+.session-day .day-date  { font-size: 12px; font-weight: 700; min-width: 90px; font-variant-numeric: tabular-nums; }
+.session-day .day-label { font-size: 12px; color: var(--gray); flex: 1; }
+.session-day .day-action { font-size: 11px; font-weight: 700; }
+.action-sign   { color: var(--orange); }
+.action-active { color: var(--green); }
+.action-past   { color: var(--gray); }
 
-  .camp-body { padding: 14px 16px 12px; flex: 1; }
-  .camp-name { font-size: 15px; font-weight: 700; color: var(--slate); margin-bottom: 4px; }
-  .camp-type-tag {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
-    padding: 2px 8px; border-radius: 20px; margin-bottom: 10px;
-  }
-  .tag-overnight { background: #E8EFF8; color: var(--blue); }
-  .tag-day       { background: #FDF4E7; color: var(--orange); }
+/* ===== MODAL OVERLAY ===== */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--white); border-radius: 10px; box-shadow: var(--shadow-lg);
+  width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto;
+  transform: translateY(16px); transition: transform .2s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--white); z-index: 1;
+}
+.modal-title { font-size: 16px; font-weight: 800; color: var(--slate); }
+.modal-close { border: none; background: none; cursor: pointer; font-size: 20px; color: var(--gray); line-height: 1; padding: 4px; border-radius: var(--radius); transition: background .15s; }
+.modal-close:hover { background: var(--smoke); color: var(--slate); }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
 
-  .camp-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin-bottom: 10px; }
-  .meta-item { }
-  .meta-item .meta-key { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); }
-  .meta-item .meta-val { font-size: 13px; font-weight: 600; color: var(--slate); }
+/* ===== FORM ===== */
+.form-section { margin-bottom: 24px; }
+.form-section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--gray); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid.cols-1 { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.span-2 { grid-column: 1 / -1; }
+.form-label { font-size: 12px; font-weight: 700; color: var(--slate); }
+.form-label .required { color: var(--red); margin-left: 2px; }
+.form-input, .form-select, .form-textarea {
+  font-family: var(--font); font-size: 13px; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 8px 10px; background: var(--white);
+  color: var(--slate); outline: none; transition: border-color .15s, box-shadow .15s; width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(204,0,0,.08); }
+.form-input.error, .form-select.error { border-color: var(--red); }
+.form-error { font-size: 11px; color: var(--red); font-weight: 600; }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-hint { font-size: 11px; color: var(--gray); }
+.form-check { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.form-check input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--red); }
+.modified-info { font-size: 11px; color: var(--gray); font-style: italic; margin-top: 4px; }
 
-  .status-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-  }
-  .badge-active   { background: var(--green-bg); color: var(--green); }
-  .badge-upcoming { background: var(--blue-bg);  color: var(--blue); }
-  .badge-departed { background: var(--gray-bg);  color: var(--gray); }
-  .badge-action   { background: var(--orange-bg);color: var(--orange); }
+/* ===== BUTTONS ===== */
+.btn {
+  border: none; cursor: pointer; font-family: var(--font); font-size: 13px; font-weight: 700;
+  padding: 9px 18px; border-radius: var(--radius); transition: all .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary   { background: var(--red); color: white; }
+.btn-primary:hover { background: #aa0000; }
+.btn-secondary { background: var(--smoke); color: var(--slate); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+.btn-success   { background: var(--green); color: white; }
+.btn-success:hover { background: #156038; }
+.btn-danger    { background: #DC2626; color: white; }
+.btn-danger:hover  { background: #b91c1c; }
+.btn-outline   { background: transparent; color: var(--slate); border: 1px solid var(--border); }
+.btn-outline:hover { background: var(--smoke); }
+.btn-sm { padding: 5px 12px; font-size: 12px; }
 
-  .status-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-  }
-  .dot-active   { background: var(--green); }
-  .dot-upcoming { background: var(--blue); }
-  .dot-departed { background: var(--gray); }
-  .dot-action   { background: var(--orange); animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+/* ===== CONFIRM DIALOG ===== */
+.confirm-icon { text-align: center; font-size: 40px; margin-bottom: 12px; }
+.confirm-message { text-align: center; font-size: 14px; color: var(--gray); margin-bottom: 8px; }
+.confirm-camp-name { text-align: center; font-size: 16px; font-weight: 800; color: var(--slate); margin-bottom: 20px; }
 
-  .camp-footer {
-    border-top: 1px solid var(--border);
-    padding: 8px 16px;
-    background: var(--smoke);
-    font-size: 12px;
-    color: var(--gray);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .nights-badge {
-    display: inline-block;
-    background: var(--slate);
-    color: var(--white);
-    font-size: 11px; font-weight: 700;
-    padding: 1px 7px; border-radius: 20px;
-    margin-left: auto;
-    font-variant-numeric: tabular-nums;
-  }
+/* ===== TOAST NOTIFICATIONS ===== */
+#toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  background: var(--slate); color: white; padding: 12px 16px; border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 10px; min-width: 260px;
+  transform: translateX(120%); transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  border-left: 4px solid var(--gray);
+}
+.toast.show { transform: translateX(0); }
+.toast.toast-success { border-left-color: var(--green); }
+.toast.toast-error   { border-left-color: var(--red); }
+.toast.toast-info    { border-left-color: var(--blue); }
+.toast-icon { font-size: 16px; }
 
-  /* ===== DORM LIST ===== */
-  .dorm-tag {
-    display: inline-block;
-    background: var(--slate-mid);
-    color: var(--white);
-    font-size: 11px; font-weight: 700;
-    padding: 2px 7px; border-radius: 4px;
-    margin: 2px 3px 2px 0;
-    font-variant-numeric: tabular-nums;
-  }
+/* ===== IMPORT/EXPORT TOOLBAR ===== */
+.toolbar {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  margin-bottom: 16px; box-shadow: var(--shadow);
+}
+.toolbar-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); margin-right: 4px; }
+.btn-toolbar {
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--white);
+  cursor: pointer; font-family: var(--font); font-size: 12px; font-weight: 700;
+  padding: 6px 12px; color: var(--slate); transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.btn-toolbar:hover { background: var(--smoke); border-color: var(--slate); }
+.btn-toolbar.import-btn { border-color: var(--blue); color: var(--blue); }
+.btn-toolbar.import-btn:hover { background: var(--blue-bg); }
+.btn-toolbar.export-btn { border-color: var(--green); color: var(--green); }
+.btn-toolbar.export-btn:hover { background: var(--green-bg); }
+.btn-toolbar.reset-btn { border-color: var(--orange); color: var(--orange); }
+.btn-toolbar.reset-btn:hover { background: var(--orange-bg); }
 
-  /* ===== ACTION ITEMS ===== */
-  .action-list { display: flex; flex-direction: column; gap: 8px; }
-  .action-item {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    display: flex; align-items: flex-start; gap: 12px;
-    box-shadow: var(--shadow);
-  }
-  .action-icon {
-    width: 32px; height: 32px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; flex-shrink: 0;
-  }
-  .icon-action  { background: var(--orange-bg); }
-  .icon-arrive  { background: var(--blue-bg); }
-  .icon-depart  { background: var(--gray-bg); }
-  .icon-active  { background: var(--green-bg); }
-  .action-content .action-title { font-size: 13px; font-weight: 700; color: var(--slate); }
-  .action-content .action-sub   { font-size: 12px; color: var(--gray); }
-  .action-date {
-    margin-left: auto;
-    font-size: 12px; font-weight: 700;
-    color: var(--slate);
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-  }
+/* ===== IMPORT PREVIEW ===== */
+.import-preview { background: var(--smoke); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-top: 12px; max-height: 200px; overflow-y: auto; }
+.import-row { display: flex; gap: 10px; font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.import-row:last-child { border-bottom: none; }
+.import-row .imp-name { font-weight: 700; flex: 1; }
+.import-row .imp-dates { color: var(--gray); }
+.import-merge-opt { display: flex; gap: 16px; margin-top: 12px; }
 
-  /* ===== CALENDAR ===== */
-  .cal-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-  .cal-nav-btn {
-    border: 1px solid var(--border); border-radius: var(--radius);
-    background: var(--white); cursor: pointer;
-    font-size: 18px; line-height: 1; padding: 6px 12px;
-    color: var(--slate);
-    transition: background .15s;
-    font-family: var(--font);
-  }
-  .cal-nav-btn:hover { background: var(--smoke); }
-  .cal-month-label { font-size: 16px; font-weight: 700; color: var(--slate); min-width: 160px; text-align: center; }
-  .cal-today-btn {
-    border: 1px solid var(--red); border-radius: var(--radius);
-    background: var(--white); cursor: pointer; color: var(--red);
-    font-size: 12px; font-weight: 700; padding: 6px 12px;
-    font-family: var(--font);
-    transition: background .15s, color .15s;
-  }
-  .cal-today-btn:hover { background: var(--red); color: var(--white); }
+/* ===== LOADING ===== */
+.loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  .cal-grid-wrap { overflow-x: auto; }
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(120px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .cal-dow-header {
-    background: var(--slate);
-    color: var(--white);
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .06em;
-    padding: 8px;
-    text-align: center;
-  }
-  .cal-cell {
-    background: var(--white);
-    padding: 8px;
-    min-height: 100px;
-    position: relative;
-  }
-  .cal-cell.other-month { background: var(--smoke); }
-  .cal-cell.today-cell { background: #FFFEF5; }
-  .cal-cell.today-cell::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 3px; background: var(--red);
-  }
-  .cal-day-num {
-    font-size: 12px; font-weight: 700; color: var(--gray);
-    margin-bottom: 4px;
-  }
-  .cal-cell.today-cell .cal-day-num { color: var(--red); }
-  .cal-event {
-    font-size: 10px; font-weight: 600;
-    padding: 2px 5px; border-radius: 3px;
-    margin-bottom: 2px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 100%;
-    display: block;
-  }
-  .ev-arrive  { background: var(--blue-bg);  color: var(--blue); }
-  .ev-depart  { background: var(--gray-bg);  color: var(--gray); }
-  .ev-active  { background: var(--green-bg); color: var(--green); }
-  .ev-day     { background: var(--orange-bg);color: var(--orange); }
-  .ev-sign    { background: #FFF3E0; color: #B45309; }
-  .ev-turnover{ background: #F3E8FF; color: #6B21A8; }
+/* ===== ADMIN BADGE ===== */
+.admin-mode-bar { background: var(--orange-bg); border-bottom: 1px solid #F5C98E; padding: 6px 24px; font-size: 12px; font-weight: 700; color: var(--orange); display: none; align-items: center; gap: 8px; }
+.admin-mode-bar.visible { display: flex; }
 
-  .cal-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--gray); }
-  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
-
-  /* ===== DORM OCCUPANCY TABLE ===== */
-  .dorm-table-wrap { overflow-x: auto; }
-  .dorm-table {
-    border-collapse: collapse;
-    width: 100%;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    font-size: 12px;
-  }
-  .dorm-table th {
-    background: var(--slate);
-    color: var(--white);
-    padding: 10px 14px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .dorm-table td {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .dorm-table tr:last-child td { border-bottom: none; }
-  .dorm-table tr:hover td { background: var(--smoke); }
-  .dorm-table .dorm-name-cell { font-weight: 700; color: var(--slate); }
-  .dorm-table .beds-cell { font-variant-numeric: tabular-nums; color: var(--gray); }
-
-  /* ===== EMPTY STATE ===== */
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--gray);
-  }
-  .empty-state svg { width: 48px; height: 48px; margin: 0 auto 12px; opacity: .4; display: block; }
-  .empty-state p { font-size: 14px; }
-
-  /* ===== DAY CAMP SESSION BLOCKS ===== */
-  .session-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 14px;
-  }
-  .session-header {
-    padding: 12px 16px;
-    background: var(--slate);
-    color: var(--white);
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .session-header-left { display: flex; align-items: center; gap: 10px; }
-  .session-name { font-size: 14px; font-weight: 700; }
-  .session-toggle { font-size: 16px; transition: transform .2s; }
-  .session-toggle.open { transform: rotate(90deg); }
-  .session-body { padding: 14px 16px; }
-  .session-timeline { display: flex; flex-direction: column; gap: 6px; }
-  .session-day {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 12px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--smoke);
-  }
-  .session-day.day-active   { background: var(--green-bg); border-color: #A7D7BC; }
-  .session-day.day-tomorrow { background: var(--orange-bg); border-color: #F5C98E; }
-  .session-day .day-date  { font-size: 12px; font-weight: 700; min-width: 90px; font-variant-numeric: tabular-nums; }
-  .session-day .day-label { font-size: 12px; color: var(--gray); flex: 1; }
-  .session-day .day-action { font-size: 11px; font-weight: 700; }
-  .action-sign { color: var(--orange); }
-  .action-active { color: var(--green); }
-  .action-past { color: var(--gray); }
-
-  /* ===== UTILITY ===== */
-  .page { display: none; }
-  .page.active { display: block; }
-  .divider { height: 1px; background: var(--border); margin: 24px 0; }
-  .no-results { padding: 24px; text-align: center; color: var(--gray); font-size: 13px; }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  header { padding: 0 12px; gap: 8px; }
+  .header-title { display: none; }
+  main { padding: 12px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.span-2 { grid-column: auto; }
+  .card-grid { grid-template-columns: 1fr; }
+  .modal { max-height: 100vh; border-radius: 0; }
+  .modal-overlay { padding: 0; align-items: flex-end; }
+}
 </style>
 </head>
 <body>
+
+<!-- Admin mode bar -->
+<div class="admin-mode-bar" id="admin-mode-bar">
+  🔧 Admin Mode Active — You can add, edit, and delete camps
+  <button class="btn btn-sm btn-secondary" onclick="toggleAdminMode()" style="margin-left:auto">Exit Admin Mode</button>
+</div>
 
 <header>
   <div class="header-logo">Davidson College</div>
   <div class="header-title">Summer Programs — Operations Dashboard 2026</div>
   <div class="header-date" id="header-date-display"></div>
   <div id="today-indicator">TODAY</div>
+  <div class="header-actions">
+    <button class="btn-admin" onclick="toggleAdminMode()" id="admin-toggle-btn">🔧 Admin</button>
+    <button class="btn-add admin-only" onclick="openAddCamp()" style="display:none">＋ Add Camp</button>
+  </div>
 </header>
 
 <nav>
@@ -506,351 +403,419 @@
   <button onclick="showPage('actions')">⚡ Action Items</button>
 </nav>
 
+<div id="toast-container"></div>
+
 <main>
 
-  <!-- ===================== OVERVIEW ===================== -->
-  <div class="page active" id="page-overview">
-    <div class="section-header" style="margin-bottom:20px">
-      <div class="section-title">Operations Overview</div>
-    </div>
-    <div class="stat-grid" id="stat-grid"></div>
-
-    <div class="divider"></div>
-
-    <div class="section-header">
-      <div class="section-title">Currently On Campus</div>
-      <div class="section-count" id="active-count-badge">—</div>
-    </div>
-    <div class="card-grid" id="active-cards-container"></div>
-
-    <div class="divider"></div>
-
-    <div class="section-header">
-      <div class="section-title">Upcoming This Week</div>
-      <div class="section-count" id="upcoming-count-badge">—</div>
-    </div>
-    <div class="card-grid" id="upcoming-cards-container"></div>
-
-    <div class="divider"></div>
-
-    <div class="section-header">
-      <div class="section-title">Today's Action Items</div>
-      <div class="section-count" id="today-actions-badge">—</div>
-    </div>
-    <div class="action-list" id="today-actions-container"></div>
+<!-- ===================== OVERVIEW ===================== -->
+<div class="page active" id="page-overview">
+  <div class="section-header" style="margin-bottom:20px">
+    <div class="section-title">Operations Overview</div>
   </div>
-
-  <!-- ===================== OVERNIGHT ===================== -->
-  <div class="page" id="page-overnight">
-    <div class="section-header">
-      <div class="section-title">Overnight Camps & Housing</div>
-      <div class="section-count" id="overnight-count-badge">—</div>
-    </div>
-
-    <div class="filter-bar">
-      <div>
-        <label>Search</label><br>
-        <input type="text" id="on-search" placeholder="Camp name or dorm…" oninput="renderOvernight()">
-      </div>
-      <div>
-        <label>Status</label><br>
-        <select id="on-status" onchange="renderOvernight()">
-          <option value="">All statuses</option>
-          <option value="active">Active (On Campus)</option>
-          <option value="upcoming">Upcoming</option>
-          <option value="departed">Departed</option>
-        </select>
-      </div>
-      <div>
-        <label>Dorm</label><br>
-        <select id="on-dorm" onchange="renderOvernight()">
-          <option value="">All dorms</option>
-        </select>
-      </div>
-      <div>
-        <label>Sort by</label><br>
-        <select id="on-sort" onchange="renderOvernight()">
-          <option value="arrival">Arrival date</option>
-          <option value="departure">Departure date</option>
-          <option value="name">Camp name</option>
-          <option value="nights">Nights (desc)</option>
-        </select>
-      </div>
-      <button class="filter-clear" onclick="clearOvernightFilters()">Clear filters</button>
-    </div>
-
-    <div class="card-grid" id="overnight-container"></div>
+  <div class="stat-grid" id="stat-grid"></div>
+  <div class="divider"></div>
+  <div class="section-header">
+    <div class="section-title">Currently On Campus</div>
+    <div class="section-count" id="active-count-badge">—</div>
   </div>
-
-  <!-- ===================== DAY CAMPS ===================== -->
-  <div class="page" id="page-daycamps">
-    <div class="section-header">
-      <div class="section-title">Day Camp Schedule & Reminders</div>
-    </div>
-
-    <div class="filter-bar">
-      <div>
-        <label>Search</label><br>
-        <input type="text" id="dc-search" placeholder="Camp name…" oninput="renderDayCamps()">
-      </div>
-      <div>
-        <label>Sport / Program</label><br>
-        <select id="dc-sport" onchange="renderDayCamps()">
-          <option value="">All programs</option>
-        </select>
-      </div>
-      <button class="filter-clear" onclick="clearDayCampFilters()">Clear filters</button>
-    </div>
-
-    <div id="daycamps-container"></div>
+  <div class="card-grid" id="active-cards-container"></div>
+  <div class="divider"></div>
+  <div class="section-header">
+    <div class="section-title">Upcoming This Week</div>
+    <div class="section-count" id="upcoming-count-badge">—</div>
   </div>
-
-  <!-- ===================== CALENDAR ===================== -->
-  <div class="page" id="page-calendar">
-    <div class="section-header">
-      <div class="section-title">Master Calendar</div>
-    </div>
-
-    <div class="cal-controls">
-      <button class="cal-nav-btn" onclick="calPrev()">‹</button>
-      <div class="cal-month-label" id="cal-month-label"></div>
-      <button class="cal-nav-btn" onclick="calNext()">›</button>
-      <button class="cal-today-btn" onclick="calToday()">Today</button>
-    </div>
-
-    <div class="cal-grid-wrap">
-      <div class="cal-grid" id="cal-grid"></div>
-    </div>
-
-    <div class="cal-legend">
-      <div class="legend-item"><div class="legend-dot ev-arrive"></div> Arrival</div>
-      <div class="legend-item"><div class="legend-dot ev-depart"></div> Departure</div>
-      <div class="legend-item"><div class="legend-dot ev-active"></div> On Campus</div>
-      <div class="legend-item"><div class="legend-dot ev-day"></div> Day Camp Active</div>
-      <div class="legend-item"><div class="legend-dot ev-sign"></div> Put Up Signs</div>
-      <div class="legend-item"><div class="legend-dot ev-turnover"></div> Dorm Turnover</div>
-    </div>
+  <div class="card-grid" id="upcoming-cards-container"></div>
+  <div class="divider"></div>
+  <div class="section-header">
+    <div class="section-title">Today's Action Items</div>
+    <div class="section-count" id="today-actions-badge">—</div>
   </div>
+  <div class="action-list" id="today-actions-container"></div>
+</div>
 
-  <!-- ===================== DORMS ===================== -->
-  <div class="page" id="page-dorms">
-    <div class="section-header">
-      <div class="section-title">Dorm Occupancy Status</div>
+<!-- ===================== OVERNIGHT ===================== -->
+<div class="page" id="page-overnight">
+  <div class="section-header">
+    <div class="section-title">Overnight Camps & Housing</div>
+    <div class="section-count" id="overnight-count-badge">—</div>
+    <button class="btn btn-success btn-sm admin-only" onclick="openAddCamp('overnight')" style="display:none;margin-left:auto">＋ Add Overnight Camp</button>
+  </div>
+  <div class="toolbar">
+    <span class="toolbar-label">Data:</span>
+    <button class="btn-toolbar import-btn" onclick="openImport()">📥 Import Excel</button>
+    <button class="btn-toolbar export-btn" onclick="exportData('xlsx')">📤 Export Excel</button>
+    <button class="btn-toolbar export-btn" onclick="exportData('csv')">📄 Export CSV</button>
+    <button class="btn-toolbar export-btn" onclick="exportData('json')">🗂 Export JSON</button>
+    <button class="btn-toolbar reset-btn" onclick="confirmReset()">↺ Reset to Defaults</button>
+  </div>
+  <div class="filter-bar">
+    <div><label>Search</label><input type="text" id="on-search" placeholder="Camp name or dorm…" oninput="renderOvernight()"></div>
+    <div>
+      <label>Status</label>
+      <select id="on-status" onchange="renderOvernight()">
+        <option value="">All statuses</option>
+        <option value="active">Active (On Campus)</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="departed">Departed</option>
+      </select>
     </div>
-    <div class="dorm-table-wrap">
-      <table class="dorm-table" id="dorm-table">
-        <thead>
-          <tr>
-            <th>Building</th>
-            <th>Total Beds</th>
-            <th>Current Occupant(s)</th>
-            <th>Status</th>
-            <th>Next Event</th>
-          </tr>
-        </thead>
-        <tbody id="dorm-table-body"></tbody>
-      </table>
+    <div>
+      <label>Dorm</label>
+      <select id="on-dorm" onchange="renderOvernight()"><option value="">All dorms</option></select>
+    </div>
+    <div>
+      <label>Sort by</label>
+      <select id="on-sort" onchange="renderOvernight()">
+        <option value="arrival">Arrival date</option>
+        <option value="departure">Departure date</option>
+        <option value="name">Camp name</option>
+        <option value="nights">Nights (desc)</option>
+      </select>
+    </div>
+    <button class="filter-clear" onclick="clearOvernightFilters()">Clear filters</button>
+  </div>
+  <div class="card-grid" id="overnight-container"></div>
+</div>
+
+<!-- ===================== DAY CAMPS ===================== -->
+<div class="page" id="page-daycamps">
+  <div class="section-header">
+    <div class="section-title">Day Camp Schedule & Reminders</div>
+    <button class="btn btn-success btn-sm admin-only" onclick="openAddCamp('day')" style="display:none;margin-left:auto">＋ Add Day Camp</button>
+  </div>
+  <div class="filter-bar">
+    <div><label>Search</label><input type="text" id="dc-search" placeholder="Camp name…" oninput="renderDayCamps()"></div>
+    <div>
+      <label>Program</label>
+      <select id="dc-sport" onchange="renderDayCamps()"><option value="">All programs</option></select>
+    </div>
+    <button class="filter-clear" onclick="clearDayCampFilters()">Clear filters</button>
+  </div>
+  <div id="daycamps-container"></div>
+</div>
+
+<!-- ===================== CALENDAR ===================== -->
+<div class="page" id="page-calendar">
+  <div class="section-header"><div class="section-title">Master Calendar</div></div>
+  <div class="cal-controls">
+    <button class="cal-nav-btn" onclick="calPrev()">‹</button>
+    <div class="cal-month-label" id="cal-month-label"></div>
+    <button class="cal-nav-btn" onclick="calNext()">›</button>
+    <button class="cal-today-btn" onclick="calToday()">Today</button>
+  </div>
+  <div class="cal-grid-wrap"><div class="cal-grid" id="cal-grid"></div></div>
+  <div class="cal-legend">
+    <div class="legend-item"><div class="legend-dot ev-arrive"></div> Arrival</div>
+    <div class="legend-item"><div class="legend-dot ev-depart"></div> Departure</div>
+    <div class="legend-item"><div class="legend-dot ev-active"></div> On Campus</div>
+    <div class="legend-item"><div class="legend-dot ev-day"></div> Day Camp Active</div>
+    <div class="legend-item"><div class="legend-dot ev-sign"></div> Put Up Signs</div>
+    <div class="legend-item"><div class="legend-dot ev-turnover"></div> Dorm Turnover</div>
+  </div>
+</div>
+
+<!-- ===================== DORMS ===================== -->
+<div class="page" id="page-dorms">
+  <div class="section-header"><div class="section-title">Dorm Occupancy Status</div></div>
+  <div class="dorm-table-wrap">
+    <table class="dorm-table">
+      <thead><tr><th>Building</th><th>Total Beds</th><th>Current Occupant(s)</th><th>Status</th><th>Next Event</th></tr></thead>
+      <tbody id="dorm-table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== ACTIONS ===================== -->
+<div class="page" id="page-actions">
+  <div class="section-header"><div class="section-title">Action Items</div></div>
+  <div class="filter-bar">
+    <div>
+      <label>Date range</label>
+      <select id="act-range" onchange="renderActions()">
+        <option value="today">Today</option>
+        <option value="week">Next 7 days</option>
+        <option value="month">Next 30 days</option>
+        <option value="all">All upcoming</option>
+      </select>
+    </div>
+    <div>
+      <label>Type</label>
+      <select id="act-type" onchange="renderActions()">
+        <option value="">All types</option>
+        <option value="sign">Sign setup</option>
+        <option value="arrive">Arrivals</option>
+        <option value="depart">Departures</option>
+        <option value="turnover">Turnovers</option>
+      </select>
     </div>
   </div>
-
-  <!-- ===================== ACTIONS ===================== -->
-  <div class="page" id="page-actions">
-    <div class="section-header">
-      <div class="section-title">Action Items</div>
-    </div>
-    <div class="filter-bar">
-      <div>
-        <label>Date range</label><br>
-        <select id="act-range" onchange="renderActions()">
-          <option value="today">Today</option>
-          <option value="week">Next 7 days</option>
-          <option value="month">Next 30 days</option>
-          <option value="all">All upcoming</option>
-        </select>
-      </div>
-      <div>
-        <label>Type</label><br>
-        <select id="act-type" onchange="renderActions()">
-          <option value="">All types</option>
-          <option value="sign">Sign setup</option>
-          <option value="arrive">Arrivals</option>
-          <option value="depart">Departures</option>
-          <option value="turnover">Turnovers</option>
-        </select>
-      </div>
-    </div>
-    <div class="action-list" id="actions-container"></div>
-  </div>
+  <div class="action-list" id="actions-container"></div>
+</div>
 
 </main>
 
+<!-- ===================== CAMP FORM MODAL ===================== -->
+<div class="modal-overlay" id="camp-modal-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" id="camp-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Add Camp</div>
+      <button class="modal-close" onclick="closeModal('camp-modal-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-modified-info" class="modified-info" style="margin-bottom:16px;display:none"></div>
+
+      <!-- Basic Info -->
+      <div class="form-section">
+        <div class="form-section-title">Basic Information</div>
+        <div class="form-grid">
+          <div class="form-group span-2">
+            <label class="form-label">Camp Name <span class="required">*</span></label>
+            <input type="text" class="form-input" id="f-name" placeholder="e.g. Men's Basketball Camp">
+            <div class="form-error" id="err-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Camp Type <span class="required">*</span></label>
+            <select class="form-select" id="f-type" onchange="toggleCampTypeFields()">
+              <option value="">Select type…</option>
+              <option value="overnight">🏠 Overnight</option>
+              <option value="day">☀️ Day Camp</option>
+            </select>
+            <div class="form-error" id="err-type"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Organization</label>
+            <input type="text" class="form-input" id="f-org" placeholder="e.g. Davidson Athletics">
+          </div>
+          <div class="form-group span-2">
+            <label class="form-label">Notes / Special Instructions</label>
+            <textarea class="form-textarea" id="f-notes" placeholder="Any special requirements, notes for staff…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dates -->
+      <div class="form-section">
+        <div class="form-section-title">Dates</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Start / Arrival Date <span class="required">*</span></label>
+            <input type="date" class="form-input" id="f-checkin">
+            <div class="form-error" id="err-checkin"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">End / Departure Date</label>
+            <input type="date" class="form-input" id="f-checkout">
+            <div class="form-hint">Leave blank for open-ended stays</div>
+          </div>
+        </div>
+        <!-- Day camp multi-dates -->
+        <div id="day-dates-section" style="display:none;margin-top:14px">
+          <label class="form-label">Active Camp Days</label>
+          <div class="form-hint" style="margin-bottom:8px">Enter each day the camp is active (one per line, YYYY-MM-DD format)</div>
+          <textarea class="form-textarea" id="f-daycamp-dates" placeholder="2026-06-15&#10;2026-06-16&#10;2026-06-17" style="min-height:100px;font-family:monospace"></textarea>
+          <div class="form-error" id="err-daycamp-dates"></div>
+        </div>
+      </div>
+
+      <!-- Housing (overnight only) -->
+      <div id="housing-section" class="form-section" style="display:none">
+        <div class="form-section-title">Housing</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Dorm Assignment(s)</label>
+            <input type="text" class="form-input" id="f-dorms" placeholder="e.g. Cannon, Watts, Little">
+            <div class="form-hint">Separate multiple dorms with commas</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Estimated Attendance</label>
+            <input type="number" class="form-input" id="f-attendance" placeholder="e.g. 120" min="0">
+          </div>
+          <div class="form-group span-2">
+            <label class="form-label">Room / Unit Notes</label>
+            <input type="text" class="form-input" id="f-rooms" placeholder="e.g. 2 apartments needed, base level only">
+          </div>
+        </div>
+      </div>
+
+      <!-- Operations -->
+      <div class="form-section">
+        <div class="form-section-title">Operations</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Sign Setup Required</label>
+            <label class="form-check" style="margin-top:8px">
+              <input type="checkbox" id="f-signs" checked>
+              Generate sign setup reminders
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Setup Notes</label>
+            <input type="text" class="form-input" id="f-setup" placeholder="e.g. Use main entrance signs">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('camp-modal-overlay')">Cancel</button>
+      <button class="btn btn-primary" id="modal-save-btn" onclick="saveCamp()">💾 Save Camp</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DIALOG ===================== -->
+<div class="modal-overlay" id="confirm-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title" id="confirm-title">Confirm Action</div>
+      <button class="modal-close" onclick="closeModal('confirm-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="confirm-icon" id="confirm-icon">⚠️</div>
+      <div class="confirm-message" id="confirm-message"></div>
+      <div class="confirm-camp-name" id="confirm-camp-name"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('confirm-overlay')">Cancel</button>
+      <button class="btn btn-danger" id="confirm-action-btn">Confirm Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IMPORT MODAL ===================== -->
+<div class="modal-overlay" id="import-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div class="modal-title">📥 Import Data</div>
+      <button class="modal-close" onclick="closeModal('import-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-section">
+        <div class="form-section-title">Upload File</div>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:14px">Upload a CSV or JSON file. For Excel files, export as CSV first from Excel (File → Save As → CSV).</p>
+        <input type="file" id="import-file-input" accept=".csv,.json" style="font-size:13px;width:100%">
+      </div>
+      <div id="import-preview-section" style="display:none">
+        <div class="form-section-title" style="margin-top:16px">Preview</div>
+        <div class="import-preview" id="import-preview"></div>
+        <div class="import-merge-opt">
+          <label class="form-check"><input type="radio" name="import-mode" value="replace" checked> Replace all data</label>
+          <label class="form-check"><input type="radio" name="import-mode" value="merge"> Merge with existing</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('import-overlay')">Cancel</button>
+      <button class="btn btn-primary" id="import-confirm-btn" onclick="confirmImport()" disabled>Import Data</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
-   DATA — Hardcoded from spreadsheet extraction
-   All dates stored as ISO strings (YYYY-MM-DD)
-   ============================================================ */
-
-// Overnight / residential camps from "List 2026" sheet
-const OVERNIGHT_CAMPS = [
-  { id: 1,  name: "Late Stays / Moving",          dorms: ["Richardson"], checkin: "2026-05-15", checkout: "2026-06-01", notes: "Late stays for sports teams; Belk/Chidsey renovation prep." },
-  { id: 2,  name: "Summer Students",              dorms: ["Belk"],       checkin: "2026-05-23", checkout: null,         notes: "RLO — staying all summer until Fall assignments." },
-  { id: 3,  name: "Summer Students (overflow)",   dorms: ["Sentelle"],   checkin: "2026-05-23", checkout: null,         notes: "Overflow from Belk; only some stay until Fall." },
-  { id: 4,  name: "Alumni Reunion",               dorms: ["Duke","Hart","Ryburn"], checkin: "2026-06-05", checkout: "2026-06-07", notes: "Duke stays through Sun; Hart & Ryburn 1-night only." },
-  { id: 5,  name: "Volleyball Staff",             dorms: ["Richardson"], checkin: "2026-06-11", checkout: "2026-06-13", notes: "" },
-  { id: 6,  name: "Men's Basketball",             dorms: ["Cannon","Watts","Little"], checkin: "2026-06-12", checkout: "2026-06-21", notes: "Staff arriving early and staying late." },
-  { id: 7,  name: "Theatre",                      dorms: ["Ryburn"],     checkin: "2026-06-14", checkout: "2026-06-21", notes: "1 apartment needed." },
-  { id: 8,  name: "Davidson Summer Promise Prog.", dorms: ["Richardson"], checkin: "2026-06-16", checkout: "2026-06-28", notes: "Staff arriving early." },
-  { id: 9,  name: "Tennis",                       dorms: ["Duke"],       checkin: "2026-06-21", checkout: "2026-06-26", notes: "Tennis staff also in Duke dorm." },
-  { id: 10, name: "Men's Basketball (Ryburn)",    dorms: ["Ryburn"],     checkin: "2026-06-22", checkout: "2026-06-26", notes: "2 apartments needed." },
-  { id: 11, name: "Service Odyssey",              dorms: ["Ryburn"],     checkin: "2026-06-23", checkout: "2026-06-29", notes: "5 apartments needed (maybe 4 on base level)." },
-  { id: 12, name: "Women's Basketball",           dorms: ["Cannon","Watts","Little"], checkin: "2026-06-28", checkout: "2026-07-01", notes: "" },
+   DEFAULT DATA — Original spreadsheet data
+   Used when localStorage is empty or on reset
+============================================================ */
+const DEFAULT_OVERNIGHT = [
+  { id:1,  name:"Late Stays / Moving",          type:"overnight", dorms:["Richardson"],            checkin:"2026-05-15", checkout:"2026-06-01", notes:"Late stays for sports teams; Belk/Chidsey renovation prep.", org:"", attendance:"", rooms:"", signs:true, setup:"", modified:null },
+  { id:2,  name:"Summer Students",              type:"overnight", dorms:["Belk"],                  checkin:"2026-05-23", checkout:null,          notes:"RLO — staying all summer until Fall assignments.", org:"RLO", attendance:"", rooms:"", signs:false, setup:"", modified:null },
+  { id:3,  name:"Summer Students (overflow)",   type:"overnight", dorms:["Sentelle"],              checkin:"2026-05-23", checkout:null,          notes:"Overflow from Belk; only some stay until Fall.", org:"RLO", attendance:"", rooms:"", signs:false, setup:"", modified:null },
+  { id:4,  name:"Alumni Reunion",               type:"overnight", dorms:["Duke","Hart","Ryburn"],  checkin:"2026-06-05", checkout:"2026-06-07", notes:"Duke stays through Sun; Hart & Ryburn 1-night only.", org:"Alumni Affairs", attendance:"", rooms:"", signs:true, setup:"", modified:null },
+  { id:5,  name:"Volleyball Staff",             type:"overnight", dorms:["Richardson"],            checkin:"2026-06-11", checkout:"2026-06-13", notes:"", org:"Athletics", attendance:"", rooms:"", signs:false, setup:"", modified:null },
+  { id:6,  name:"Men's Basketball",             type:"overnight", dorms:["Cannon","Watts","Little"],checkin:"2026-06-12", checkout:"2026-06-21", notes:"Staff arriving early and staying late.", org:"Athletics", attendance:"", rooms:"", signs:true, setup:"", modified:null },
+  { id:7,  name:"Theatre",                      type:"overnight", dorms:["Ryburn"],                checkin:"2026-06-14", checkout:"2026-06-21", notes:"1 apartment needed.", org:"Theatre Dept", attendance:"", rooms:"1 Apt needed", signs:true, setup:"", modified:null },
+  { id:8,  name:"Davidson Summer Promise Prog.",type:"overnight", dorms:["Richardson"],            checkin:"2026-06-16", checkout:"2026-06-28", notes:"Staff arriving early.", org:"Academic Affairs", attendance:"", rooms:"", signs:true, setup:"", modified:null },
+  { id:9,  name:"Tennis",                       type:"overnight", dorms:["Duke"],                  checkin:"2026-06-21", checkout:"2026-06-26", notes:"Tennis staff also in Duke dorm.", org:"Athletics", attendance:"", rooms:"", signs:true, setup:"", modified:null },
+  { id:10, name:"Men's Basketball (Ryburn)",    type:"overnight", dorms:["Ryburn"],                checkin:"2026-06-22", checkout:"2026-06-26", notes:"2 apartments needed.", org:"Athletics", attendance:"", rooms:"2 Apts needed", signs:false, setup:"", modified:null },
+  { id:11, name:"Service Odyssey",              type:"overnight", dorms:["Ryburn"],                checkin:"2026-06-23", checkout:"2026-06-29", notes:"5 apartments needed (maybe 4 on base level).", org:"", attendance:"", rooms:"5 Apts needed", signs:true, setup:"", modified:null },
+  { id:12, name:"Women's Basketball",           type:"overnight", dorms:["Cannon","Watts","Little"],checkin:"2026-06-28", checkout:"2026-07-01", notes:"", org:"Athletics", attendance:"", rooms:"", signs:true, setup:"", modified:null },
 ];
 
-// All dorm buildings with total beds
-const DORMS = [
-  { name: "Duke",          beds: 94 },
-  { name: "Sentelle",      beds: 104 },
-  { name: "Cannon",        beds: 93 },
-  { name: "Watts",         beds: 79 },
-  { name: "Little",        beds: 73 },
-  { name: "Belk",          beds: 332 },
-  { name: "Richardson",    beds: 130 },
-  { name: "Tomlinson",     beds: 128 },
-  { name: "Chidsey North", beds: 119 },
-  { name: "Chidsey South", beds: 131 },
-  { name: "Irwin",         beds: 29 },
-  { name: "Akers",         beds: 29 },
-  { name: "Knox",          beds: 29 },
-  { name: "Daley",         beds: 48 },
-  { name: "Hart",          beds: 44 },
-  { name: "Jamieson",      beds: 48 },
-  { name: "Ryburn",        beds: 56 },
-  { name: "Flowe",         beds: 48 },
-  { name: "Armfield",      beds: 90 },
-  { name: "Davis",         beds: 60 },
-];
-
-// Day camps — each has a name and array of active date strings
-// Grouped into "sessions" (contiguous runs) for display
-const DAY_CAMP_DAYS = {
-  "Men's Soccer": [
-    "2026-06-11","2026-06-12",
-    "2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19",
-    "2026-07-02","2026-07-03",
-    "2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24","2026-07-25","2026-07-26",
-  ],
-  "Women's Soccer": [
-    "2026-06-14",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25",
-    "2026-07-06",
-    "2026-07-19",
-  ],
-  "Football": [
-    "2026-06-13",
-    "2026-06-15","2026-06-16","2026-06-17","2026-06-18",
-    "2026-07-18",
-  ],
-  "Men's Basketball (Day)": [
-    "2026-06-14","2026-06-15","2026-06-16","2026-06-17","2026-06-18",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25",
-    "2026-07-27","2026-07-28","2026-07-29","2026-07-30",
-  ],
-  "Volleyball": [
-    "2026-06-12","2026-06-13",
-    "2026-07-06","2026-07-07","2026-07-08","2026-07-09","2026-07-10",
-    "2026-07-11","2026-07-12","2026-07-13","2026-07-14","2026-07-15","2026-07-16",
-  ],
-  "Field Hockey": [
-    "2026-06-12","2026-06-13",
-    "2026-07-09","2026-07-10",
-    "2026-08-01","2026-08-02",
-  ],
-  "Women's Basketball (Day)": [
-    "2026-06-12","2026-06-13",
-    "2026-06-15","2026-06-16","2026-06-17",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25",
-    "2026-06-28","2026-06-29","2026-06-30","2026-07-01",
-  ],
-  "Tennis (Day)": [
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26",
-  ],
-  "Baseball": [
-    "2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19",
-    "2026-07-06","2026-07-07","2026-07-08","2026-07-09",
-    "2026-07-13","2026-07-14","2026-07-15","2026-07-16",
-    "2026-08-08","2026-08-10",
-  ],
-  "LAX": [
-    "2026-07-13",
-  ],
-  "Cheer": [
-    "2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24",
-  ],
-  "iDTech (Warner Hall)": [
-    "2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26",
-  ],
-  "Lavner Education (Watson)": [
-    "2026-06-01","2026-06-02",
-    "2026-06-08","2026-06-09","2026-06-10",
-    "2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26",
-  ],
-  "NC Youth Orchestra": [
-    "2026-06-04","2026-06-05","2026-06-06","2026-06-07",
-    "2026-07-27","2026-07-28","2026-07-29",
-  ],
-  "Davidson Summer Promise (Day)": [
-    "2026-06-17","2026-06-18","2026-06-19","2026-06-20","2026-06-21",
-    "2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26","2026-06-27","2026-06-28",
-  ],
+const DEFAULT_DAYCAMPS = {
+  "Men's Soccer":           ["2026-06-11","2026-06-12","2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19","2026-07-02","2026-07-03","2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24","2026-07-25","2026-07-26"],
+  "Women's Soccer":         ["2026-06-14","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-07-06","2026-07-19"],
+  "Football":               ["2026-06-13","2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-07-18"],
+  "Men's Basketball (Day)": ["2026-06-14","2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-07-27","2026-07-28","2026-07-29","2026-07-30"],
+  "Volleyball":             ["2026-06-12","2026-06-13","2026-07-06","2026-07-07","2026-07-08","2026-07-09","2026-07-10","2026-07-11","2026-07-12","2026-07-13","2026-07-14","2026-07-15","2026-07-16"],
+  "Field Hockey":           ["2026-06-12","2026-06-13","2026-07-09","2026-07-10","2026-08-01","2026-08-02"],
+  "Women's Basketball (Day)":["2026-06-12","2026-06-13","2026-06-15","2026-06-16","2026-06-17","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-28","2026-06-29","2026-06-30","2026-07-01"],
+  "Tennis (Day)":           ["2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26"],
+  "Baseball":               ["2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19","2026-07-06","2026-07-07","2026-07-08","2026-07-09","2026-07-13","2026-07-14","2026-07-15","2026-07-16","2026-08-08","2026-08-10"],
+  "LAX":                    ["2026-07-13"],
+  "Cheer":                  ["2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24"],
+  "iDTech (Warner Hall)":   ["2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26"],
+  "Lavner Education (Watson)":["2026-06-01","2026-06-02","2026-06-08","2026-06-09","2026-06-10","2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26"],
+  "NC Youth Orchestra":     ["2026-06-04","2026-06-05","2026-06-06","2026-06-07","2026-07-27","2026-07-28","2026-07-29"],
+  "Davidson Summer Promise (Day)":["2026-06-17","2026-06-18","2026-06-19","2026-06-20","2026-06-21","2026-06-22","2026-06-23","2026-06-24","2026-06-25","2026-06-26","2026-06-27","2026-06-28"],
 };
+
+const DORMS = [
+  {name:"Duke",beds:94},{name:"Sentelle",beds:104},{name:"Cannon",beds:93},{name:"Watts",beds:79},
+  {name:"Little",beds:73},{name:"Belk",beds:332},{name:"Richardson",beds:130},{name:"Tomlinson",beds:128},
+  {name:"Chidsey North",beds:119},{name:"Chidsey South",beds:131},{name:"Irwin",beds:29},{name:"Akers",beds:29},
+  {name:"Knox",beds:29},{name:"Daley",beds:48},{name:"Hart",beds:44},{name:"Jamieson",beds:48},
+  {name:"Ryburn",beds:56},{name:"Flowe",beds:48},{name:"Armfield",beds:90},{name:"Davis",beds:60},
+];
+
+/* ============================================================
+   STATE — Live data (loaded from localStorage or defaults)
+============================================================ */
+let STATE = { overnightCamps: [], dayCamps: {}, nextId: 100 };
+let ADMIN_MODE = false;
+let editingCampId = null;
+let importBuffer = null;
+
+/* ============================================================
+   PERSISTENCE — localStorage
+============================================================ */
+const LS_KEY = 'davidson_summer_2026';
+
+function saveState() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(STATE)); } catch(e) { showToast('Storage error: ' + e.message, 'error'); }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      STATE = JSON.parse(raw);
+    } else {
+      // First load — use defaults
+      STATE.overnightCamps = JSON.parse(JSON.stringify(DEFAULT_OVERNIGHT));
+      STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
+      STATE.nextId         = 100;
+      saveState();
+    }
+  } catch(e) {
+    STATE.overnightCamps = JSON.parse(JSON.stringify(DEFAULT_OVERNIGHT));
+    STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
+    STATE.nextId         = 100;
+  }
+}
+
+function resetToDefaults() {
+  STATE.overnightCamps = JSON.parse(JSON.stringify(DEFAULT_OVERNIGHT));
+  STATE.dayCamps       = JSON.parse(JSON.stringify(DEFAULT_DAYCAMPS));
+  STATE.nextId         = 100;
+  saveState();
+  refreshAll();
+  showToast('Data reset to original spreadsheet defaults', 'info');
+}
 
 /* ============================================================
    UTILITIES
-   ============================================================ */
+============================================================ */
+const TODAY_STR = new Date().toISOString().slice(0,10);
+const TODAY     = new Date(TODAY_STR + 'T00:00:00');
 
-// Today's date as YYYY-MM-DD string
-const TODAY_STR = new Date().toISOString().slice(0, 10);
-const TODAY = new Date(TODAY_STR + 'T00:00:00');
+function parseDate(s) { if (!s) return null; return new Date(s + 'T00:00:00'); }
+function fmtDate(s) { if (!s) return '—'; return parseDate(s).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+function fmtDateShort(s) { if (!s) return '—'; return parseDate(s).toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function fmtDOW(s) { if (!s) return ''; return parseDate(s).toLocaleDateString('en-US',{weekday:'short'}); }
+function nightCount(ci,co) { if (!ci||!co) return null; return Math.round((parseDate(co)-parseDate(ci))/86400000); }
+function addDays(s,n) { return new Date(parseDate(s).getTime()+n*86400000).toISOString().slice(0,10); }
+function genId() { return ++STATE.nextId; }
+function nowISO() { return new Date().toISOString(); }
 
-// Parse ISO date string to midnight local Date object
-function parseDate(s) {
-  if (!s) return null;
-  return new Date(s + 'T00:00:00');
-}
-
-// Format date for display
-function fmtDate(s) {
-  if (!s) return '—';
-  const d = parseDate(s);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-function fmtDateShort(s) {
-  if (!s) return '—';
-  const d = parseDate(s);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-function fmtDOW(s) {
-  if (!s) return '';
-  const d = parseDate(s);
-  return d.toLocaleDateString('en-US', { weekday: 'short' });
-}
-
-// Night count between two ISO strings
-function nightCount(ci, co) {
-  if (!ci || !co) return null;
-  const a = parseDate(ci), b = parseDate(co);
-  return Math.round((b - a) / 86400000);
-}
-
-// Add N days to ISO string
-function addDays(s, n) {
-  const d = new Date(parseDate(s).getTime() + n * 86400000);
-  return d.toISOString().slice(0, 10);
-}
-
-// Compute status of an overnight camp relative to today
 function campStatus(camp) {
   const ci = parseDate(camp.checkin);
   const co = camp.checkout ? parseDate(camp.checkout) : null;
@@ -858,606 +823,658 @@ function campStatus(camp) {
   if (TODAY >= ci && (!co || TODAY <= co)) return 'active';
   return 'upcoming';
 }
-
-// Status config helper
-function statusConfig(status) {
-  if (status === 'active')   return { label: 'On Campus',  cls: 'badge-active',   ribbon: 'ribbon-active',   dot: 'dot-active'   };
-  if (status === 'upcoming') return { label: 'Upcoming',   cls: 'badge-upcoming', ribbon: 'ribbon-upcoming', dot: 'dot-upcoming' };
-  if (status === 'departed') return { label: 'Departed',   cls: 'badge-departed', ribbon: 'ribbon-departed', dot: 'dot-departed' };
-  return { label: status, cls: '', ribbon: '', dot: '' };
+function statusConfig(s) {
+  if (s==='active')   return {label:'On Campus', cls:'badge-active',   ribbon:'ribbon-active',   dot:'dot-active'};
+  if (s==='upcoming') return {label:'Upcoming',  cls:'badge-upcoming', ribbon:'ribbon-upcoming', dot:'dot-upcoming'};
+  return                      {label:'Departed',  cls:'badge-departed', ribbon:'ribbon-departed', dot:'dot-departed'};
 }
 
-/* ============================================================
-   GROUP DAY CAMP DAYS INTO SESSIONS
-   A "session" is a consecutive or near-consecutive run.
-   ============================================================ */
 function groupSessions(days) {
-  if (!days || !days.length) return [];
-  const sorted = [...days].sort();
-  const sessions = [];
-  let session = [sorted[0]];
-  for (let i = 1; i < sorted.length; i++) {
-    const prev = parseDate(sorted[i - 1]);
-    const curr = parseDate(sorted[i]);
-    const gap = Math.round((curr - prev) / 86400000);
-    if (gap <= 3) {
-      session.push(sorted[i]);
-    } else {
-      sessions.push({ start: session[0], end: session[session.length - 1], days: session });
-      session = [sorted[i]];
-    }
+  if (!days||!days.length) return [];
+  const sorted=[...days].sort(); const sessions=[]; let session=[sorted[0]];
+  for (let i=1;i<sorted.length;i++) {
+    const gap=Math.round((parseDate(sorted[i])-parseDate(sorted[i-1]))/86400000);
+    if (gap<=3) session.push(sorted[i]);
+    else { sessions.push({start:session[0],end:session[session.length-1],days:session}); session=[sorted[i]]; }
   }
-  sessions.push({ start: session[0], end: session[session.length - 1], days: session });
+  sessions.push({start:session[0],end:session[session.length-1],days:session});
   return sessions;
 }
 
 /* ============================================================
-   BUILD ALL CALENDAR EVENTS
-   Returns array of { date, type, label, color }
-   ============================================================ */
-function buildCalendarEvents() {
-  const events = {}; // date -> array of events
-  function addEv(date, ev) {
-    if (!events[date]) events[date] = [];
-    events[date].push(ev);
-  }
+   ADMIN MODE
+============================================================ */
+function toggleAdminMode() {
+  ADMIN_MODE = !ADMIN_MODE;
+  document.getElementById('admin-mode-bar').classList.toggle('visible', ADMIN_MODE);
+  document.getElementById('admin-toggle-btn').textContent = ADMIN_MODE ? '🔒 Exit Admin' : '🔧 Admin';
+  document.querySelectorAll('.admin-only').forEach(el => el.style.display = ADMIN_MODE ? '' : 'none');
+  refreshAll();
+  showToast(ADMIN_MODE ? 'Admin mode enabled — you can now edit camps' : 'Admin mode disabled', ADMIN_MODE ? 'info' : 'info');
+}
 
-  // Overnight camps
-  OVERNIGHT_CAMPS.forEach(camp => {
-    const ci = camp.checkin, co = camp.checkout;
-    const dormStr = camp.dorms.join(', ');
-    addEv(ci, { type: 'arrive', label: `↓ ${camp.name} arrives (${dormStr})` });
-    if (co) addEv(co, { type: 'depart', label: `↑ ${camp.name} departs (${dormStr})` });
-    // Fill in between
-    if (co) {
-      let cur = addDays(ci, 1);
-      while (cur < co) {
-        addEv(cur, { type: 'active', label: `${camp.name}` });
-        cur = addDays(cur, 1);
+/* ============================================================
+   CRUD OPERATIONS
+============================================================ */
+
+// ---- OPEN ADD / EDIT FORM ----
+function openAddCamp(preType) {
+  editingCampId = null;
+  document.getElementById('modal-title').textContent = 'Add Camp';
+  document.getElementById('modal-save-btn').textContent = '💾 Save Camp';
+  document.getElementById('modal-modified-info').style.display = 'none';
+  clearForm();
+  if (preType) { document.getElementById('f-type').value = preType; toggleCampTypeFields(); }
+  openModal('camp-modal-overlay');
+}
+
+function openEditCamp(campId) {
+  if (!ADMIN_MODE) return;
+  // Check overnight camps
+  let camp = STATE.overnightCamps.find(c => c.id === campId);
+  let isDaycamp = false;
+  let daycampName = null;
+
+  if (!camp) {
+    // Check day camps
+    for (const [name, days] of Object.entries(STATE.dayCamps)) {
+      if ('dc_' + name === String(campId)) {
+        isDaycamp = true; daycampName = name;
+        camp = { id: campId, name, type: 'day', dorms: [], checkin: days[0], checkout: days[days.length-1], notes:'', org:'', attendance:'', rooms:'', signs:true, setup:'', modified:null, _days: days };
+        break;
       }
     }
-    // Dorm turnover
-    if (co) addEv(co, { type: 'turnover', label: `🔄 Dorm turnover: ${dormStr}` });
+  }
+  if (!camp) return;
+
+  editingCampId = campId;
+  document.getElementById('modal-title').textContent = 'Edit Camp';
+  document.getElementById('modal-save-btn').textContent = '💾 Update Camp';
+
+  // Populate form
+  document.getElementById('f-name').value    = camp.name || '';
+  document.getElementById('f-type').value    = camp.type || '';
+  document.getElementById('f-org').value     = camp.org  || '';
+  document.getElementById('f-notes').value   = camp.notes|| '';
+  document.getElementById('f-checkin').value = camp.checkin || '';
+  document.getElementById('f-checkout').value= camp.checkout||'';
+  document.getElementById('f-dorms').value   = (camp.dorms||[]).join(', ');
+  document.getElementById('f-attendance').value = camp.attendance||'';
+  document.getElementById('f-rooms').value   = camp.rooms||'';
+  document.getElementById('f-signs').checked = camp.signs !== false;
+  document.getElementById('f-setup').value   = camp.setup||'';
+
+  if (isDaycamp && camp._days) {
+    document.getElementById('f-daycamp-dates').value = camp._days.join('\n');
+  }
+
+  if (camp.modified) {
+    const info = document.getElementById('modal-modified-info');
+    info.style.display = 'block';
+    info.textContent = 'Last modified: ' + new Date(camp.modified).toLocaleString();
+  } else {
+    document.getElementById('modal-modified-info').style.display = 'none';
+  }
+
+  toggleCampTypeFields();
+  openModal('camp-modal-overlay');
+}
+
+function saveCamp() {
+  if (!validateForm()) return;
+
+  const name     = document.getElementById('f-name').value.trim();
+  const type     = document.getElementById('f-type').value;
+  const org      = document.getElementById('f-org').value.trim();
+  const notes    = document.getElementById('f-notes').value.trim();
+  const checkin  = document.getElementById('f-checkin').value;
+  const checkout = document.getElementById('f-checkout').value || null;
+  const dormsRaw = document.getElementById('f-dorms').value;
+  const dorms    = dormsRaw.split(',').map(d=>d.trim()).filter(Boolean);
+  const attendance = document.getElementById('f-attendance').value;
+  const rooms    = document.getElementById('f-rooms').value.trim();
+  const signs    = document.getElementById('f-signs').checked;
+  const setup    = document.getElementById('f-setup').value.trim();
+
+  if (type === 'day') {
+    // Day camp
+    const datesRaw = document.getElementById('f-daycamp-dates').value;
+    const days = datesRaw.split('\n').map(d=>d.trim()).filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d));
+    const oldName = editingCampId ? editingCampId.replace('dc_','') : null;
+    if (oldName && oldName !== name) delete STATE.dayCamps[oldName];
+    STATE.dayCamps[name] = days;
+    saveState();
+    closeModal('camp-modal-overlay');
+    refreshAll();
+    showToast(editingCampId ? `"${name}" updated` : `"${name}" added`, 'success');
+    return;
+  }
+
+  // Overnight
+  if (editingCampId) {
+    const idx = STATE.overnightCamps.findIndex(c => c.id === editingCampId);
+    if (idx > -1) {
+      STATE.overnightCamps[idx] = { ...STATE.overnightCamps[idx], name, type, org, notes, checkin, checkout, dorms, attendance, rooms, signs, setup, modified: nowISO() };
+    }
+    showToast(`"${name}" updated`, 'success');
+  } else {
+    STATE.overnightCamps.push({ id: genId(), name, type, org, notes, checkin, checkout, dorms, attendance, rooms, signs, setup, modified: nowISO() });
+    showToast(`"${name}" added to dashboard`, 'success');
+  }
+
+  saveState();
+  closeModal('camp-modal-overlay');
+  refreshAll();
+}
+
+function duplicateCamp(campId) {
+  const camp = STATE.overnightCamps.find(c => c.id === campId);
+  if (!camp) return;
+  const copy = { ...camp, id: genId(), name: camp.name + ' (Copy)', modified: nowISO() };
+  STATE.overnightCamps.push(copy);
+  saveState();
+  refreshAll();
+  showToast(`"${copy.name}" created`, 'success');
+}
+
+function deleteCamp(campId, campName) {
+  document.getElementById('confirm-title').textContent = 'Delete Camp';
+  document.getElementById('confirm-icon').textContent = '🗑️';
+  document.getElementById('confirm-message').textContent = 'Are you sure you want to permanently delete:';
+  document.getElementById('confirm-camp-name').textContent = `"${campName}"`;
+  const btn = document.getElementById('confirm-action-btn');
+  btn.textContent = 'Delete Camp';
+  btn.onclick = () => {
+    STATE.overnightCamps = STATE.overnightCamps.filter(c => c.id !== campId);
+    saveState();
+    closeModal('confirm-overlay');
+    refreshAll();
+    showToast(`"${campName}" deleted`, 'error');
+  };
+  openModal('confirm-overlay');
+}
+
+function deleteDayCamp(name) {
+  document.getElementById('confirm-title').textContent = 'Delete Day Camp';
+  document.getElementById('confirm-icon').textContent = '🗑️';
+  document.getElementById('confirm-message').textContent = 'Are you sure you want to permanently delete:';
+  document.getElementById('confirm-camp-name').textContent = `"${name}"`;
+  const btn = document.getElementById('confirm-action-btn');
+  btn.textContent = 'Delete Day Camp';
+  btn.onclick = () => {
+    delete STATE.dayCamps[name];
+    saveState();
+    closeModal('confirm-overlay');
+    refreshAll();
+    showToast(`"${name}" deleted`, 'error');
+  };
+  openModal('confirm-overlay');
+}
+
+function confirmReset() {
+  document.getElementById('confirm-title').textContent = 'Reset to Defaults';
+  document.getElementById('confirm-icon').textContent = '↺';
+  document.getElementById('confirm-message').textContent = 'This will discard all changes and restore original spreadsheet data.';
+  document.getElementById('confirm-camp-name').textContent = 'All custom changes will be lost.';
+  const btn = document.getElementById('confirm-action-btn');
+  btn.textContent = 'Reset Data';
+  btn.className = 'btn btn-danger';
+  btn.onclick = () => { closeModal('confirm-overlay'); resetToDefaults(); };
+  openModal('confirm-overlay');
+}
+
+/* ============================================================
+   FORM HELPERS
+============================================================ */
+function clearForm() {
+  ['f-name','f-org','f-notes','f-checkin','f-checkout','f-dorms','f-attendance','f-rooms','f-setup','f-daycamp-dates'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('f-type').value = '';
+  document.getElementById('f-signs').checked = true;
+  ['err-name','err-type','err-checkin','err-daycamp-dates'].forEach(id => { document.getElementById(id).textContent = ''; });
+  toggleCampTypeFields();
+}
+
+function toggleCampTypeFields() {
+  const type = document.getElementById('f-type').value;
+  document.getElementById('housing-section').style.display  = type === 'overnight' ? '' : 'none';
+  document.getElementById('day-dates-section').style.display = type === 'day' ? '' : 'none';
+}
+
+function validateForm() {
+  let valid = true;
+  const name = document.getElementById('f-name').value.trim();
+  const type = document.getElementById('f-type').value;
+  const checkin = document.getElementById('f-checkin').value;
+
+  document.getElementById('err-name').textContent    = '';
+  document.getElementById('err-type').textContent    = '';
+  document.getElementById('err-checkin').textContent = '';
+
+  if (!name)    { document.getElementById('err-name').textContent = 'Camp name is required.'; valid=false; }
+  if (!type)    { document.getElementById('err-type').textContent = 'Please select a camp type.'; valid=false; }
+  if (!checkin) { document.getElementById('err-checkin').textContent = 'Start/arrival date is required.'; valid=false; }
+
+  if (type === 'day') {
+    const datesRaw = document.getElementById('f-daycamp-dates').value;
+    const days = datesRaw.split('\n').map(d=>d.trim()).filter(Boolean);
+    const valid_dates = days.filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d));
+    if (valid_dates.length === 0) {
+      document.getElementById('err-daycamp-dates').textContent = 'Enter at least one valid date (YYYY-MM-DD).';
+      valid = false;
+    }
+  }
+  return valid;
+}
+
+/* ============================================================
+   MODAL HELPERS
+============================================================ */
+function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function handleModalBackdrop(e) { if (e.target.classList.contains('modal-overlay')) closeModal(e.target.id); }
+
+/* ============================================================
+   TOAST NOTIFICATIONS
+============================================================ */
+function showToast(message, type='info') {
+  const icons = {success:'✅', error:'🗑️', info:'ℹ️'};
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `<span class="toast-icon">${icons[type]||'ℹ️'}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  requestAnimationFrame(() => { requestAnimationFrame(() => toast.classList.add('show')); });
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(()=>toast.remove(), 400); }, 3200);
+}
+
+/* ============================================================
+   EXPORT
+============================================================ */
+function exportData(format) {
+  if (format === 'json') {
+    const blob = new Blob([JSON.stringify({overnightCamps:STATE.overnightCamps, dayCamps:STATE.dayCamps}, null, 2)], {type:'application/json'});
+    downloadBlob(blob, 'davidson-summer-2026.json');
+    showToast('Exported as JSON', 'success');
+  } else if (format === 'csv') {
+    const headers = ['Name','Type','Organization','Check-In','Check-Out','Dorms','Attendance','Notes'];
+    const rows = STATE.overnightCamps.map(c => [
+      `"${c.name}"`, c.type, `"${c.org||''}"`, c.checkin, c.checkout||'', `"${(c.dorms||[]).join(', ')}"`, c.attendance||'', `"${(c.notes||'').replace(/"/g,'""')}"`
+    ]);
+    // Add day camps
+    Object.entries(STATE.dayCamps).forEach(([name, days]) => {
+      rows.push([`"${name}"`, 'day', '', days[0]||'', days[days.length-1]||'', '', '', `"${days.length} days"`]);
+    });
+    const csv = [headers.join(','), ...rows.map(r=>r.join(','))].join('\n');
+    downloadBlob(new Blob([csv],{type:'text/csv'}), 'davidson-summer-2026.csv');
+    showToast('Exported as CSV', 'success');
+  } else if (format === 'xlsx') {
+    // For GitHub Pages, generate CSV and instruct user to open in Excel
+    exportData('csv');
+    showToast('Tip: Open the CSV in Excel and Save As .xlsx to get Excel format', 'info');
+  }
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ============================================================
+   IMPORT
+============================================================ */
+function openImport() { openModal('import-overlay'); document.getElementById('import-confirm-btn').disabled=true; document.getElementById('import-preview-section').style.display='none'; importBuffer=null; document.getElementById('import-file-input').value=''; }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('import-file-input').addEventListener('change', function(e) {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const text = ev.target.result;
+      let parsed = [];
+      if (file.name.endsWith('.json')) {
+        try {
+          const data = JSON.parse(text);
+          if (data.overnightCamps) parsed = data.overnightCamps;
+          else if (Array.isArray(data)) parsed = data;
+        } catch(e) { showToast('Invalid JSON file', 'error'); return; }
+      } else {
+        // CSV parsing
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h=>h.replace(/"/g,'').trim().toLowerCase());
+        parsed = lines.slice(1).map(line => {
+          const vals = line.match(/(".*?"|[^,]+)(?=,|$)/g)||[];
+          const obj = {};
+          headers.forEach((h,i) => { obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim(); });
+          return { id: genId(), name: obj.name||obj['camp name']||'Unnamed', type: obj.type||'overnight', org: obj.organization||obj.org||'', checkin: obj['check-in']||obj.checkin||obj['start date']||'', checkout: obj['check-out']||obj.checkout||obj['end date']||null, dorms: (obj.dorms||'').split(',').map(d=>d.trim()).filter(Boolean), notes: obj.notes||'', signs: true, modified: nowISO() };
+        }).filter(c => c.name && c.checkin);
+      }
+      importBuffer = parsed;
+      // Show preview
+      const preview = document.getElementById('import-preview');
+      preview.innerHTML = parsed.length ? parsed.map(c=>`<div class="import-row"><span class="imp-name">${c.name}</span><span class="imp-dates">${c.type} · ${c.checkin}${c.checkout?' → '+c.checkout:''}</span></div>`).join('') : '<div style="color:var(--gray);font-size:12px">No valid records found</div>';
+      document.getElementById('import-preview-section').style.display='';
+      document.getElementById('import-confirm-btn').disabled = parsed.length === 0;
+    };
+    reader.readAsText(file);
+  });
+});
+
+function confirmImport() {
+  if (!importBuffer || !importBuffer.length) return;
+  const mode = document.querySelector('input[name="import-mode"]:checked').value;
+  if (mode === 'replace') {
+    STATE.overnightCamps = importBuffer;
+  } else {
+    const existingNames = new Set(STATE.overnightCamps.map(c=>c.name));
+    importBuffer.forEach(c => { if (!existingNames.has(c.name)) STATE.overnightCamps.push(c); });
+  }
+  saveState();
+  closeModal('import-overlay');
+  refreshAll();
+  showToast(`Imported ${importBuffer.length} camps`, 'success');
+  importBuffer = null;
+}
+
+/* ============================================================
+   BUILD CALENDAR EVENTS (from live STATE)
+============================================================ */
+function buildCalendarEvents() {
+  const events = {};
+  function addEv(date, ev) { if (!events[date]) events[date]=[]; events[date].push(ev); }
+
+  STATE.overnightCamps.forEach(camp => {
+    const ci=camp.checkin, co=camp.checkout;
+    const ds=(camp.dorms||[]).join(', ')||'TBD';
+    addEv(ci, {type:'arrive',  label:`↓ ${camp.name} (${ds})`});
+    if (co) { addEv(co, {type:'depart',   label:`↑ ${camp.name} (${ds})`}); addEv(co, {type:'turnover', label:`🔄 Turnover: ${ds}`}); }
+    if (co) { let cur=addDays(ci,1); while(cur<co){addEv(cur,{type:'active',label:camp.name}); cur=addDays(cur,1);} }
   });
 
-  // Day camps
-  Object.entries(DAY_CAMP_DAYS).forEach(([name, days]) => {
-    days.forEach(d => {
-      addEv(d, { type: 'day', label: `☀️ ${name}` });
-    });
-    // Sign reminders: day before first day of each session
-    groupSessions(days).forEach(sess => {
-      const signDay = addDays(sess.days[0], -1);
-      addEv(signDay, { type: 'sign', label: `📋 Put up signs: ${name}` });
-    });
+  Object.entries(STATE.dayCamps).forEach(([name, days]) => {
+    days.forEach(d => addEv(d, {type:'day', label:`☀️ ${name}`}));
+    groupSessions(days).forEach(sess => addEv(addDays(sess.days[0],-1), {type:'sign', label:`📋 Signs: ${name}`}));
   });
-
   return events;
 }
 
-const CALENDAR_EVENTS = buildCalendarEvents();
-
 /* ============================================================
    BUILD ACTION ITEMS
-   ============================================================ */
+============================================================ */
 function buildActionItems() {
-  const items = [];
-
-  // Arrivals
-  OVERNIGHT_CAMPS.forEach(camp => {
-    items.push({
-      date: camp.checkin,
-      type: 'arrive',
-      icon: '✈️',
-      iconCls: 'icon-arrive',
-      title: `${camp.name} arrives`,
-      sub: `Dorm(s): ${camp.dorms.join(', ')}` + (camp.notes ? ` — ${camp.notes}` : ''),
-    });
+  const items=[];
+  STATE.overnightCamps.forEach(camp => {
+    items.push({date:camp.checkin, type:'arrive', icon:'✈️', iconCls:'icon-arrive', title:`${camp.name} arrives`, sub:`Dorm(s): ${(camp.dorms||[]).join(', ')||'TBD'}${camp.notes?' — '+camp.notes:''}`});
+    if (camp.checkout) items.push({date:camp.checkout, type:'depart', icon:'🏁', iconCls:'icon-depart', title:`${camp.name} departs`, sub:`Dorm(s): ${(camp.dorms||[]).join(', ')||'TBD'} — schedule room turnover`});
   });
-
-  // Departures
-  OVERNIGHT_CAMPS.forEach(camp => {
-    if (camp.checkout) {
-      items.push({
-        date: camp.checkout,
-        type: 'depart',
-        icon: '🏁',
-        iconCls: 'icon-depart',
-        title: `${camp.name} departs`,
-        sub: `Dorm(s): ${camp.dorms.join(', ')} — schedule room turnover`,
-      });
-    }
-  });
-
-  // Day camp sign reminders
-  Object.entries(DAY_CAMP_DAYS).forEach(([name, days]) => {
+  Object.entries(STATE.dayCamps).forEach(([name,days]) => {
     groupSessions(days).forEach(sess => {
-      const signDay = addDays(sess.days[0], -1);
-      items.push({
-        date: signDay,
-        type: 'sign',
-        icon: '📋',
-        iconCls: 'icon-action',
-        title: `Put up signs: ${name}`,
-        sub: `Camp starts tomorrow — ${fmtDate(sess.days[0])}`,
-      });
-      // First day of session
-      items.push({
-        date: sess.days[0],
-        type: 'sign',
-        icon: '✅',
-        iconCls: 'icon-active',
-        title: `Signs active: ${name}`,
-        sub: `Day camp runs today${sess.days.length > 1 ? ` through ${fmtDate(sess.end)}` : ''}`,
-      });
+      const sd=addDays(sess.days[0],-1);
+      items.push({date:sd, type:'sign', icon:'📋', iconCls:'icon-action', title:`Put up signs: ${name}`, sub:`Camp starts tomorrow — ${fmtDate(sess.days[0])}`});
+      items.push({date:sess.days[0], type:'sign', icon:'✅', iconCls:'icon-active', title:`Signs active: ${name}`, sub:`Day camp runs today${sess.days.length>1?` through ${fmtDate(sess.end)}`:''}`});
     });
   });
-
-  return items.sort((a, b) => a.date.localeCompare(b.date));
-}
-
-const ALL_ACTIONS = buildActionItems();
-
-/* ============================================================
-   PAGE NAVIGATION
-   ============================================================ */
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  const idx = ['overview','overnight','daycamps','calendar','dorms','actions'].indexOf(id);
-  document.querySelectorAll('nav button')[idx].classList.add('active');
+  return items.sort((a,b)=>a.date.localeCompare(b.date));
 }
 
 /* ============================================================
-   RENDER HELPERS — CAMP CARD
-   ============================================================ */
-function renderCampCard(camp, type = 'overnight') {
-  const status   = campStatus(camp);
-  const sc       = statusConfig(status);
-  const nights   = nightCount(camp.checkin, camp.checkout);
-  const dormTags = camp.dorms.map(d => `<span class="dorm-tag">${d}</span>`).join('');
-  const notesHtml = camp.notes ? `<div style="font-size:11px;color:var(--gray);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">${camp.notes}</div>` : '';
-
-  return `
-    <div class="camp-card">
-      <div class="camp-ribbon ${sc.ribbon}"></div>
-      <div class="camp-body">
-        <div class="camp-name">${camp.name}</div>
-        <div class="camp-type-tag tag-overnight">🏠 Overnight</div>
-        <div class="camp-meta">
-          <div class="meta-item">
-            <div class="meta-key">Arrives</div>
-            <div class="meta-val">${fmtDOW(camp.checkin)} ${fmtDateShort(camp.checkin)}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-key">Departs</div>
-            <div class="meta-val">${camp.checkout ? fmtDOW(camp.checkout) + ' ' + fmtDateShort(camp.checkout) : 'Ongoing'}</div>
-          </div>
-          <div class="meta-item" style="grid-column:1/-1">
-            <div class="meta-key">Dorm(s)</div>
-            <div class="meta-val">${dormTags}</div>
-          </div>
-        </div>
-        <div class="status-badge ${sc.cls}">
-          <div class="status-dot ${sc.dot}"></div>
-          ${sc.label}
-        </div>
-        ${notesHtml}
+   RENDER CAMP CARD
+============================================================ */
+function renderCampCard(camp) {
+  const status=campStatus(camp), sc=statusConfig(status);
+  const nights=nightCount(camp.checkin,camp.checkout);
+  const dormTags=(camp.dorms||[]).map(d=>`<span class="dorm-tag">${d}</span>`).join('');
+  const notesHtml=camp.notes?`<div style="font-size:11px;color:var(--gray);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">${camp.notes}</div>`:'';
+  const adminBtns=ADMIN_MODE?`<div class="card-actions"><button class="card-btn edit-btn" onclick="openEditCamp(${camp.id})">✏️ Edit</button><button class="card-btn dupe-btn" onclick="duplicateCamp(${camp.id})">⧉ Duplicate</button><button class="card-btn del-btn" onclick="deleteCamp(${camp.id},'${camp.name.replace(/'/g,"\\'")}')">🗑 Delete</button></div>`:'';
+  return `<div class="camp-card" onclick="ADMIN_MODE&&openEditCamp(${camp.id})">
+    <div class="camp-ribbon ${sc.ribbon}"></div>
+    <div class="camp-body">
+      <div class="camp-name">${camp.name}</div>
+      <div class="camp-type-tag tag-overnight">🏠 Overnight</div>
+      <div class="camp-meta">
+        <div class="meta-item"><div class="meta-key">Arrives</div><div class="meta-val">${fmtDOW(camp.checkin)} ${fmtDateShort(camp.checkin)}</div></div>
+        <div class="meta-item"><div class="meta-key">Departs</div><div class="meta-val">${camp.checkout?fmtDOW(camp.checkout)+' '+fmtDateShort(camp.checkout):'Ongoing'}</div></div>
+        <div class="meta-item" style="grid-column:1/-1"><div class="meta-key">Dorm(s)</div><div class="meta-val">${dormTags||'<span style="color:var(--gray)">TBD</span>'}</div></div>
       </div>
-      <div class="camp-footer">
-        <span>${camp.dorms.length} building${camp.dorms.length > 1 ? 's' : ''}</span>
-        ${nights !== null ? `<span class="nights-badge">${nights} night${nights !== 1 ? 's' : ''}</span>` : '<span class="nights-badge">Ongoing</span>'}
-      </div>
-    </div>`;
-}
-
-/* ============================================================
-   OVERVIEW PAGE
-   ============================================================ */
-function renderOverview() {
-  const today = TODAY_STR;
-  const weekEnd = addDays(today, 7);
-
-  const active   = OVERNIGHT_CAMPS.filter(c => campStatus(c) === 'active');
-  const upcoming = OVERNIGHT_CAMPS.filter(c => campStatus(c) === 'upcoming' && c.checkin <= weekEnd);
-  const departed = OVERNIGHT_CAMPS.filter(c => campStatus(c) === 'departed');
-
-  // Stat tiles
-  const todayDayCamps = Object.entries(DAY_CAMP_DAYS).filter(([n, days]) => days.includes(today));
-  const actionsToday  = ALL_ACTIONS.filter(a => a.date === today);
-
-  document.getElementById('stat-grid').innerHTML = `
-    <div class="stat-tile active-tile">
-      <div class="stat-num">${active.length}</div>
-      <div class="stat-label">Camps On Campus</div>
+      <div class="status-badge ${sc.cls}"><div class="status-dot ${sc.dot}"></div>${sc.label}</div>
+      ${notesHtml}
     </div>
-    <div class="stat-tile upcoming-tile">
-      <div class="stat-num">${upcoming.length}</div>
-      <div class="stat-label">Arriving This Week</div>
+    <div class="camp-footer">
+      <span>${(camp.dorms||[]).length} building${(camp.dorms||[]).length!==1?'s':''}</span>
+      ${nights!==null?`<span class="nights-badge">${nights} night${nights!==1?'s':''}</span>`:'<span class="nights-badge">Ongoing</span>'}
     </div>
-    <div class="stat-tile action-tile">
-      <div class="stat-num">${actionsToday.length}</div>
-      <div class="stat-label">Actions Today</div>
-    </div>
-    <div class="stat-tile complete-tile">
-      <div class="stat-num">${departed.length}</div>
-      <div class="stat-label">Departed</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-num" style="color:var(--orange)">${todayDayCamps.length}</div>
-      <div class="stat-label">Day Camps Active Today</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-num">${OVERNIGHT_CAMPS.reduce((a,c) => a + c.dorms.length, 0)}</div>
-      <div class="stat-label">Dorm Assignments</div>
-    </div>
-  `;
-
-  // Active cards
-  document.getElementById('active-count-badge').textContent = active.length;
-  document.getElementById('active-cards-container').innerHTML = active.length
-    ? active.map(c => renderCampCard(c)).join('')
-    : '<div class="no-results">No camps currently on campus.</div>';
-
-  // Upcoming this week
-  document.getElementById('upcoming-count-badge').textContent = upcoming.length;
-  document.getElementById('upcoming-cards-container').innerHTML = upcoming.length
-    ? upcoming.map(c => renderCampCard(c)).join('')
-    : '<div class="no-results">No camps arriving this week.</div>';
-
-  // Today actions
-  document.getElementById('today-actions-badge').textContent = actionsToday.length;
-  document.getElementById('today-actions-container').innerHTML = actionsToday.length
-    ? actionsToday.map(a => `
-        <div class="action-item">
-          <div class="action-icon ${a.iconCls}">${a.icon}</div>
-          <div class="action-content">
-            <div class="action-title">${a.title}</div>
-            <div class="action-sub">${a.sub}</div>
-          </div>
-          <div class="action-date">${fmtDateShort(a.date)}</div>
-        </div>`).join('')
-    : '<div class="no-results">No actions required today.</div>';
-}
-
-/* ============================================================
-   OVERNIGHT PAGE
-   ============================================================ */
-function clearOvernightFilters() {
-  document.getElementById('on-search').value = '';
-  document.getElementById('on-status').value = '';
-  document.getElementById('on-dorm').value = '';
-  document.getElementById('on-sort').value = 'arrival';
-  renderOvernight();
-}
-
-function renderOvernight() {
-  let data = [...OVERNIGHT_CAMPS];
-  const search = document.getElementById('on-search').value.toLowerCase();
-  const status = document.getElementById('on-status').value;
-  const dorm   = document.getElementById('on-dorm').value;
-  const sort   = document.getElementById('on-sort').value;
-
-  if (search) data = data.filter(c => c.name.toLowerCase().includes(search) || c.dorms.join(' ').toLowerCase().includes(search));
-  if (status) data = data.filter(c => campStatus(c) === status);
-  if (dorm)   data = data.filter(c => c.dorms.includes(dorm));
-
-  if (sort === 'arrival')    data.sort((a,b) => a.checkin.localeCompare(b.checkin));
-  if (sort === 'departure')  data.sort((a,b) => (a.checkout||'9999').localeCompare(b.checkout||'9999'));
-  if (sort === 'name')       data.sort((a,b) => a.name.localeCompare(b.name));
-  if (sort === 'nights')     data.sort((a,b) => (nightCount(b.checkin,b.checkout)||999) - (nightCount(a.checkin,a.checkout)||999));
-
-  document.getElementById('overnight-count-badge').textContent = data.length;
-  document.getElementById('overnight-container').innerHTML = data.length
-    ? data.map(c => renderCampCard(c)).join('')
-    : '<div class="no-results">No camps match current filters.</div>';
-}
-
-function initOvernightDormFilter() {
-  const allDorms = [...new Set(OVERNIGHT_CAMPS.flatMap(c => c.dorms))].sort();
-  const sel = document.getElementById('on-dorm');
-  allDorms.forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d; opt.textContent = d;
-    sel.appendChild(opt);
-  });
-}
-
-/* ============================================================
-   DAY CAMPS PAGE
-   ============================================================ */
-const SESSION_OPEN = {};
-
-function clearDayCampFilters() {
-  document.getElementById('dc-search').value = '';
-  document.getElementById('dc-sport').value = '';
-  renderDayCamps();
-}
-
-function renderDayCamps() {
-  const search = document.getElementById('dc-search').value.toLowerCase();
-  const sport  = document.getElementById('dc-sport').value;
-  let entries  = Object.entries(DAY_CAMP_DAYS);
-
-  if (search) entries = entries.filter(([n]) => n.toLowerCase().includes(search));
-  if (sport)  entries = entries.filter(([n]) => n === sport);
-
-  const html = entries.map(([name, days]) => {
-    const sessions = groupSessions(days);
-    const isOpen   = SESSION_OPEN[name] !== false; // default open
-    const allDays  = days.sort();
-    const isActiveToday = days.includes(TODAY_STR);
-    const signToday = sessions.some(s => addDays(s.days[0], -1) === TODAY_STR);
-
-    let statusBadge = '';
-    if (isActiveToday) statusBadge = `<span class="status-badge badge-active" style="font-size:11px">● Active Today</span>`;
-    else if (signToday) statusBadge = `<span class="status-badge badge-action" style="font-size:11px">● Signs Due Today</span>`;
-
-    const sessionRows = sessions.map((sess, si) => {
-      const signDate = addDays(sess.days[0], -1);
-      let sessionHtml = `<div style="margin-bottom:12px">`;
-      sessionHtml += `<div style="font-size:12px;font-weight:700;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Session ${si + 1}: ${fmtDateShort(sess.start)} – ${fmtDateShort(sess.end)}</div>`;
-      sessionHtml += `<div class="session-timeline">`;
-
-      // Sign day
-      const signPast = signDate < TODAY_STR;
-      const signToday2 = signDate === TODAY_STR;
-      sessionHtml += `
-        <div class="session-day ${signToday2 ? 'day-tomorrow' : ''}">
-          <div class="day-date">${fmtDOW(signDate)} ${fmtDateShort(signDate)}</div>
-          <div class="day-label">Day before camp starts</div>
-          <div class="day-action ${signPast ? 'action-past' : signToday2 ? 'action-sign' : 'action-sign'}">
-            ${signPast ? '✓ Done' : '📋 Put up signs'}
-          </div>
-        </div>`;
-
-      // Active days
-      sess.days.forEach(d => {
-        const isPast   = d < TODAY_STR;
-        const isToday  = d === TODAY_STR;
-        sessionHtml += `
-          <div class="session-day ${isToday ? 'day-active' : ''}">
-            <div class="day-date">${fmtDOW(d)} ${fmtDateShort(d)}</div>
-            <div class="day-label">${isToday ? '⚡ Camp is active RIGHT NOW' : 'Camp day'}</div>
-            <div class="day-action ${isPast ? 'action-past' : 'action-active'}">
-              ${isPast ? '✓ Complete' : isToday ? '✅ Active' : '☀️ Camp day'}
-            </div>
-          </div>`;
-      });
-
-      sessionHtml += `</div></div>`;
-      return sessionHtml;
-    }).join('');
-
-    return `
-      <div class="session-card">
-        <div class="session-header" onclick="toggleSession('${name.replace(/'/g,"\\'")}')">
-          <div class="session-header-left">
-            <span class="session-name">${name}</span>
-            ${statusBadge}
-            <span style="font-size:12px;opacity:.6;font-weight:400">${days.length} day${days.length!==1?'s':''} · ${sessions.length} session${sessions.length!==1?'s':''}</span>
-          </div>
-          <span class="session-toggle ${isOpen ? 'open' : ''}" id="toggle-${name.replace(/\s/g,'_').replace(/[()]/g,'')}">›</span>
-        </div>
-        ${isOpen ? `<div class="session-body">${sessionRows}</div>` : ''}
-      </div>`;
-  }).join('');
-
-  document.getElementById('daycamps-container').innerHTML = html || '<div class="no-results">No day camps match current filters.</div>';
-}
-
-function toggleSession(name) {
-  SESSION_OPEN[name] = !(SESSION_OPEN[name] !== false);
-  renderDayCamps();
-}
-
-function initDayCampFilter() {
-  const sel = document.getElementById('dc-sport');
-  Object.keys(DAY_CAMP_DAYS).sort().forEach(n => {
-    const opt = document.createElement('option');
-    opt.value = n; opt.textContent = n;
-    sel.appendChild(opt);
-  });
-}
-
-/* ============================================================
-   CALENDAR PAGE
-   ============================================================ */
-let calYear  = TODAY.getFullYear();
-let calMonth = TODAY.getMonth();
-
-const DOW_HEADERS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-function calPrev()  { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
-function calNext()  { calMonth++; if (calMonth > 11) { calMonth = 0;  calYear++; } renderCalendar(); }
-function calToday() { calYear = TODAY.getFullYear(); calMonth = TODAY.getMonth(); renderCalendar(); }
-
-function renderCalendar() {
-  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('cal-month-label').textContent = `${monthNames[calMonth]} ${calYear}`;
-
-  const firstDay = new Date(calYear, calMonth, 1);
-  const lastDay  = new Date(calYear, calMonth + 1, 0);
-  const startDOW = firstDay.getDay();
-
-  let html = DOW_HEADERS.map(d => `<div class="cal-dow-header">${d}</div>`).join('');
-
-  // Pad start
-  for (let i = 0; i < startDOW; i++) {
-    const prevDate = new Date(calYear, calMonth, -startDOW + 1 + i);
-    const ds = prevDate.toISOString().slice(0,10);
-    html += renderCalCell(ds, true);
-  }
-
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const ds = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    html += renderCalCell(ds, false);
-  }
-
-  // Pad end to complete grid
-  const total = startDOW + lastDay.getDate();
-  const rem   = total % 7 === 0 ? 0 : 7 - (total % 7);
-  for (let i = 0; i < rem; i++) {
-    const nextDate = new Date(calYear, calMonth + 1, i + 1);
-    html += renderCalCell(nextDate.toISOString().slice(0,10), true);
-  }
-
-  document.getElementById('cal-grid').innerHTML = html;
-}
-
-function renderCalCell(ds, otherMonth) {
-  const dayNum  = parseInt(ds.slice(8), 10);
-  const isToday = ds === TODAY_STR;
-  const evs     = CALENDAR_EVENTS[ds] || [];
-
-  // De-duplicate and limit events for display
-  const seen = new Set();
-  const deduped = evs.filter(e => {
-    const key = e.type + e.label;
-    if (seen.has(key)) return false;
-    seen.add(key); return true;
-  });
-
-  const maxShow = 4;
-  const shown   = deduped.slice(0, maxShow);
-  const extra   = deduped.length - shown.length;
-
-  const evHtml = shown.map(e => {
-    let cls = 'ev-active';
-    if (e.type === 'arrive')   cls = 'ev-arrive';
-    if (e.type === 'depart')   cls = 'ev-depart';
-    if (e.type === 'day')      cls = 'ev-day';
-    if (e.type === 'sign')     cls = 'ev-sign';
-    if (e.type === 'turnover') cls = 'ev-turnover';
-    return `<span class="cal-event ${cls}" title="${e.label}">${e.label}</span>`;
-  }).join('');
-
-  const extraHtml = extra > 0 ? `<span style="font-size:10px;color:var(--gray);padding:1px 4px">+${extra} more</span>` : '';
-
-  return `<div class="cal-cell${otherMonth ? ' other-month' : ''}${isToday ? ' today-cell' : ''}">
-    <div class="cal-day-num">${dayNum}</div>
-    ${evHtml}
-    ${extraHtml}
+    ${adminBtns}
   </div>`;
 }
 
 /* ============================================================
-   DORM STATUS PAGE
-   ============================================================ */
-function renderDorms() {
-  const tbody = document.getElementById('dorm-table-body');
-
-  const rows = DORMS.map(dorm => {
-    // Find active camps in this dorm
-    const activeCamps = OVERNIGHT_CAMPS.filter(c =>
-      c.dorms.includes(dorm.name) && campStatus(c) === 'active'
-    );
-    const upcomingCamps = OVERNIGHT_CAMPS.filter(c =>
-      c.dorms.includes(dorm.name) && campStatus(c) === 'upcoming'
-    );
-
-    let statusHtml, occupantHtml, nextHtml;
-
-    if (activeCamps.length) {
-      const sc = statusConfig('active');
-      statusHtml = `<span class="status-badge ${sc.cls}"><div class="status-dot ${sc.dot}"></div>${sc.label}</span>`;
-      occupantHtml = activeCamps.map(c => `<strong>${c.name}</strong> (until ${fmtDateShort(c.checkout)})`).join('<br>');
-    } else if (upcomingCamps.length) {
-      const sc = statusConfig('upcoming');
-      statusHtml = `<span class="status-badge ${sc.cls}"><div class="status-dot ${sc.dot}"></div>${sc.label}</span>`;
-      occupantHtml = `—`;
-    } else {
-      statusHtml = `<span class="status-badge badge-departed"><div class="status-dot dot-departed"></div>Available</span>`;
-      occupantHtml = `—`;
-    }
-
-    if (upcomingCamps.length) {
-      nextHtml = upcomingCamps.map(c => `${c.name} arrives ${fmtDateShort(c.checkin)}`).join('; ');
-    } else {
-      const futureCamps = OVERNIGHT_CAMPS.filter(c =>
-        c.dorms.includes(dorm.name) && (c.checkin > TODAY_STR)
-      );
-      nextHtml = futureCamps.length ? futureCamps.map(c => `${c.name} arrives ${fmtDateShort(c.checkin)}`).join('; ') : '—';
-    }
-
-    return `<tr>
-      <td class="dorm-name-cell">${dorm.name}</td>
-      <td class="beds-cell">${dorm.beds}</td>
-      <td>${occupantHtml}</td>
-      <td>${statusHtml}</td>
-      <td style="font-size:12px;color:var(--gray)">${nextHtml}</td>
-    </tr>`;
-  });
-
-  tbody.innerHTML = rows.join('');
-}
-
-/* ============================================================
-   ACTIONS PAGE
-   ============================================================ */
-function renderActions() {
-  const range = document.getElementById('act-range').value;
-  const type  = document.getElementById('act-type').value;
-
-  const rangeEnd = {
-    today: TODAY_STR,
-    week:  addDays(TODAY_STR, 7),
-    month: addDays(TODAY_STR, 30),
-    all:   '9999-12-31',
-  }[range];
-
-  let data = ALL_ACTIONS.filter(a => a.date >= TODAY_STR && a.date <= rangeEnd);
-  if (type) data = data.filter(a => a.type === type);
-
-  // Group by date
-  const grouped = {};
-  data.forEach(a => {
-    if (!grouped[a.date]) grouped[a.date] = [];
-    grouped[a.date].push(a);
-  });
-
-  const html = Object.entries(grouped).sort(([a],[b]) => a.localeCompare(b)).map(([date, items]) => {
-    const isToday = date === TODAY_STR;
-    const itemsHtml = items.map(a => `
-      <div class="action-item">
-        <div class="action-icon ${a.iconCls}">${a.icon}</div>
-        <div class="action-content">
-          <div class="action-title">${a.title}</div>
-          <div class="action-sub">${a.sub}</div>
-        </div>
-      </div>`).join('');
-
-    return `
-      <div style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:${isToday ? 'var(--red)' : 'var(--gray)'};margin-bottom:8px;display:flex;align-items:center;gap:8px">
-          ${fmtDate(date)} (${fmtDOW(date)})
-          ${isToday ? '<span style="background:var(--red);color:white;font-size:10px;padding:1px 7px;border-radius:20px">TODAY</span>' : ''}
-        </div>
-        <div class="action-list">${itemsHtml}</div>
-      </div>`;
-  }).join('');
-
-  document.getElementById('actions-container').innerHTML = html || '<div class="no-results">No action items in selected range.</div>';
-}
-
-/* ============================================================
-   INIT
-   ============================================================ */
-(function init() {
-  // Update header date
-  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-  document.getElementById('header-date-display').textContent = TODAY.toLocaleDateString('en-US', opts);
-
-  initOvernightDormFilter();
-  initDayCampFilter();
-
+   REFRESH ALL VIEWS
+============================================================ */
+function refreshAll() {
   renderOverview();
   renderOvernight();
   renderDayCamps();
   renderCalendar();
   renderDorms();
   renderActions();
+  rebuildOvernightDormFilter();
+  rebuildDayCampFilter();
+}
+
+/* ============================================================
+   OVERVIEW PAGE
+============================================================ */
+function renderOverview() {
+  const weekEnd=addDays(TODAY_STR,7);
+  const active  =STATE.overnightCamps.filter(c=>campStatus(c)==='active');
+  const upcoming=STATE.overnightCamps.filter(c=>campStatus(c)==='upcoming'&&c.checkin<=weekEnd);
+  const departed=STATE.overnightCamps.filter(c=>campStatus(c)==='departed');
+  const todayDC =Object.entries(STATE.dayCamps).filter(([,days])=>days.includes(TODAY_STR));
+  const actions =buildActionItems().filter(a=>a.date===TODAY_STR);
+
+  document.getElementById('stat-grid').innerHTML=`
+    <div class="stat-tile active-tile"><div class="stat-num">${active.length}</div><div class="stat-label">Camps On Campus</div></div>
+    <div class="stat-tile upcoming-tile"><div class="stat-num">${upcoming.length}</div><div class="stat-label">Arriving This Week</div></div>
+    <div class="stat-tile action-tile"><div class="stat-num">${actions.length}</div><div class="stat-label">Actions Today</div></div>
+    <div class="stat-tile complete-tile"><div class="stat-num">${departed.length}</div><div class="stat-label">Departed</div></div>
+    <div class="stat-tile"><div class="stat-num" style="color:var(--orange)">${todayDC.length}</div><div class="stat-label">Day Camps Active Today</div></div>
+    <div class="stat-tile"><div class="stat-num">${STATE.overnightCamps.length}</div><div class="stat-label">Total Programs</div></div>`;
+
+  document.getElementById('active-count-badge').textContent=active.length;
+  document.getElementById('active-cards-container').innerHTML=active.length?active.map(renderCampCard).join(''):'<div class="no-results">No camps currently on campus.</div>';
+  document.getElementById('upcoming-count-badge').textContent=upcoming.length;
+  document.getElementById('upcoming-cards-container').innerHTML=upcoming.length?upcoming.map(renderCampCard).join(''):'<div class="no-results">No camps arriving this week.</div>';
+  document.getElementById('today-actions-badge').textContent=actions.length;
+  document.getElementById('today-actions-container').innerHTML=actions.length?actions.map(a=>`<div class="action-item"><div class="action-icon ${a.iconCls}">${a.icon}</div><div class="action-content"><div class="action-title">${a.title}</div><div class="action-sub">${a.sub}</div></div></div>`).join(''):'<div class="no-results">No actions required today.</div>';
+}
+
+/* ============================================================
+   OVERNIGHT PAGE
+============================================================ */
+function clearOvernightFilters() {
+  ['on-search','on-dorm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('on-status').value='';
+  document.getElementById('on-sort').value='arrival';
+  renderOvernight();
+}
+
+function renderOvernight() {
+  let data=[...STATE.overnightCamps];
+  const search=document.getElementById('on-search').value.toLowerCase();
+  const status=document.getElementById('on-status').value;
+  const dorm  =document.getElementById('on-dorm').value;
+  const sort  =document.getElementById('on-sort').value;
+  if (search) data=data.filter(c=>c.name.toLowerCase().includes(search)||(c.dorms||[]).join(' ').toLowerCase().includes(search));
+  if (status) data=data.filter(c=>campStatus(c)===status);
+  if (dorm)   data=data.filter(c=>(c.dorms||[]).includes(dorm));
+  if (sort==='arrival')   data.sort((a,b)=>a.checkin.localeCompare(b.checkin));
+  if (sort==='departure') data.sort((a,b)=>(a.checkout||'9999').localeCompare(b.checkout||'9999'));
+  if (sort==='name')      data.sort((a,b)=>a.name.localeCompare(b.name));
+  if (sort==='nights')    data.sort((a,b)=>(nightCount(b.checkin,b.checkout)||999)-(nightCount(a.checkin,a.checkout)||999));
+  document.getElementById('overnight-count-badge').textContent=data.length;
+  document.getElementById('overnight-container').innerHTML=data.length?data.map(renderCampCard).join(''):'<div class="no-results">No camps match current filters.</div>';
+}
+
+function rebuildOvernightDormFilter() {
+  const sel=document.getElementById('on-dorm');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">All dorms</option>';
+  [...new Set(STATE.overnightCamps.flatMap(c=>c.dorms||[]))].sort().forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;sel.appendChild(o);});
+  sel.value=cur;
+}
+
+/* ============================================================
+   DAY CAMPS PAGE
+============================================================ */
+const SESSION_OPEN={};
+function clearDayCampFilters() { document.getElementById('dc-search').value=''; document.getElementById('dc-sport').value=''; renderDayCamps(); }
+
+function renderDayCamps() {
+  const search=document.getElementById('dc-search').value.toLowerCase();
+  const sport =document.getElementById('dc-sport').value;
+  let entries=Object.entries(STATE.dayCamps);
+  if (search) entries=entries.filter(([n])=>n.toLowerCase().includes(search));
+  if (sport)  entries=entries.filter(([n])=>n===sport);
+
+  const html=entries.map(([name,days])=>{
+    const sessions=groupSessions(days);
+    const isOpen=SESSION_OPEN[name]!==false;
+    const isActiveToday=days.includes(TODAY_STR);
+    const signToday=sessions.some(s=>addDays(s.days[0],-1)===TODAY_STR);
+    let statusBadge='';
+    if (isActiveToday) statusBadge=`<span class="status-badge badge-active" style="font-size:11px">● Active Today</span>`;
+    else if (signToday) statusBadge=`<span class="status-badge badge-action" style="font-size:11px">● Signs Due Today</span>`;
+
+    const sessionRows=sessions.map((sess,si)=>{
+      const signDate=addDays(sess.days[0],-1);
+      const signPast=signDate<TODAY_STR, signTdy=signDate===TODAY_STR;
+      let h=`<div style="margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Session ${si+1}: ${fmtDateShort(sess.start)} – ${fmtDateShort(sess.end)}</div><div class="session-timeline">`;
+      h+=`<div class="session-day ${signTdy?'day-tomorrow':''}"><div class="day-date">${fmtDOW(signDate)} ${fmtDateShort(signDate)}</div><div class="day-label">Day before camp starts</div><div class="day-action ${signPast?'action-past':'action-sign'}">${signPast?'✓ Done':'📋 Put up signs'}</div></div>`;
+      sess.days.forEach(d=>{
+        const isPast=d<TODAY_STR,isTday=d===TODAY_STR;
+        h+=`<div class="session-day ${isTday?'day-active':''}"><div class="day-date">${fmtDOW(d)} ${fmtDateShort(d)}</div><div class="day-label">${isTday?'⚡ Camp is active RIGHT NOW':'Camp day'}</div><div class="day-action ${isPast?'action-past':'action-active'}">${isPast?'✓ Complete':isTday?'✅ Active':'☀️ Camp day'}</div></div>`;
+      });
+      h+=`</div></div>`;
+      return h;
+    }).join('');
+
+    const safeId=name.replace(/[^a-z0-9]/gi,'_');
+    const adminBtns=ADMIN_MODE?`<div style="display:flex;gap:6px;margin-top:8px"><button class="card-btn edit-btn" onclick="openEditDayCamp('${name.replace(/'/g,"\\'")}')">✏️ Edit</button><button class="card-btn del-btn" onclick="deleteDayCamp('${name.replace(/'/g,"\\'")}')">🗑 Delete</button></div>`:'';
+    return `<div class="session-card"><div class="session-header" onclick="toggleSession('${name.replace(/'/g,"\\'")}')"><div class="session-header-left"><span class="session-name">${name}</span>${statusBadge}<span style="font-size:12px;opacity:.6;font-weight:400">${days.length} day${days.length!==1?'s':''} · ${sessions.length} session${sessions.length!==1?'s':''}</span></div><span class="session-toggle ${isOpen?'open':''}" id="tog-${safeId}">›</span></div>${isOpen?`<div class="session-body">${sessionRows}${adminBtns}</div>`:''}</div>`;
+  }).join('');
+  document.getElementById('daycamps-container').innerHTML=html||'<div class="no-results">No day camps match current filters.</div>';
+}
+
+function toggleSession(name) { SESSION_OPEN[name]=!(SESSION_OPEN[name]!==false); renderDayCamps(); }
+
+function openEditDayCamp(name) {
+  const days=STATE.dayCamps[name];
+  editingCampId='dc_'+name;
+  document.getElementById('modal-title').textContent='Edit Day Camp';
+  document.getElementById('f-name').value=name;
+  document.getElementById('f-type').value='day';
+  document.getElementById('f-checkin').value=days[0]||'';
+  document.getElementById('f-checkout').value=days[days.length-1]||'';
+  document.getElementById('f-daycamp-dates').value=days.join('\n');
+  document.getElementById('f-notes').value='';
+  document.getElementById('f-org').value='';
+  document.getElementById('modal-modified-info').style.display='none';
+  toggleCampTypeFields();
+  openModal('camp-modal-overlay');
+}
+
+function rebuildDayCampFilter() {
+  const sel=document.getElementById('dc-sport'); const cur=sel.value;
+  sel.innerHTML='<option value="">All programs</option>';
+  Object.keys(STATE.dayCamps).sort().forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+  sel.value=cur;
+}
+
+/* ============================================================
+   CALENDAR PAGE
+============================================================ */
+let calYear=TODAY.getFullYear(), calMonth=TODAY.getMonth();
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function calToday(){calYear=TODAY.getFullYear();calMonth=TODAY.getMonth();renderCalendar();}
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent=`${MONTHS[calMonth]} ${calYear}`;
+  const firstDay=new Date(calYear,calMonth,1), lastDay=new Date(calYear,calMonth+1,0), startDOW=firstDay.getDay();
+  const events=buildCalendarEvents();
+  let html=DOW.map(d=>`<div class="cal-dow-header">${d}</div>`).join('');
+
+  for (let i=0;i<startDOW;i++){const d=new Date(calYear,calMonth,-startDOW+1+i);html+=renderCalCell(d.toISOString().slice(0,10),true,events);}
+  for (let d=1;d<=lastDay.getDate();d++){html+=renderCalCell(`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,false,events);}
+  const total=startDOW+lastDay.getDate(), rem=total%7===0?0:7-(total%7);
+  for (let i=0;i<rem;i++){const d=new Date(calYear,calMonth+1,i+1);html+=renderCalCell(d.toISOString().slice(0,10),true,events);}
+  document.getElementById('cal-grid').innerHTML=html;
+}
+
+function renderCalCell(ds,other,events){
+  const dayNum=parseInt(ds.slice(8),10), isToday=ds===TODAY_STR, evs=events[ds]||[];
+  const seen=new Set(), deduped=evs.filter(e=>{const k=e.type+e.label;if(seen.has(k))return false;seen.add(k);return true;});
+  const shown=deduped.slice(0,4), extra=deduped.length-shown.length;
+  const evHtml=shown.map(e=>{let c='ev-active';if(e.type==='arrive')c='ev-arrive';if(e.type==='depart')c='ev-depart';if(e.type==='day')c='ev-day';if(e.type==='sign')c='ev-sign';if(e.type==='turnover')c='ev-turnover';return `<span class="cal-event ${c}" title="${e.label}">${e.label}</span>`;}).join('');
+  return `<div class="cal-cell${other?' other-month':''}${isToday?' today-cell':''}"><div class="cal-day-num">${dayNum}</div>${evHtml}${extra>0?`<span style="font-size:10px;color:var(--gray)">+${extra} more</span>`:''}</div>`;
+}
+
+/* ============================================================
+   DORM STATUS PAGE
+============================================================ */
+function renderDorms() {
+  const rows=DORMS.map(dorm=>{
+    const active  =STATE.overnightCamps.filter(c=>(c.dorms||[]).includes(dorm.name)&&campStatus(c)==='active');
+    const upcoming=STATE.overnightCamps.filter(c=>(c.dorms||[]).includes(dorm.name)&&campStatus(c)==='upcoming');
+    let statusHtml,occupantHtml,nextHtml;
+    if (active.length){const sc=statusConfig('active');statusHtml=`<span class="status-badge ${sc.cls}"><div class="status-dot ${sc.dot}"></div>${sc.label}</span>`;occupantHtml=active.map(c=>`<strong>${c.name}</strong> (until ${fmtDateShort(c.checkout)})`).join('<br>');}
+    else if (upcoming.length){const sc=statusConfig('upcoming');statusHtml=`<span class="status-badge ${sc.cls}"><div class="status-dot ${sc.dot}"></div>${sc.label}</span>`;occupantHtml='—';}
+    else{statusHtml=`<span class="status-badge badge-departed"><div class="status-dot dot-departed"></div>Available</span>`;occupantHtml='—';}
+    if (upcoming.length) nextHtml=upcoming.map(c=>`${c.name} arrives ${fmtDateShort(c.checkin)}`).join('; ');
+    else{const fut=STATE.overnightCamps.filter(c=>(c.dorms||[]).includes(dorm.name)&&c.checkin>TODAY_STR);nextHtml=fut.length?fut.map(c=>`${c.name} arrives ${fmtDateShort(c.checkin)}`).join('; '):'—';}
+    return `<tr><td class="dorm-name-cell">${dorm.name}</td><td class="beds-cell">${dorm.beds}</td><td>${occupantHtml}</td><td>${statusHtml}</td><td style="font-size:12px;color:var(--gray)">${nextHtml}</td></tr>`;
+  });
+  document.getElementById('dorm-table-body').innerHTML=rows.join('');
+}
+
+/* ============================================================
+   ACTIONS PAGE
+============================================================ */
+function renderActions() {
+  const range=document.getElementById('act-range').value;
+  const type =document.getElementById('act-type').value;
+  const ends={today:TODAY_STR,week:addDays(TODAY_STR,7),month:addDays(TODAY_STR,30),all:'9999-12-31'};
+  let data=buildActionItems().filter(a=>a.date>=TODAY_STR&&a.date<=ends[range]);
+  if (type) data=data.filter(a=>a.type===type);
+  const grouped={};
+  data.forEach(a=>{if(!grouped[a.date])grouped[a.date]=[];grouped[a.date].push(a);});
+  const html=Object.entries(grouped).sort(([a],[b])=>a.localeCompare(b)).map(([date,items])=>{
+    const isTday=date===TODAY_STR;
+    return `<div style="margin-bottom:20px"><div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:${isTday?'var(--red)':'var(--gray)'};margin-bottom:8px;display:flex;align-items:center;gap:8px">${fmtDate(date)} (${fmtDOW(date)})${isTday?'<span style="background:var(--red);color:white;font-size:10px;padding:1px 7px;border-radius:20px">TODAY</span>':''}</div><div class="action-list">${items.map(a=>`<div class="action-item"><div class="action-icon ${a.iconCls}">${a.icon}</div><div class="action-content"><div class="action-title">${a.title}</div><div class="action-sub">${a.sub}</div></div></div>`).join('')}</div></div>`;
+  }).join('');
+  document.getElementById('actions-container').innerHTML=html||'<div class="no-results">No action items in selected range.</div>';
+}
+
+/* ============================================================
+   PAGE NAV
+============================================================ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const idx=['overview','overnight','daycamps','calendar','dorms','actions'].indexOf(id);
+  document.querySelectorAll('nav button')[idx].classList.add('active');
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+(function init() {
+  document.getElementById('header-date-display').textContent = TODAY.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  loadState();
+  refreshAll();
 })();
 </script>
 </body>
