@@ -824,6 +824,231 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
 /* Alert action button inside alert banner (for HK) */
 .hk-action-row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
 
+
+/* ============================================================
+   NOTES MODULE — CSS
+   Notion-inspired 3-panel layout
+============================================================ */
+
+/* ---- Layout ---- */
+#page-notes { padding: 0 !important; height: calc(100vh - 112px); display: flex; flex-direction: column; }
+.notes-shell { display: flex; flex: 1; overflow: hidden; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); margin: 24px; }
+
+/* ---- Sidebar ---- */
+.notes-sidebar {
+  width: 220px; flex-shrink: 0; border-right: 1px solid var(--border);
+  background: var(--smoke); display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.notes-sidebar-header {
+  padding: 14px 14px 10px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 6px;
+}
+.notes-sidebar-title { font-size: 13px; font-weight: 800; color: var(--slate); text-transform: uppercase; letter-spacing: .07em; flex: 1; }
+.notes-sidebar-scroll { flex: 1; overflow-y: auto; padding: 8px 0; }
+.notes-sidebar-footer { padding: 10px 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
+
+/* ---- Folder tree ---- */
+.folder-item {
+  display: flex; align-items: center; gap: 6px; padding: 5px 12px;
+  cursor: pointer; border-radius: 4px; font-size: 13px; color: var(--slate);
+  transition: background .1s; user-select: none; position: relative;
+}
+.folder-item:hover { background: var(--border); }
+.folder-item.active { background: var(--red); color: var(--white); font-weight: 700; }
+.folder-item.active .folder-count { color: rgba(255,255,255,.7); }
+.folder-toggle { font-size: 10px; width: 14px; text-align: center; flex-shrink: 0; color: var(--gray); transition: transform .15s; }
+.folder-toggle.open { transform: rotate(90deg); }
+.folder-icon { font-size: 13px; flex-shrink: 0; }
+.folder-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; }
+.folder-count { font-size: 10px; color: var(--gray); margin-left: auto; font-variant-numeric: tabular-nums; }
+.folder-child { padding-left: 20px; }
+
+.note-tree-item {
+  display: flex; align-items: center; gap: 6px; padding: 4px 12px 4px 28px;
+  cursor: pointer; border-radius: 4px; font-size: 12px; color: var(--gray);
+  transition: background .1s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.note-tree-item:hover { background: var(--border); color: var(--slate); }
+.note-tree-item.active { background: #E0E7FF; color: var(--blue); font-weight: 700; }
+.note-tree-item .nti-icon { font-size: 11px; flex-shrink: 0; }
+.note-tree-item .nti-title { overflow: hidden; text-overflow: ellipsis; flex: 1; }
+
+/* Sidebar action buttons */
+.sidebar-btn {
+  display: flex; align-items: center; gap: 6px; padding: 6px 10px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--white); cursor: pointer; font-family: var(--font);
+  font-size: 12px; font-weight: 600; color: var(--slate);
+  transition: all .15s; width: 100%;
+}
+.sidebar-btn:hover { background: var(--smoke); border-color: var(--slate); }
+.sidebar-btn.primary { background: var(--red); color: white; border-color: var(--red); }
+.sidebar-btn.primary:hover { background: #aa0000; }
+
+/* ---- Main content area ---- */
+.notes-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.notes-topbar {
+  padding: 10px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--white); flex-shrink: 0;
+}
+.notes-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray); flex: 1; }
+.notes-breadcrumb .bc-item { cursor: pointer; transition: color .1s; }
+.notes-breadcrumb .bc-item:hover { color: var(--red); }
+.notes-breadcrumb .bc-sep { color: var(--border); }
+.notes-breadcrumb .bc-current { color: var(--slate); font-weight: 700; }
+.notes-topbar-actions { display: flex; gap: 6px; align-items: center; }
+.notes-save-indicator { font-size: 11px; color: var(--gray); font-style: italic; }
+
+/* ---- Note list (folder view) ---- */
+.notes-content { flex: 1; overflow-y: auto; padding: 20px; }
+.notes-list-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.notes-search-bar {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;
+}
+.notes-search-input {
+  font-family: var(--font); font-size: 13px; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 7px 12px; background: var(--smoke);
+  color: var(--slate); outline: none; flex: 1; min-width: 160px;
+}
+.notes-search-input:focus { border-color: var(--red); background: var(--white); }
+.notes-filter-select {
+  font-family: var(--font); font-size: 12px; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 6px 10px; background: var(--smoke); outline: none;
+}
+
+/* Note card in list */
+.note-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 16px; margin-bottom: 8px; cursor: pointer; transition: all .15s;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.note-card:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.note-card.meeting-card { border-left: 4px solid var(--blue); }
+.note-card.urgent-card  { border-left: 4px solid #DC2626; }
+.note-card-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.note-card-body { flex: 1; min-width: 0; }
+.note-card-title { font-size: 14px; font-weight: 700; color: var(--slate); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.note-card-preview { font-size: 12px; color: var(--gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
+.note-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.note-card-date { font-size: 11px; color: var(--gray); }
+.note-card-actions { display: flex; gap: 4px; }
+.note-action-btn { border: none; background: none; cursor: pointer; font-size: 13px; padding: 3px; border-radius: 4px; color: var(--gray); transition: background .1s; }
+.note-action-btn:hover { background: var(--smoke); color: var(--slate); }
+
+/* ---- Tag pills ---- */
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px;
+  cursor: default; white-space: nowrap;
+}
+.tag-pill.clickable { cursor: pointer; }
+.tag-pill .tag-x { cursor: pointer; margin-left: 2px; opacity: .6; }
+.tag-pill .tag-x:hover { opacity: 1; }
+
+/* ---- Note editor ---- */
+.note-editor { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.note-editor-header { padding: 20px 24px 0; }
+.note-title-input {
+  font-family: var(--font); font-size: 22px; font-weight: 800; color: var(--slate);
+  border: none; outline: none; width: 100%; background: transparent;
+  border-bottom: 2px solid transparent; padding: 4px 0; margin-bottom: 12px;
+  transition: border-color .15s;
+}
+.note-title-input:focus { border-bottom-color: var(--red); }
+.note-title-input::placeholder { color: var(--border); }
+.note-meta-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; font-size: 12px; color: var(--gray); }
+.note-meta-bar select, .note-meta-bar input { font-family: var(--font); font-size: 12px; border: 1px solid var(--border); border-radius: var(--radius); padding: 3px 8px; background: var(--smoke); outline: none; color: var(--slate); }
+.note-tags-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.note-tag-add { border: 1px dashed var(--border); border-radius: 20px; padding: 1px 10px; font-size: 11px; cursor: pointer; color: var(--gray); background: none; font-family: var(--font); transition: all .15s; }
+.note-tag-add:hover { border-color: var(--blue); color: var(--blue); }
+.note-linked-camps { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; padding: 8px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 14px; font-size: 12px; }
+.note-linked-camps label { color: var(--gray); font-weight: 700; margin-right: 4px; }
+.camp-link-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--blue-bg); color: var(--blue); cursor: pointer; }
+.camp-link-tag:hover { background: var(--blue); color: white; }
+
+/* Content area */
+.note-content-area { flex: 1; overflow-y: auto; padding: 0 24px 24px; }
+.note-body-textarea {
+  font-family: 'Georgia', serif; font-size: 15px; line-height: 1.8;
+  color: var(--slate); border: none; outline: none; width: 100%;
+  min-height: 320px; resize: none; background: transparent;
+  overflow: hidden;
+}
+.note-body-textarea::placeholder { color: var(--border); font-style: italic; }
+
+/* ---- Meeting note template ---- */
+.meeting-section { margin-bottom: 20px; }
+.meeting-section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--gray); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.dept-checkboxes { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.dept-check { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.dept-check input { accent-color: var(--red); }
+
+/* Action items table inside meeting notes */
+.action-items-list { display: flex; flex-direction: column; gap: 6px; }
+.action-item-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--smoke); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 7px 10px; font-size: 12px;
+}
+.action-item-row input[type=text], .action-item-row input[type=date] {
+  font-family: var(--font); font-size: 12px; border: 1px solid var(--border);
+  border-radius: 4px; padding: 3px 7px; background: var(--white); outline: none; color: var(--slate);
+}
+.action-item-row input[type=text] { flex: 1; }
+.action-item-row select { font-family: var(--font); font-size: 12px; border: 1px solid var(--border); border-radius: 4px; padding: 3px 7px; background: var(--white); outline: none; }
+.ai-status-open       { color: #DC2626; }
+.ai-status-in_progress{ color: var(--orange); }
+.ai-status-completed  { color: var(--green); }
+.ai-delete { border: none; background: none; cursor: pointer; color: var(--gray); font-size: 14px; }
+.ai-delete:hover { color: #DC2626; }
+.add-action-btn { border: 1px dashed var(--border); border-radius: var(--radius); padding: 6px 12px; font-size: 12px; cursor: pointer; color: var(--gray); background: none; font-family: var(--font); width: 100%; text-align: left; transition: all .15s; }
+.add-action-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+
+/* ---- Quick capture ---- */
+.quick-capture-bar {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 14px; display: flex; gap: 8px; align-items: center;
+  box-shadow: var(--shadow); margin-bottom: 12px;
+}
+.quick-capture-input { font-family: var(--font); font-size: 13px; border: none; outline: none; flex: 1; color: var(--slate); background: transparent; }
+.quick-capture-input::placeholder { color: var(--gray); }
+
+/* ---- Empty states ---- */
+.notes-empty { text-align: center; padding: 48px 24px; color: var(--gray); }
+.notes-empty-icon { font-size: 40px; margin-bottom: 12px; }
+.notes-empty-text { font-size: 14px; margin-bottom: 16px; }
+
+/* ---- Welcome/home panel ---- */
+.notes-home { padding: 24px; }
+.notes-home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; margin-top: 16px; margin-bottom: 24px; }
+.notes-home-tile {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px; cursor: pointer; transition: all .15s; box-shadow: var(--shadow);
+}
+.notes-home-tile:hover { border-color: var(--blue); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.nht-icon { font-size: 24px; margin-bottom: 8px; }
+.nht-name { font-size: 13px; font-weight: 700; color: var(--slate); margin-bottom: 4px; }
+.nht-count { font-size: 11px; color: var(--gray); }
+
+/* ---- Tag selector modal ---- */
+.tag-selector { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+.tag-selector-item { cursor: pointer; border: 2px solid transparent; border-radius: 20px; transition: border-color .15s; }
+.tag-selector-item:hover { border-color: var(--slate); }
+.tag-selector-item.selected { border-color: var(--slate); }
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  #page-notes { height: auto; }
+  .notes-shell { flex-direction: column; margin: 12px; height: auto; }
+  .notes-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); max-height: 200px; }
+  .note-title-input { font-size: 18px; }
+}
+
+/* Override main padding for notes page */
+main:has(#page-notes.active) { padding: 0; max-width: 100%; }
+
 </style>
 </head>
 <body>
@@ -855,6 +1080,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   <button onclick="showPage('compliance')">📋 Compliance</button>
   <button onclick="showPage('dining')">🍽️ Dining</button>
   <button onclick="showPage('housekeeping')">🧹 Housekeeping</button>
+  <button onclick="showPage('notes')">📒 Notes</button>
 </nav>
 
 <div id="toast-container"></div>
@@ -1806,6 +2032,162 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
   </div>
 </div>
 
+
+<!-- ===================== NOTES PAGE ===================== -->
+<div class="page" id="page-notes">
+  <div class="notes-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="notes-sidebar" id="notes-sidebar">
+      <div class="notes-sidebar-header">
+        <span class="notes-sidebar-title">📒 Notes</span>
+        <button class="note-action-btn" onclick="toggleArchiveView()" title="Toggle archived" id="archive-toggle-btn">🗄️</button>
+      </div>
+
+      <!-- Quick capture -->
+      <div style="padding:8px 10px;border-bottom:1px solid var(--border)">
+        <div class="quick-capture-bar" style="margin-bottom:0">
+          <span style="font-size:14px">✏️</span>
+          <input class="quick-capture-input" id="quick-capture-input" placeholder="Quick note… (Enter to save)">
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div style="padding:8px 10px;border-bottom:1px solid var(--border)">
+        <input class="notes-search-input" id="notes-sidebar-search" placeholder="🔍 Search notes…" oninput="renderNotesSidebar()" style="width:100%;font-size:12px;padding:5px 8px">
+      </div>
+
+      <!-- Folder tree -->
+      <div class="notes-sidebar-scroll" id="notes-folder-tree"></div>
+
+      <!-- Footer actions -->
+      <div class="notes-sidebar-footer">
+        <button class="sidebar-btn primary" onclick="createQuickNote()">＋ New Note</button>
+        <button class="sidebar-btn" onclick="openNewFolderModal()">📁 New Folder</button>
+        <button class="sidebar-btn" onclick="createMeetingNote()">📅 Meeting Notes</button>
+      </div>
+    </div>
+
+    <!-- ===== MAIN PANEL ===== -->
+    <div class="notes-main">
+
+      <!-- Top bar with breadcrumb -->
+      <div class="notes-topbar">
+        <div class="notes-breadcrumb" id="notes-breadcrumb">
+          <span class="bc-item" onclick="showNotesHome()">📒 Notes</span>
+        </div>
+        <div class="notes-topbar-actions">
+          <span class="notes-save-indicator" id="notes-save-indicator"></span>
+          <select class="notes-filter-select" id="notes-tag-filter" onchange="applyNotesFilter()">
+            <option value="">All tags</option>
+          </select>
+          <select class="notes-filter-select" id="notes-camp-filter" onchange="applyNotesFilter()">
+            <option value="">All camps</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Content area (switches between home/list/editor) -->
+      <div class="notes-content" id="notes-main-content">
+        <!-- Populated by renderNotesMain() -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== NEW FOLDER MODAL ===================== -->
+<div class="modal-overlay" id="new-folder-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <div class="modal-title" id="new-folder-title">New Folder</div>
+      <button class="modal-close" onclick="closeModal('new-folder-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Folder Name <span class="required">*</span></label>
+        <input type="text" class="form-input" id="new-folder-name" placeholder="e.g. June Operations">
+        <div class="form-error" id="err-folder-name"></div>
+      </div>
+      <div class="form-group" style="margin-top:12px">
+        <label class="form-label">Icon (emoji)</label>
+        <input type="text" class="form-input" id="new-folder-icon" placeholder="📁" maxlength="4" style="width:80px">
+      </div>
+      <div class="form-group" style="margin-top:12px">
+        <label class="form-label">Parent Folder</label>
+        <select class="form-select" id="new-folder-parent" style="width:100%">
+          <option value="">Top level</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('new-folder-overlay')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveNewFolder()">Create Folder</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAG SELECTOR MODAL ===================== -->
+<div class="modal-overlay" id="tag-selector-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header">
+      <div class="modal-title">Add Tags</div>
+      <button class="modal-close" onclick="closeModal('tag-selector-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tag-selector" id="tag-selector-list"></div>
+      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+        <label class="form-label" style="font-size:11px">Create new tag</label>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <input type="text" class="form-input" id="new-tag-name" placeholder="tag name" style="flex:1">
+          <input type="color" id="new-tag-color" value="#1D4ED8" style="width:40px;height:36px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer">
+          <button class="btn btn-primary btn-sm" onclick="createTag()">Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeModal('tag-selector-overlay');saveCurrentNote()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CAMP LINK MODAL ===================== -->
+<div class="modal-overlay" id="camp-link-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title">Link to Camp</div>
+      <button class="modal-close" onclick="closeModal('camp-link-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-input" id="camp-link-search" placeholder="Search camps…" oninput="renderCampLinkList()" style="width:100%;margin-bottom:12px">
+      <div id="camp-link-list" style="max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:6px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('camp-link-overlay')">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DELETE NOTE MODAL ===================== -->
+<div class="modal-overlay" id="note-delete-overlay" onclick="handleModalBackdrop(event)">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header">
+      <div class="modal-title">Archive or Delete Note</div>
+      <button class="modal-close" onclick="closeModal('note-delete-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="confirm-icon">🗑️</div>
+      <div class="confirm-message">What would you like to do with:</div>
+      <div class="confirm-camp-name" id="note-delete-title"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:center;gap:10px">
+      <button class="btn btn-secondary" onclick="closeModal('note-delete-overlay')">Cancel</button>
+      <button class="btn btn-outline" id="note-archive-btn">🗄️ Archive</button>
+      <button class="btn btn-danger" id="note-permdelete-btn">🗑️ Delete</button>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <!-- ===================== CAMP FORM MODAL ===================== -->
@@ -2724,11 +3106,12 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance','dining','housekeeping'].indexOf(id);
+  const idx=['overview','overnight','daycamps','calendar','dorms','actions','compliance','dining','housekeeping','notes'].indexOf(id);
   if(idx > -1) document.querySelectorAll('nav button')[idx].classList.add('active');
   if(id==='compliance' && typeof renderCompliance==='function') renderCompliance();
   if(id==='dining' && typeof renderDining==='function') renderDining();
   if(id==='housekeeping' && typeof renderHousekeeping==='function') renderHousekeeping();
+  if(id==='notes' && typeof renderNotesPage==='function') renderNotesPage();
 }
 
 /* ============================================================
@@ -4887,6 +5270,844 @@ function renderHousekeeping(){
   renderHKWidget();
   if(currentHKTab) showHKTab(currentHKTab);
   else showHKTab('overview');
+}
+
+
+
+/* ============================================================
+   NOTES MODULE
+   Separate localStorage key: 'davidson_notes_2026'
+   Lazy-loaded: parsed only when Notes page is first opened.
+   Auto-saves on content change with 400ms debounce.
+============================================================ */
+
+const NOTES_LS_KEY = 'davidson_notes_2026';
+let NOTES_STATE = null;          // lazy-loaded
+let currentNoteId = null;        // active note being edited
+let currentFolderId = null;      // active folder in sidebar
+let notesAutoSaveTimer = null;   // debounce handle
+let showArchived = false;        // toggle archived items
+
+/* ---- Default folder + note structure ---- */
+function buildDefaultNotesState() {
+  const now = new Date().toISOString();
+  const folders = [
+    { id:'f_rl',  name:'Residence Life',    parentId:null, icon:'🏠', archived:false, order:0, createdAt:now },
+    { id:'f_ds',  name:'Dining Services',   parentId:null, icon:'🍽️', archived:false, order:1, createdAt:now },
+    { id:'f_hk',  name:'Housekeeping',      parentId:null, icon:'🧹', archived:false, order:2, createdAt:now },
+    { id:'f_ops', name:'General Operations',parentId:null, icon:'⚙️', archived:false, order:3, createdAt:now },
+    { id:'f_mtg', name:'Weekly Meetings',   parentId:null, icon:'📅', archived:false, order:4, createdAt:now },
+    { id:'f_arc', name:'Archived Notes',    parentId:null, icon:'🗄️', archived:false, order:5, createdAt:now },
+  ];
+  const notes = [
+    {
+      id:'n_welcome', folderId:'f_ops', title:'Welcome to Notes',
+      content:'Use this system to track meeting notes, operational updates, and staff coordination.\n\nTip: Use the sidebar to navigate folders, or press the ＋ button to create a new note.',
+      tags:[], linkedCampIds:[], type:'note', archived:false,
+      createdAt:now, updatedAt:now,
+    }
+  ];
+  return {
+    folders,
+    notes,
+    tags: [
+      { id:'tg_urgent',    name:'urgent',    color:'#DC2626' },
+      { id:'tg_housing',   name:'housing',   color:'#1D4ED8' },
+      { id:'tg_dining',    name:'dining',    color:'#15803D' },
+      { id:'tg_linen',     name:'linen',     color:'#7C3AED' },
+      { id:'tg_compliance',name:'compliance',color:'#C2410C' },
+      { id:'tg_followup',  name:'follow-up', color:'#B45309' },
+      { id:'tg_issue',     name:'issue',     color:'#991B1B' },
+      { id:'tg_resolved',  name:'resolved',  color:'#065F46' },
+    ],
+    nextId: 200,
+    folderExpanded: { f_rl:false, f_ds:false, f_hk:false, f_ops:true, f_mtg:false, f_arc:false },
+  };
+}
+
+/* ---- Persistence ---- */
+function loadNotesState() {
+  if (NOTES_STATE) return;
+  try {
+    const raw = localStorage.getItem(NOTES_LS_KEY);
+    NOTES_STATE = raw ? JSON.parse(raw) : buildDefaultNotesState();
+    if (!NOTES_STATE.tags)           NOTES_STATE.tags = buildDefaultNotesState().tags;
+    if (!NOTES_STATE.folderExpanded) NOTES_STATE.folderExpanded = {};
+  } catch(e) {
+    NOTES_STATE = buildDefaultNotesState();
+  }
+}
+
+function saveNotesState() {
+  try { localStorage.setItem(NOTES_LS_KEY, JSON.stringify(NOTES_STATE)); } catch(e) { console.warn('Notes save failed', e); }
+}
+
+function notesId() { return 'n_' + (++NOTES_STATE.nextId) + '_' + Date.now(); }
+function folderId() { return 'f_' + (++NOTES_STATE.nextId) + '_' + Date.now(); }
+
+/* ============================================================
+   CRUD
+============================================================ */
+function createNote(folderId, opts = {}) {
+  loadNotesState();
+  const now = new Date().toISOString();
+  const note = {
+    id:            notesId(),
+    folderId:      folderId || 'f_ops',
+    title:         opts.title || '',
+    content:       opts.content || '',
+    tags:          opts.tags || [],
+    linkedCampIds: opts.linkedCampIds || [],
+    type:          opts.type || 'note',
+    archived:      false,
+    createdAt:     now,
+    updatedAt:     now,
+    // meeting fields
+    meetingWeek:   opts.meetingWeek || null,
+    departments:   opts.departments || [],
+    actionItems:   opts.actionItems || [],
+  };
+  NOTES_STATE.notes.push(note);
+  saveNotesState();
+  return note;
+}
+
+function updateNote(noteId, changes) {
+  loadNotesState();
+  const idx = NOTES_STATE.notes.findIndex(n => n.id === noteId);
+  if (idx === -1) return;
+  NOTES_STATE.notes[idx] = { ...NOTES_STATE.notes[idx], ...changes, updatedAt: new Date().toISOString() };
+  saveNotesState();
+  return NOTES_STATE.notes[idx];
+}
+
+function archiveNote(noteId) {
+  updateNote(noteId, { archived: true });
+  if (currentNoteId === noteId) { currentNoteId = null; showNotesHome(); }
+  renderNotesSidebar();
+  showToast('Note archived', 'info');
+}
+
+function deleteNote(noteId) {
+  loadNotesState();
+  NOTES_STATE.notes = NOTES_STATE.notes.filter(n => n.id !== noteId);
+  saveNotesState();
+  if (currentNoteId === noteId) { currentNoteId = null; showNotesHome(); }
+  renderNotesSidebar();
+  showToast('Note deleted', 'info');
+}
+
+function createFolder(name, parentId, icon) {
+  loadNotesState();
+  const now = new Date().toISOString();
+  const folder = { id: folderId(), name, parentId: parentId||null, icon: icon||'📁', archived:false, order: NOTES_STATE.folders.length, createdAt: now };
+  NOTES_STATE.folders.push(folder);
+  saveNotesState();
+  return folder;
+}
+
+/* ============================================================
+   AUTO-SAVE (debounced)
+============================================================ */
+function triggerAutoSave() {
+  clearTimeout(notesAutoSaveTimer);
+  showNotesSaveIndicator('Saving…');
+  notesAutoSaveTimer = setTimeout(() => {
+    saveCurrentNote();
+    showNotesSaveIndicator('Saved ✓');
+    setTimeout(() => showNotesSaveIndicator(''), 2000);
+  }, 400);
+}
+
+function showNotesSaveIndicator(msg) {
+  const el = document.getElementById('notes-save-indicator');
+  if (el) el.textContent = msg;
+}
+
+function saveCurrentNote() {
+  if (!currentNoteId) return;
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n => n.id === currentNoteId);
+  if (!note) return;
+
+  const titleEl   = document.getElementById('note-editor-title');
+  const contentEl = document.getElementById('note-editor-content');
+  if (titleEl)   note.title   = titleEl.value;
+  if (contentEl) note.content = contentEl.value;
+  note.updatedAt = new Date().toISOString();
+
+  // Meeting-specific
+  if (note.type === 'meeting') {
+    note.departments = [];
+    document.querySelectorAll('.dept-check-input:checked').forEach(cb => note.departments.push(cb.value));
+    note.actionItems = [];
+    document.querySelectorAll('.ai-row').forEach(row => {
+      note.actionItems.push({
+        id:      row.dataset.aiid,
+        task:    row.querySelector('.ai-task')?.value    || '',
+        owner:   row.querySelector('.ai-owner')?.value  || '',
+        dueDate: row.querySelector('.ai-due')?.value    || '',
+        status:  row.querySelector('.ai-status')?.value || 'open',
+      });
+    });
+  }
+
+  saveNotesState();
+  // Refresh sidebar note title if changed
+  const treeItem = document.getElementById('tree-note-' + currentNoteId);
+  if (treeItem && titleEl) treeItem.querySelector('.nti-title').textContent = titleEl.value || 'Untitled';
+}
+
+/* ============================================================
+   MAIN RENDER ENTRY
+============================================================ */
+function renderNotes() {
+  loadNotesState();
+  renderNotesSidebar();
+  buildNotesFilters();
+  if (!currentNoteId && !currentFolderId) showNotesHome();
+  else if (currentNoteId) openNote(currentNoteId);
+  else renderFolderContents(currentFolderId);
+}
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+function renderNotesSidebar() {
+  loadNotesState();
+  const search = (document.getElementById('notes-sidebar-search')?.value||'').toLowerCase();
+  const tree   = document.getElementById('notes-folder-tree');
+  if (!tree) return;
+
+  // Top-level folders
+  const topFolders = NOTES_STATE.folders.filter(f => !f.parentId && (showArchived || !f.archived));
+
+  let html = '';
+  topFolders.sort((a,b) => a.order-b.order).forEach(folder => {
+    html += renderFolderTreeItem(folder, 0, search);
+  });
+
+  if (search) {
+    // Search mode: show matching notes regardless of folder
+    const matches = NOTES_STATE.notes.filter(n =>
+      !n.archived &&
+      (n.title.toLowerCase().includes(search) || n.content.toLowerCase().includes(search) || n.tags.some(t=>t.toLowerCase().includes(search)))
+    );
+    html = matches.length
+      ? matches.map(n => `<div class="note-tree-item${n.id===currentNoteId?' active':''}" id="tree-note-${n.id}" onclick="openNote('${n.id}')"><span class="nti-icon">${n.type==='meeting'?'📅':'📄'}</span><span class="nti-title">${n.title||'Untitled'}</span></div>`).join('')
+      : '<div style="padding:8px 12px;font-size:12px;color:var(--gray)">No results</div>';
+  }
+
+  tree.innerHTML = html || '<div style="padding:8px 12px;font-size:12px;color:var(--gray)">No folders yet</div>';
+
+  // Re-attach quick capture handler
+  const qci = document.getElementById('quick-capture-input');
+  if (qci && !qci._listenerAdded) {
+    qci._listenerAdded = true;
+    qci.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && qci.value.trim()) {
+        const note = createNote(currentFolderId||'f_ops', { title: qci.value.trim() });
+        qci.value = '';
+        openNote(note.id);
+        renderNotesSidebar();
+        showToast('Quick note created', 'success');
+      }
+    });
+  }
+}
+
+function renderFolderTreeItem(folder, depth, search) {
+  const children = NOTES_STATE.folders.filter(f => f.parentId === folder.id && (showArchived||!f.archived));
+  const notes    = NOTES_STATE.notes.filter(n => n.folderId === folder.id && !n.archived);
+  const isExpanded = NOTES_STATE.folderExpanded[folder.id];
+  const isActive = currentFolderId === folder.id && !currentNoteId;
+  const indent = depth * 14;
+
+  let html = `<div class="folder-item${isActive?' active':''}" style="padding-left:${12+indent}px" onclick="selectFolder('${folder.id}')">
+    <span class="folder-toggle${isExpanded?' open':''}" onclick="event.stopPropagation();toggleFolderExpand('${folder.id}')">${(children.length||notes.length)?'›':''}</span>
+    <span class="folder-icon">${folder.icon||'📁'}</span>
+    <span class="folder-name">${folder.name}</span>
+    <span class="folder-count">${notes.length||''}</span>
+  </div>`;
+
+  if (isExpanded) {
+    children.forEach(child => { html += renderFolderTreeItem(child, depth+1, search); });
+    notes.forEach(note => {
+      html += `<div class="note-tree-item${note.id===currentNoteId?' active':''}" id="tree-note-${note.id}" onclick="openNote('${note.id}')">
+        <span class="nti-icon">${note.type==='meeting'?'📅':'📄'}</span>
+        <span class="nti-title">${note.title||'Untitled'}</span>
+      </div>`;
+    });
+  }
+  return html;
+}
+
+function toggleFolderExpand(folderId) {
+  loadNotesState();
+  NOTES_STATE.folderExpanded[folderId] = !NOTES_STATE.folderExpanded[folderId];
+  saveNotesState();
+  renderNotesSidebar();
+}
+
+function selectFolder(folderId) {
+  currentFolderId = folderId;
+  currentNoteId   = null;
+  NOTES_STATE.folderExpanded[folderId] = true;
+  saveNotesState();
+  renderNotesSidebar();
+  renderFolderContents(folderId);
+  updateBreadcrumb(folderId);
+}
+
+/* ============================================================
+   FOLDER CONTENTS VIEW
+============================================================ */
+function renderFolderContents(folderId) {
+  loadNotesState();
+  const folder = NOTES_STATE.folders.find(f => f.id === folderId);
+  const tagFilter  = document.getElementById('notes-tag-filter')?.value  || '';
+  const campFilter = document.getElementById('notes-camp-filter')?.value || '';
+
+  let notes = NOTES_STATE.notes.filter(n => {
+    if (n.folderId !== folderId) return false;
+    if (!showArchived && n.archived) return false;
+    if (tagFilter  && !n.tags.includes(tagFilter)) return false;
+    if (campFilter && !n.linkedCampIds.map(String).includes(campFilter)) return false;
+    return true;
+  }).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt));
+
+  const subfolders = NOTES_STATE.folders.filter(f => f.parentId===folderId && !f.archived);
+
+  const content = document.getElementById('notes-main-content');
+  if (!content) return;
+
+  const subfoldersHtml = subfolders.length ? `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px">
+      ${subfolders.map(sf => {
+        const sfNotes = NOTES_STATE.notes.filter(n=>n.folderId===sf.id&&!n.archived).length;
+        return `<div class="notes-home-tile" onclick="selectFolder('${sf.id}')">
+          <div class="nht-icon">${sf.icon||'📁'}</div>
+          <div class="nht-name">${sf.name}</div>
+          <div class="nht-count">${sfNotes} note${sfNotes!==1?'s':''}</div>
+        </div>`;
+      }).join('')}
+    </div>` : '';
+
+  const notesHtml = notes.length ? notes.map(n => renderNoteCard(n)).join('')
+    : '<div class="notes-empty"><div class="notes-empty-icon">📄</div><div class="notes-empty-text">No notes in this folder yet.</div><button class="btn btn-primary btn-sm" onclick="createQuickNote()">＋ Create Note</button></div>';
+
+  content.innerHTML = `
+    <div class="notes-list-header">
+      <span style="font-size:16px">${folder?.icon||'📁'}</span>
+      <span style="font-size:16px;font-weight:800;color:var(--slate)">${folder?.name||'Folder'}</span>
+      <button class="btn btn-primary btn-sm" onclick="createQuickNote()" style="margin-left:auto">＋ New Note</button>
+      ${folder?.id==='f_mtg'?`<button class="btn btn-outline btn-sm" onclick="createMeetingNote()">📅 Meeting Notes</button>`:''}
+    </div>
+    ${subfoldersHtml}
+    ${notesHtml}`;
+}
+
+function renderNoteCard(note) {
+  const tagsHtml = note.tags.slice(0,3).map(t => {
+    const tagDef = (NOTES_STATE.tags||[]).find(tg=>tg.id===t||tg.name===t);
+    const color  = tagDef?.color || '#5C6470';
+    return `<span class="tag-pill" style="background:${color}22;color:${color}">${tagDef?.name||t}</span>`;
+  }).join('');
+
+  const linkedCamps = (note.linkedCampIds||[]).map(id => {
+    const camp = (STATE.overnightCamps||[]).find(c=>String(c.id)===String(id));
+    return camp ? `<span class="camp-link-tag" onclick="event.stopPropagation();showPage('overnight')" title="${camp.name}">🏕️ ${camp.name}</span>` : '';
+  }).join('');
+
+  const isUrgent  = note.tags.includes('tg_urgent') || note.tags.includes('urgent');
+  const isMeeting = note.type === 'meeting';
+  const preview   = note.content.replace(/\n/g,' ').slice(0,100);
+  const relTime   = relativeTime(note.updatedAt);
+
+  return `<div class="note-card${isMeeting?' meeting-card':''}${isUrgent?' urgent-card':''}" onclick="openNote('${note.id}')">
+    <span class="note-card-icon">${isMeeting?'📅':'📄'}</span>
+    <div class="note-card-body">
+      <div class="note-card-title">${note.title||'Untitled'}</div>
+      ${preview?`<div class="note-card-preview">${preview}</div>`:''}
+      <div class="note-card-meta">
+        <span class="note-card-date">${relTime}</span>
+        ${tagsHtml}
+        ${linkedCamps}
+      </div>
+    </div>
+    <div class="note-card-actions" onclick="event.stopPropagation()">
+      <button class="note-action-btn" onclick="openNoteDeleteDialog('${note.id}')" title="Archive/Delete">🗑️</button>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   NOTE EDITOR
+============================================================ */
+function openNote(noteId) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n => n.id === noteId);
+  if (!note) return;
+
+  // Save previous note before switching
+  if (currentNoteId && currentNoteId !== noteId) saveCurrentNote();
+  currentNoteId = noteId;
+  currentFolderId = note.folderId;
+
+  // Expand folder in sidebar
+  NOTES_STATE.folderExpanded[note.folderId] = true;
+  renderNotesSidebar();
+  updateBreadcrumb(note.folderId, note);
+
+  const content = document.getElementById('notes-main-content');
+  if (!content) return;
+
+  if (note.type === 'meeting') {
+    renderMeetingEditor(note, content);
+  } else {
+    renderNoteEditor(note, content);
+  }
+}
+
+function renderNoteEditor(note, container) {
+  const tagsHtml = (note.tags||[]).map(t => {
+    const tagDef = (NOTES_STATE.tags||[]).find(tg=>tg.id===t||tg.name===t);
+    const color  = tagDef?.color||'#5C6470';
+    return `<span class="tag-pill" style="background:${color}22;color:${color}">${tagDef?.name||t} <span class="tag-x" onclick="removeTagFromNote('${note.id}','${t}')">✕</span></span>`;
+  }).join('');
+
+  const linkedCampsHtml = (note.linkedCampIds||[]).map(id => {
+    const camp = (STATE.overnightCamps||[]).find(c=>String(c.id)===String(id));
+    return camp ? `<span class="camp-link-tag" onclick="showPage('overnight')">${camp.name} <span class="tag-x" onclick="event.stopPropagation();unlinkCamp('${note.id}',${id})">✕</span></span>` : '';
+  }).join('');
+
+  container.innerHTML = `
+    <div class="note-editor">
+      <div class="note-editor-header">
+        <input class="note-title-input" id="note-editor-title" value="${escHtml(note.title)}" placeholder="Note title…" oninput="triggerAutoSave()">
+        <div class="note-meta-bar">
+          <span>📁 <select id="note-folder-select" onchange="moveNote('${note.id}',this.value)">${folderOptions(note.folderId)}</select></span>
+          <span style="font-size:11px;color:var(--gray)">Created ${fmtDate(note.createdAt.slice(0,10))}</span>
+          <span style="font-size:11px;color:var(--gray)">Edited ${relativeTime(note.updatedAt)}</span>
+        </div>
+        <div class="note-tags-row">
+          ${tagsHtml}
+          <button class="note-tag-add" onclick="openTagSelector('${note.id}')">＋ tag</button>
+        </div>
+        <div class="note-linked-camps">
+          <label>🏕️ Linked:</label>
+          ${linkedCampsHtml||'<span style="color:var(--gray)">None</span>'}
+          <button class="note-tag-add" onclick="openCampLinkModal('${note.id}')">＋ camp</button>
+        </div>
+      </div>
+      <div class="note-content-area">
+        <textarea class="note-body-textarea" id="note-editor-content" placeholder="Start writing…" oninput="autoGrow(this);triggerAutoSave()">${escHtml(note.content)}</textarea>
+      </div>
+    </div>`;
+
+  // Auto-grow
+  setTimeout(() => {
+    const ta = document.getElementById('note-editor-content');
+    if (ta) autoGrow(ta);
+  }, 50);
+}
+
+function renderMeetingEditor(note, container) {
+  const depts = ['Residence Life','Dining Services','Summer Programs','Facilities','Housekeeping'];
+  const deptsHtml = depts.map(d => `
+    <label class="dept-check">
+      <input type="checkbox" class="dept-check-input" value="${d}" ${(note.departments||[]).includes(d)?'checked':''} onchange="triggerAutoSave()">
+      ${d}
+    </label>`).join('');
+
+  const aiHtml = (note.actionItems||[]).map(ai => renderActionItemRow(ai)).join('');
+
+  container.innerHTML = `
+    <div class="note-editor">
+      <div class="note-editor-header">
+        <input class="note-title-input" id="note-editor-title" value="${escHtml(note.title)}" placeholder="Meeting title…" oninput="triggerAutoSave()">
+        <div class="note-meta-bar">
+          <span>📅 Week of <input type="date" value="${note.meetingWeek||''}" onchange="updateNote('${note.id}',{meetingWeek:this.value});triggerAutoSave()" style="font-size:12px"></span>
+          <span style="font-size:11px;color:var(--gray)">Edited ${relativeTime(note.updatedAt)}</span>
+        </div>
+        <div class="note-tags-row">
+          ${(note.tags||[]).map(t=>{const tg=NOTES_STATE.tags.find(x=>x.id===t||x.name===t);const c=tg?.color||'#5C6470';return `<span class="tag-pill" style="background:${c}22;color:${c}">${tg?.name||t} <span class="tag-x" onclick="removeTagFromNote('${note.id}','${t}')">✕</span></span>`;}).join('')}
+          <button class="note-tag-add" onclick="openTagSelector('${note.id}')">＋ tag</button>
+        </div>
+      </div>
+      <div class="note-content-area">
+        <div class="meeting-section">
+          <div class="meeting-section-label">Departments Present</div>
+          <div class="dept-checkboxes">${deptsHtml}</div>
+        </div>
+        <div class="meeting-section">
+          <div class="meeting-section-label">Key Updates / Notes</div>
+          <textarea class="note-body-textarea" id="note-editor-content" placeholder="Key updates from this meeting…" oninput="autoGrow(this);triggerAutoSave()" style="min-height:120px">${escHtml(note.content)}</textarea>
+        </div>
+        <div class="meeting-section">
+          <div class="meeting-section-label">Action Items</div>
+          <div class="action-items-list" id="action-items-list">
+            ${aiHtml}
+          </div>
+          <button class="add-action-btn" onclick="addActionItem('${note.id}')">＋ Add Action Item</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderActionItemRow(ai) {
+  const statusColors = { open:'#DC2626', in_progress:var_orange(), completed:var_green() };
+  return `<div class="action-item-row ai-row" data-aiid="${ai.id||('ai_'+Date.now())}">
+    <input type="text" class="ai-task" placeholder="Task…" value="${escHtml(ai.task||'')}" oninput="triggerAutoSave()" style="flex:2">
+    <input type="text" class="ai-owner" placeholder="Owner" value="${escHtml(ai.owner||'')}" oninput="triggerAutoSave()" style="width:110px">
+    <input type="date" class="ai-due" value="${ai.dueDate||''}" onchange="triggerAutoSave()" style="width:120px">
+    <select class="ai-status" onchange="triggerAutoSave()">
+      <option value="open"        ${ai.status==='open'?'selected':''}>Open</option>
+      <option value="in_progress" ${ai.status==='in_progress'?'selected':''}>In Progress</option>
+      <option value="completed"   ${ai.status==='completed'?'selected':''}>Completed</option>
+    </select>
+    <button class="ai-delete" onclick="this.closest('.ai-row').remove();triggerAutoSave()" title="Remove">✕</button>
+  </div>`;
+}
+function var_orange(){return '#C05A00';} function var_green(){return '#1A7A4A';}
+
+function addActionItem(noteId) {
+  const list = document.getElementById('action-items-list');
+  if (!list) return;
+  const ai = { id:'ai_'+Date.now(), task:'', owner:'', dueDate:'', status:'open' };
+  list.insertAdjacentHTML('beforeend', renderActionItemRow(ai));
+}
+
+/* ============================================================
+   HOME VIEW
+============================================================ */
+function showNotesHome() {
+  loadNotesState();
+  currentNoteId = null;
+  currentFolderId = null;
+  updateBreadcrumb(null);
+
+  const content = document.getElementById('notes-main-content');
+  if (!content) return;
+
+  const recentNotes = [...NOTES_STATE.notes].filter(n=>!n.archived).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)).slice(0,5);
+  const topFolders  = NOTES_STATE.folders.filter(f=>!f.parentId&&!f.archived).sort((a,b)=>a.order-b.order);
+
+  const totalNotes    = NOTES_STATE.notes.filter(n=>!n.archived).length;
+  const urgentNotes   = NOTES_STATE.notes.filter(n=>!n.archived&&(n.tags.includes('tg_urgent')||n.tags.includes('urgent'))).length;
+  const openActions   = NOTES_STATE.notes.flatMap(n=>n.actionItems||[]).filter(ai=>ai.status==='open').length;
+
+  content.innerHTML = `
+    <div class="notes-home">
+      <div style="font-size:20px;font-weight:800;color:var(--slate);margin-bottom:4px">📒 Operations Notes</div>
+      <div style="font-size:13px;color:var(--gray);margin-bottom:20px">${totalNotes} notes · ${urgentNotes} urgent · ${openActions} open action items</div>
+
+      <div class="notes-home-grid">
+        ${topFolders.map(f=>{const n=NOTES_STATE.notes.filter(note=>note.folderId===f.id&&!note.archived).length;return `<div class="notes-home-tile" onclick="selectFolder('${f.id}')"><div class="nht-icon">${f.icon}</div><div class="nht-name">${f.name}</div><div class="nht-count">${n} note${n!==1?'s':''}</div></div>`;}).join('')}
+        <div class="notes-home-tile" onclick="createQuickNote()" style="border:2px dashed var(--border);background:transparent">
+          <div class="nht-icon">＋</div><div class="nht-name">New Note</div><div class="nht-count">Quick capture</div>
+        </div>
+      </div>
+
+      ${urgentNotes?`<div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius);padding:12px 16px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:#DC2626;margin-bottom:8px">🚨 ${urgentNotes} Urgent Note${urgentNotes!==1?'s':''}</div>
+        ${NOTES_STATE.notes.filter(n=>!n.archived&&(n.tags.includes('tg_urgent')||n.tags.includes('urgent'))).map(n=>`<div style="font-size:12px;cursor:pointer;color:var(--blue);text-decoration:underline;margin-bottom:4px" onclick="openNote('${n.id}')">📄 ${n.title||'Untitled'}</div>`).join('')}
+      </div>`:''}
+
+      <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--gray);margin-bottom:10px">Recently Edited</div>
+      ${recentNotes.length?recentNotes.map(n=>renderNoteCard(n)).join(''):'<div class="notes-empty"><div class="notes-empty-icon">📝</div><div class="notes-empty-text">No notes yet. Create your first one!</div></div>'}
+
+      ${openActions?`<div style="margin-top:20px">
+        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--gray);margin-bottom:10px">Open Action Items</div>
+        ${NOTES_STATE.notes.filter(n=>n.actionItems?.some(ai=>ai.status==='open')).map(n=>
+          n.actionItems.filter(ai=>ai.status==='open').map(ai=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px;font-size:12px;cursor:pointer" onclick="openNote('${n.id}')">
+            <span style="color:#DC2626;font-weight:700">○</span>
+            <span style="flex:1">${ai.task||'(no task)'}</span>
+            <span style="color:var(--gray)">${ai.owner||'—'}</span>
+            ${ai.dueDate?`<span style="color:var(--orange)">${fmtDateShort(ai.dueDate)}</span>`:''}
+            <span style="color:var(--gray);font-size:11px">→ ${n.title}</span>
+          </div>`).join('')
+        ).join('')}
+      </div>`:''}
+    </div>`;
+}
+
+/* ============================================================
+   BREADCRUMB
+============================================================ */
+function updateBreadcrumb(folderId, note) {
+  const bc = document.getElementById('notes-breadcrumb');
+  if (!bc) return;
+  let parts = [{ label:'📒 Notes', onclick:'showNotesHome()' }];
+
+  if (folderId) {
+    const folder = NOTES_STATE.folders.find(f=>f.id===folderId);
+    if (folder) {
+      if (folder.parentId) {
+        const parent = NOTES_STATE.folders.find(f=>f.id===folder.parentId);
+        if (parent) parts.push({ label:`${parent.icon} ${parent.name}`, onclick:`selectFolder('${parent.id}')` });
+      }
+      parts.push({ label:`${folder.icon} ${folder.name}`, onclick:`selectFolder('${folderId}')` });
+    }
+  }
+  if (note) parts.push({ label: note.title||'Untitled', current:true });
+
+  bc.innerHTML = parts.map((p,i) => {
+    const isLast = i===parts.length-1;
+    return `${i>0?`<span class="bc-sep">›</span>`:''}${p.current?`<span class="bc-current">${p.label}</span>`:`<span class="bc-item" onclick="${p.onclick}">${p.label}</span>`}`;
+  }).join('');
+}
+
+/* ============================================================
+   QUICK ACTIONS
+============================================================ */
+function createQuickNote() {
+  loadNotesState();
+  const note = createNote(currentFolderId||'f_ops');
+  currentFolderId = note.folderId;
+  NOTES_STATE.folderExpanded[note.folderId] = true;
+  saveNotesState();
+  openNote(note.id);
+  renderNotesSidebar();
+  // Focus title
+  setTimeout(() => document.getElementById('note-editor-title')?.focus(), 100);
+}
+
+function createMeetingNote() {
+  loadNotesState();
+  const week = TODAY_STR.slice(0,10);
+  const note = createNote('f_mtg', {
+    title: `Meeting — Week of ${fmtDateShort(week)}`,
+    type: 'meeting',
+    meetingWeek: week,
+    departments: [],
+    actionItems: [],
+  });
+  NOTES_STATE.folderExpanded['f_mtg'] = true;
+  saveNotesState();
+  openNote(note.id);
+  renderNotesSidebar();
+}
+
+/* ============================================================
+   FOLDERS
+============================================================ */
+function openNewFolderModal() {
+  loadNotesState();
+  document.getElementById('new-folder-name').value = '';
+  document.getElementById('new-folder-icon').value = '📁';
+  document.getElementById('err-folder-name').textContent = '';
+  const sel = document.getElementById('new-folder-parent');
+  sel.innerHTML = '<option value="">Top level</option>';
+  NOTES_STATE.folders.filter(f=>!f.archived).forEach(f => {
+    const o = document.createElement('option');
+    o.value=f.id; o.textContent=`${f.icon} ${f.name}`;
+    sel.appendChild(o);
+  });
+  if (currentFolderId) sel.value = currentFolderId;
+  openModal('new-folder-overlay');
+}
+
+function saveNewFolder() {
+  const name = document.getElementById('new-folder-name').value.trim();
+  if (!name) { document.getElementById('err-folder-name').textContent='Name required'; return; }
+  const icon   = document.getElementById('new-folder-icon').value.trim()||'📁';
+  const parent = document.getElementById('new-folder-parent').value||null;
+  const folder = createFolder(name, parent, icon);
+  closeModal('new-folder-overlay');
+  renderNotesSidebar();
+  selectFolder(folder.id);
+  showToast(`Folder "${name}" created`, 'success');
+}
+
+function moveNote(noteId, newFolderId) {
+  updateNote(noteId, { folderId: newFolderId });
+  renderNotesSidebar();
+  showToast('Note moved', 'info');
+}
+
+function folderOptions(selectedId) {
+  return NOTES_STATE.folders.filter(f=>!f.archived).map(f=>`<option value="${f.id}" ${f.id===selectedId?'selected':''}>${f.icon} ${f.name}</option>`).join('');
+}
+
+/* ============================================================
+   TAGS
+============================================================ */
+function openTagSelector(noteId) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  const list = document.getElementById('tag-selector-list');
+  list.innerHTML = NOTES_STATE.tags.map(t => {
+    const selected = (note.tags||[]).includes(t.id)||note.tags.includes(t.name);
+    return `<span class="tag-selector-item${selected?' selected':''}" onclick="toggleNoteTag('${noteId}','${t.id}',this)">
+      <span class="tag-pill" style="background:${t.color}22;color:${t.color}">${t.name}</span>
+    </span>`;
+  }).join('');
+  openModal('tag-selector-overlay');
+}
+
+function toggleNoteTag(noteId, tagId, el) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  const idx = note.tags.indexOf(tagId);
+  if (idx>-1) { note.tags.splice(idx,1); el.classList.remove('selected'); }
+  else        { note.tags.push(tagId);   el.classList.add('selected'); }
+  saveNotesState();
+  // Refresh tag pills in editor
+  openNote(noteId);
+}
+
+function removeTagFromNote(noteId, tagId) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  note.tags = note.tags.filter(t=>t!==tagId);
+  saveNotesState();
+  openNote(noteId);
+}
+
+function createTag() {
+  const name  = document.getElementById('new-tag-name').value.trim();
+  const color = document.getElementById('new-tag-color').value;
+  if (!name) return;
+  loadNotesState();
+  const id = 'tg_'+name.toLowerCase().replace(/\s/g,'_')+'_'+Date.now();
+  NOTES_STATE.tags.push({ id, name, color });
+  saveNotesState();
+  showToast(`Tag "${name}" created`, 'success');
+  document.getElementById('new-tag-name').value='';
+  // refresh list
+  const noteId = currentNoteId;
+  if (noteId) openTagSelector(noteId);
+}
+
+/* ============================================================
+   CAMP LINKING
+============================================================ */
+function openCampLinkModal(noteId) {
+  document.getElementById('camp-link-search').value='';
+  renderCampLinkList(noteId);
+  openModal('camp-link-overlay');
+  document.getElementById('camp-link-list').dataset.noteId = noteId;
+}
+
+function renderCampLinkList(noteId) {
+  const searchEl = document.getElementById('camp-link-search');
+  const listEl   = document.getElementById('camp-link-list');
+  if (!searchEl||!listEl) return;
+  const nid  = noteId || listEl.dataset.noteId;
+  const note = NOTES_STATE.notes.find(n=>n.id===nid);
+  const q    = searchEl.value.toLowerCase();
+  const camps = (STATE.overnightCamps||[]).filter(c => !q || c.name.toLowerCase().includes(q));
+
+  listEl.innerHTML = camps.map(c => {
+    const linked = (note?.linkedCampIds||[]).map(String).includes(String(c.id));
+    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius);cursor:pointer;background:${linked?'var(--blue-bg)':'var(--smoke)'};" onclick="toggleCampLink('${nid}',${c.id},this)">
+      <span style="flex:1;font-size:13px;font-weight:${linked?'700':'400'}">${c.name}</span>
+      <span style="font-size:12px;color:var(--gray)">${(c.dorms||[]).join(', ')}</span>
+      <span style="font-size:14px">${linked?'✅':''}</span>
+    </div>`;
+  }).join('') || '<div style="padding:12px;color:var(--gray);font-size:12px">No camps found</div>';
+}
+
+function toggleCampLink(noteId, campId, el) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  note.linkedCampIds = note.linkedCampIds||[];
+  const idx = note.linkedCampIds.map(String).indexOf(String(campId));
+  if (idx>-1) note.linkedCampIds.splice(idx,1);
+  else note.linkedCampIds.push(campId);
+  saveNotesState();
+  renderCampLinkList(noteId);
+}
+
+function unlinkCamp(noteId, campId) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  note.linkedCampIds = (note.linkedCampIds||[]).filter(id=>String(id)!==String(campId));
+  saveNotesState();
+  openNote(noteId);
+}
+
+/* ============================================================
+   DELETE / ARCHIVE
+============================================================ */
+function openNoteDeleteDialog(noteId) {
+  loadNotesState();
+  const note = NOTES_STATE.notes.find(n=>n.id===noteId);
+  if (!note) return;
+  document.getElementById('note-delete-title').textContent = note.title||'Untitled';
+  document.getElementById('note-archive-btn').onclick   = () => { closeModal('note-delete-overlay'); archiveNote(noteId); };
+  document.getElementById('note-permdelete-btn').onclick = () => { closeModal('note-delete-overlay'); deleteNote(noteId); };
+  openModal('note-delete-overlay');
+}
+
+function toggleArchiveView() {
+  showArchived = !showArchived;
+  const btn = document.getElementById('archive-toggle-btn');
+  if (btn) btn.style.opacity = showArchived ? '1' : '.5';
+  renderNotesSidebar();
+}
+
+/* ============================================================
+   FILTERS
+============================================================ */
+function buildNotesFilters() {
+  loadNotesState();
+  const tagSel  = document.getElementById('notes-tag-filter');
+  const campSel = document.getElementById('notes-camp-filter');
+  if (!tagSel||!campSel) return;
+
+  tagSel.innerHTML = '<option value="">All tags</option>' +
+    NOTES_STATE.tags.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+
+  campSel.innerHTML = '<option value="">All camps</option>' +
+    (STATE.overnightCamps||[]).map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function applyNotesFilter() {
+  if (currentFolderId) renderFolderContents(currentFolderId);
+  else showNotesHome();
+}
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function autoGrow(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.max(200, el.scrollHeight) + 'px';
+}
+
+function relativeTime(isoStr) {
+  if (!isoStr) return '';
+  const diff = Date.now() - new Date(isoStr).getTime();
+  const mins  = Math.floor(diff/60000);
+  const hours = Math.floor(diff/3600000);
+  const days  = Math.floor(diff/86400000);
+  if (mins < 1)  return 'Just now';
+  if (mins < 60) return `${mins}m ago`;
+  if (hours < 24)return `${hours}h ago`;
+  if (days < 7)  return `${days}d ago`;
+  return fmtDateShort(isoStr.slice(0,10));
+}
+
+/* ============================================================
+   MAIN ENTRY (called from showPage)
+============================================================ */
+function renderNotesPage() {
+  loadNotesState();
+  renderNotesSidebar();
+  buildNotesFilters();
+  if (!currentNoteId && !currentFolderId) showNotesHome();
 }
 
 
